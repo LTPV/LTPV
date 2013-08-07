@@ -1,0 +1,2983 @@
+<profiling>
+	<head>
+		<unit>μs</unit>
+	<date>Wednesday, July 17&lt;sup&gt;th&lt;/sup&gt; 2013 at &lt;b&gt;15:30: 7&lt;/b&gt;</date>
+	</head>
+
+	<!-- List tasks -->
+	<task>
+		<id>0</id>
+		<name>MinMax</name>
+	</task>
+	<task>
+		<id>6333560</id>
+		<name>Device to Host</name>
+	</task>
+	<task>
+		<id>6333561</id>
+		<name>Host to Device</name>
+	</task>
+	<task>
+		<id>40958096</id>
+		<name>FIR_GPU_dev</name>
+	</task>
+	<task>
+		<id>38937904</id>
+		<name>SEUIL_GPU_dev</name>
+	</task>
+
+	<!-- List devices -->
+	<device><!-- device->id = 0 -->
+		<name>CPU</name>
+		<details>		</details>
+		<stream>
+			<name>Workload</name>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>17107</queued>
+				<submitted>17107</submitted>
+				<started>17107</started>
+				<ended>45165</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>55214</queued>
+				<submitted>55214</submitted>
+				<started>55214</started>
+				<ended>83217</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>92700</queued>
+				<submitted>92700</submitted>
+				<started>92700</started>
+				<ended>120751</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>130858</queued>
+				<submitted>130858</submitted>
+				<started>130858</started>
+				<ended>158969</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>169026</queued>
+				<submitted>169026</submitted>
+				<started>169026</started>
+				<ended>197245</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>209932</queued>
+				<submitted>209932</submitted>
+				<started>209932</started>
+				<ended>238817</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>249597</queued>
+				<submitted>249597</submitted>
+				<started>249597</started>
+				<ended>277940</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>288333</queued>
+				<submitted>288333</submitted>
+				<started>288333</started>
+				<ended>316632</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>326460</queued>
+				<submitted>326460</submitted>
+				<started>326460</started>
+				<ended>354815</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>364355</queued>
+				<submitted>364355</submitted>
+				<started>364355</started>
+				<ended>392570</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>402545</queued>
+				<submitted>402545</submitted>
+				<started>402545</started>
+				<ended>430880</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>440373</queued>
+				<submitted>440373</submitted>
+				<started>440373</started>
+				<ended>468915</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>479330</queued>
+				<submitted>479330</submitted>
+				<started>479330</started>
+				<ended>507682</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>518536</queued>
+				<submitted>518536</submitted>
+				<started>518536</started>
+				<ended>546999</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>557700</queued>
+				<submitted>557700</submitted>
+				<started>557700</started>
+				<ended>586054</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>596441</queued>
+				<submitted>596441</submitted>
+				<started>596441</started>
+				<ended>624769</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>635753</queued>
+				<submitted>635753</submitted>
+				<started>635753</started>
+				<ended>663962</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>674347</queued>
+				<submitted>674347</submitted>
+				<started>674347</started>
+				<ended>702675</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>714234</queued>
+				<submitted>714234</submitted>
+				<started>714234</started>
+				<ended>742481</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>752941</queued>
+				<submitted>752941</submitted>
+				<started>752941</started>
+				<ended>780963</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>790119</queued>
+				<submitted>790119</submitted>
+				<started>790119</started>
+				<ended>818365</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>827491</queued>
+				<submitted>827491</submitted>
+				<started>827491</started>
+				<ended>855469</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>864687</queued>
+				<submitted>864687</submitted>
+				<started>864687</started>
+				<ended>892666</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>901752</queued>
+				<submitted>901752</submitted>
+				<started>901752</started>
+				<ended>929761</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>940928</queued>
+				<submitted>940928</submitted>
+				<started>940928</started>
+				<ended>969162</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>979059</queued>
+				<submitted>979059</submitted>
+				<started>979059</started>
+				<ended>1007138</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1016607</queued>
+				<submitted>1016607</submitted>
+				<started>1016607</started>
+				<ended>1044595</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1053831</queued>
+				<submitted>1053831</submitted>
+				<started>1053831</started>
+				<ended>1081826</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1092496</queued>
+				<submitted>1092496</submitted>
+				<started>1092496</started>
+				<ended>1120782</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1130288</queued>
+				<submitted>1130288</submitted>
+				<started>1130288</started>
+				<ended>1158267</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1167839</queued>
+				<submitted>1167839</submitted>
+				<started>1167839</started>
+				<ended>1195917</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1205094</queued>
+				<submitted>1205094</submitted>
+				<started>1205094</started>
+				<ended>1233764</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1243321</queued>
+				<submitted>1243321</submitted>
+				<started>1243321</started>
+				<ended>1271475</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1280614</queued>
+				<submitted>1280614</submitted>
+				<started>1280614</started>
+				<ended>1308613</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1317831</queued>
+				<submitted>1317831</submitted>
+				<started>1317831</started>
+				<ended>1345819</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1356056</queued>
+				<submitted>1356056</submitted>
+				<started>1356056</started>
+				<ended>1384309</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1393742</queued>
+				<submitted>1393742</submitted>
+				<started>1393742</started>
+				<ended>1421812</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1430840</queued>
+				<submitted>1430840</submitted>
+				<started>1430840</started>
+				<ended>1458808</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1470836</queued>
+				<submitted>1470836</submitted>
+				<started>1470836</started>
+				<ended>1499190</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1510766</queued>
+				<submitted>1510766</submitted>
+				<started>1510766</started>
+				<ended>1539156</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1549501</queued>
+				<submitted>1549501</submitted>
+				<started>1549501</started>
+				<ended>1577623</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1590131</queued>
+				<submitted>1590131</submitted>
+				<started>1590131</started>
+				<ended>1618529</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1627993</queued>
+				<submitted>1627993</submitted>
+				<started>1627993</started>
+				<ended>1656029</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1665235</queued>
+				<submitted>1665235</submitted>
+				<started>1665235</started>
+				<ended>1693255</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1702653</queued>
+				<submitted>1702653</submitted>
+				<started>1702653</started>
+				<ended>1730892</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1741574</queued>
+				<submitted>1741574</submitted>
+				<started>1741574</started>
+				<ended>1769753</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1778822</queued>
+				<submitted>1778822</submitted>
+				<started>1778822</started>
+				<ended>1806913</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1816800</queued>
+				<submitted>1816800</submitted>
+				<started>1816800</started>
+				<ended>1844773</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1854803</queued>
+				<submitted>1854803</submitted>
+				<started>1854803</started>
+				<ended>1883167</ended>
+			</taskInstance>
+			<taskInstance>
+				<idTask>0</idTask><!-- task.name = MinMax -->
+				<name>MinMax</name>
+				<queued>1892931</queued>
+				<submitted>1892931</submitted>
+				<started>1892931</started>
+				<ended>1920951</ended>
+			</taskInstance>
+		</stream>
+	</device>
+	<device><!-- device->id = 31978912 -->
+		<name>GeForce GTX 680</name>
+		<details>
+			<detail>
+				<name>CL_DEVICE_VENDOR</name>
+				<value>NVIDIA Corporation</value>
+				<help>Vendor name string.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_TYPE</name>
+				<value>CL_DEVICE_TYPE_GPU</value>
+				<help>The OpenCL device type. Currently supported values are one of or a combination of: CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR, or CL_DEVICE_TYPE_DEFAULT.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_ADDRESS_BITS</name>
+				<value>32</value>
+				<help>The default compute device address space size specified as an unsigned integer value in bits. Currently supported values are 32 or 64 bits.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_EXTENSIONS</name>
+				<value>cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll  cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 </value>
+				<help>Returns a list of extension names</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_VERSION</name>
+				<value>OpenCL 1.1 CUDA</value>
+				<help>OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::
+OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;
+The major_version.minor_version value returned will be 1.0.</help>
+			</detail>
+			<detail>
+				<name>CL_DRIVER_VERSION</name>
+				<value>319.21</value>
+				<help>OpenCL software driver version string in the form major_number.minor_number.</help>
+			</detail>
+		</details>
+		<stream>
+			<name>Device to host</name>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1312</queued>
+				<submitted>1316</submitted>
+				<started>2572</started>
+				<ended>15382</ended>
+				<size>16777216</size>
+				<bandwidth>1309</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>45256</queued>
+				<submitted>45263</submitted>
+				<started>45841</started>
+				<ended>47156</ended>
+				<size>4194304</size>
+				<bandwidth>3189</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>48903</queued>
+				<submitted>48907</submitted>
+				<started>50306</started>
+				<ended>54674</ended>
+				<size>16777216</size>
+				<bandwidth>3840</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>83122</queued>
+				<submitted>83129</submitted>
+				<started>83682</started>
+				<ended>84677</ended>
+				<size>4194304</size>
+				<bandwidth>4214</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>86008</queued>
+				<submitted>86013</submitted>
+				<started>87370</started>
+				<ended>92164</ended>
+				<size>16777216</size>
+				<bandwidth>3499</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>120656</queued>
+				<submitted>120663</submitted>
+				<started>121248</started>
+				<ended>122328</ended>
+				<size>4194304</size>
+				<bandwidth>3884</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>123861</queued>
+				<submitted>123866</submitted>
+				<started>125264</started>
+				<ended>130318</ended>
+				<size>16777216</size>
+				<bandwidth>3319</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>158871</queued>
+				<submitted>158879</submitted>
+				<started>159431</started>
+				<ended>160439</ended>
+				<size>4194304</size>
+				<bandwidth>4162</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>161781</queued>
+				<submitted>161785</submitted>
+				<started>163142</started>
+				<ended>168482</ended>
+				<size>16777216</size>
+				<bandwidth>3141</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>197154</queued>
+				<submitted>197162</submitted>
+				<started>197739</started>
+				<ended>198870</ended>
+				<size>4194304</size>
+				<bandwidth>3707</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>200739</queued>
+				<submitted>200744</submitted>
+				<started>202140</started>
+				<ended>209147</ended>
+				<size>16777216</size>
+				<bandwidth>2394</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>238726</queued>
+				<submitted>238735</submitted>
+				<started>239304</started>
+				<ended>240435</ended>
+				<size>4194304</size>
+				<bandwidth>3708</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>241972</queued>
+				<submitted>241977</submitted>
+				<started>243399</started>
+				<ended>248899</ended>
+				<size>16777216</size>
+				<bandwidth>3050</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>277844</queued>
+				<submitted>277851</submitted>
+				<started>278233</started>
+				<ended>279451</ended>
+				<size>4194304</size>
+				<bandwidth>3442</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>280913</queued>
+				<submitted>280917</submitted>
+				<started>282142</started>
+				<ended>287578</ended>
+				<size>16777216</size>
+				<bandwidth>3085</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>316530</queued>
+				<submitted>316538</submitted>
+				<started>317115</started>
+				<ended>318262</ended>
+				<size>4194304</size>
+				<bandwidth>3655</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>319682</queued>
+				<submitted>319686</submitted>
+				<started>321086</started>
+				<ended>325822</ended>
+				<size>16777216</size>
+				<bandwidth>3542</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>354711</queued>
+				<submitted>354718</submitted>
+				<started>355271</started>
+				<ended>356397</ended>
+				<size>4194304</size>
+				<bandwidth>3726</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>357909</queued>
+				<submitted>357913</submitted>
+				<started>359271</started>
+				<ended>363736</ended>
+				<size>16777216</size>
+				<bandwidth>3757</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>392466</queued>
+				<submitted>392473</submitted>
+				<started>393084</started>
+				<ended>394190</ended>
+				<size>4194304</size>
+				<bandwidth>3792</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>395625</queued>
+				<submitted>395630</submitted>
+				<started>397019</started>
+				<ended>401946</ended>
+				<size>16777216</size>
+				<bandwidth>3404</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>430775</queued>
+				<submitted>430783</submitted>
+				<started>431295</started>
+				<ended>432331</ended>
+				<size>4194304</size>
+				<bandwidth>4049</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>433720</queued>
+				<submitted>433724</submitted>
+				<started>435075</started>
+				<ended>439792</ended>
+				<size>16777216</size>
+				<bandwidth>3556</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>468818</queued>
+				<submitted>468827</submitted>
+				<started>469396</started>
+				<ended>470543</ended>
+				<size>4194304</size>
+				<bandwidth>3656</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>471990</queued>
+				<submitted>471994</submitted>
+				<started>473344</started>
+				<ended>478689</ended>
+				<size>16777216</size>
+				<bandwidth>3138</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>507578</queued>
+				<submitted>507586</submitted>
+				<started>507959</started>
+				<ended>509069</ended>
+				<size>4194304</size>
+				<bandwidth>3778</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>510685</queued>
+				<submitted>510689</submitted>
+				<started>512112</started>
+				<ended>517826</ended>
+				<size>16777216</size>
+				<bandwidth>2936</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>546891</queued>
+				<submitted>546899</submitted>
+				<started>547443</started>
+				<ended>548414</ended>
+				<size>4194304</size>
+				<bandwidth>4319</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>549913</queued>
+				<submitted>549918</submitted>
+				<started>551266</started>
+				<ended>556990</ended>
+				<size>16777216</size>
+				<bandwidth>2931</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>585946</queued>
+				<submitted>585954</submitted>
+				<started>586523</started>
+				<ended>587530</ended>
+				<size>4194304</size>
+				<bandwidth>4164</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>589049</queued>
+				<submitted>589053</submitted>
+				<started>590477</started>
+				<ended>595794</ended>
+				<size>16777216</size>
+				<bandwidth>3155</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>624668</queued>
+				<submitted>624677</submitted>
+				<started>625221</started>
+				<ended>626476</ended>
+				<size>4194304</size>
+				<bandwidth>3343</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>628225</queued>
+				<submitted>628230</submitted>
+				<started>629643</started>
+				<ended>635135</ended>
+				<size>16777216</size>
+				<bandwidth>3054</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>663852</queued>
+				<submitted>663859</submitted>
+				<started>664436</started>
+				<ended>665423</ended>
+				<size>4194304</size>
+				<bandwidth>4251</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>667017</queued>
+				<submitted>667022</submitted>
+				<started>668411</started>
+				<ended>673653</ended>
+				<size>16777216</size>
+				<bandwidth>3200</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>702567</queued>
+				<submitted>702575</submitted>
+				<started>703119</started>
+				<ended>704312</ended>
+				<size>4194304</size>
+				<bandwidth>3517</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>705793</queued>
+				<submitted>705798</submitted>
+				<started>707204</started>
+				<ended>713437</ended>
+				<size>16777216</size>
+				<bandwidth>2691</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>742367</queued>
+				<submitted>742374</submitted>
+				<started>742919</started>
+				<ended>743948</ended>
+				<size>4194304</size>
+				<bandwidth>4073</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>745529</queued>
+				<submitted>745534</submitted>
+				<started>746884</started>
+				<ended>752092</ended>
+				<size>16777216</size>
+				<bandwidth>3221</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>780849</queued>
+				<submitted>780856</submitted>
+				<started>781442</started>
+				<ended>782403</ended>
+				<size>4194304</size>
+				<bandwidth>4360</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>783727</queued>
+				<submitted>783732</submitted>
+				<started>785153</started>
+				<ended>789514</ended>
+				<size>16777216</size>
+				<bandwidth>3847</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>818259</queued>
+				<submitted>818267</submitted>
+				<started>818803</started>
+				<ended>819825</ended>
+				<size>4194304</size>
+				<bandwidth>4104</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>821178</queued>
+				<submitted>821182</submitted>
+				<started>822542</started>
+				<ended>826913</ended>
+				<size>16777216</size>
+				<bandwidth>3838</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>855352</queued>
+				<submitted>855360</submitted>
+				<started>855904</started>
+				<ended>856930</ended>
+				<size>4194304</size>
+				<bandwidth>4087</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>858277</queued>
+				<submitted>858282</submitted>
+				<started>859697</started>
+				<ended>864112</ended>
+				<size>16777216</size>
+				<bandwidth>3800</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>892547</queued>
+				<submitted>892554</submitted>
+				<started>893099</started>
+				<ended>894041</ended>
+				<size>4194304</size>
+				<bandwidth>4452</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>895386</queued>
+				<submitted>895390</submitted>
+				<started>896748</started>
+				<ended>901157</ended>
+				<size>16777216</size>
+				<bandwidth>3805</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>929643</queued>
+				<submitted>929651</submitted>
+				<started>930196</started>
+				<ended>931185</ended>
+				<size>4194304</size>
+				<bandwidth>4239</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>932590</queued>
+				<submitted>932595</submitted>
+				<started>934010</started>
+				<ended>940203</ended>
+				<size>16777216</size>
+				<bandwidth>2709</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>969048</queued>
+				<submitted>969056</submitted>
+				<started>969601</started>
+				<ended>970639</ended>
+				<size>4194304</size>
+				<bandwidth>4037</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>972115</queued>
+				<submitted>972120</submitted>
+				<started>973468</started>
+				<ended>978433</ended>
+				<size>16777216</size>
+				<bandwidth>3379</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1007023</queued>
+				<submitted>1007032</submitted>
+				<started>1007634</started>
+				<ended>1008570</ended>
+				<size>4194304</size>
+				<bandwidth>4480</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1009950</queued>
+				<submitted>1009955</submitted>
+				<started>1011370</started>
+				<ended>1016019</ended>
+				<size>16777216</size>
+				<bandwidth>3608</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1044473</queued>
+				<submitted>1044480</submitted>
+				<started>1045024</started>
+				<ended>1046150</ended>
+				<size>4194304</size>
+				<bandwidth>3725</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1047509</queued>
+				<submitted>1047513</submitted>
+				<started>1048855</started>
+				<ended>1053210</ended>
+				<size>16777216</size>
+				<bandwidth>3852</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1081706</queued>
+				<submitted>1081714</submitted>
+				<started>1082259</started>
+				<ended>1083378</ended>
+				<size>4194304</size>
+				<bandwidth>3749</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1084895</queued>
+				<submitted>1084899</submitted>
+				<started>1086323</started>
+				<ended>1091808</ended>
+				<size>16777216</size>
+				<bandwidth>3058</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1120663</queued>
+				<submitted>1120670</submitted>
+				<started>1121207</started>
+				<ended>1122426</ended>
+				<size>4194304</size>
+				<bandwidth>3441</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1123992</queued>
+				<submitted>1123997</submitted>
+				<started>1125347</started>
+				<ended>1129693</ended>
+				<size>16777216</size>
+				<bandwidth>3860</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1158141</queued>
+				<submitted>1158149</submitted>
+				<started>1158718</started>
+				<ended>1159688</ended>
+				<size>4194304</size>
+				<bandwidth>4322</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1161051</queued>
+				<submitted>1161055</submitted>
+				<started>1162479</started>
+				<ended>1167250</ended>
+				<size>16777216</size>
+				<bandwidth>3516</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1195801</queued>
+				<submitted>1195810</submitted>
+				<started>1196346</started>
+				<ended>1197282</ended>
+				<size>4194304</size>
+				<bandwidth>4479</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1198664</queued>
+				<submitted>1198668</submitted>
+				<started>1200017</started>
+				<ended>1204499</ended>
+				<size>16777216</size>
+				<bandwidth>3743</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1233652</queued>
+				<submitted>1233661</submitted>
+				<started>1234016</started>
+				<ended>1235072</ended>
+				<size>4194304</size>
+				<bandwidth>3970</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1236581</queued>
+				<submitted>1236586</submitted>
+				<started>1237991</started>
+				<ended>1242681</ended>
+				<size>16777216</size>
+				<bandwidth>3577</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1271346</queued>
+				<submitted>1271354</submitted>
+				<started>1271898</started>
+				<ended>1272879</ended>
+				<size>4194304</size>
+				<bandwidth>4273</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1274232</queued>
+				<submitted>1274236</submitted>
+				<started>1275586</started>
+				<ended>1280014</ended>
+				<size>16777216</size>
+				<bandwidth>3788</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1308485</queued>
+				<submitted>1308493</submitted>
+				<started>1309037</started>
+				<ended>1310060</ended>
+				<size>4194304</size>
+				<bandwidth>4101</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1311473</queued>
+				<submitted>1311478</submitted>
+				<started>1312858</started>
+				<ended>1317197</ended>
+				<size>16777216</size>
+				<bandwidth>3867</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1345691</queued>
+				<submitted>1345698</submitted>
+				<started>1346235</started>
+				<ended>1347431</ended>
+				<size>4194304</size>
+				<bandwidth>3505</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1348992</queued>
+				<submitted>1348996</submitted>
+				<started>1350346</started>
+				<ended>1355408</ended>
+				<size>16777216</size>
+				<bandwidth>3314</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1384181</queued>
+				<submitted>1384189</submitted>
+				<started>1384759</started>
+				<ended>1385798</ended>
+				<size>4194304</size>
+				<bandwidth>4037</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1387312</queued>
+				<submitted>1387317</submitted>
+				<started>1388724</started>
+				<ended>1393119</ended>
+				<size>16777216</size>
+				<bandwidth>3816</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1421684</queued>
+				<submitted>1421692</submitted>
+				<started>1422228</started>
+				<ended>1423161</ended>
+				<size>4194304</size>
+				<bandwidth>4493</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1424552</queued>
+				<submitted>1424557</submitted>
+				<started>1425899</started>
+				<ended>1430235</ended>
+				<size>16777216</size>
+				<bandwidth>3869</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1458675</queued>
+				<submitted>1458682</submitted>
+				<started>1459219</started>
+				<ended>1460258</ended>
+				<size>4194304</size>
+				<bandwidth>4035</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1461735</queued>
+				<submitted>1461739</submitted>
+				<started>1463136</started>
+				<ended>1470016</ended>
+				<size>16777216</size>
+				<bandwidth>2438</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1499065</queued>
+				<submitted>1499073</submitted>
+				<started>1499569</started>
+				<ended>1500906</ended>
+				<size>4194304</size>
+				<bandwidth>3136</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1502487</queued>
+				<submitted>1502491</submitted>
+				<started>1503878</started>
+				<ended>1510139</ended>
+				<size>16777216</size>
+				<bandwidth>2679</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1539026</queued>
+				<submitted>1539034</submitted>
+				<started>1539553</started>
+				<ended>1540847</ended>
+				<size>4194304</size>
+				<bandwidth>3240</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1542390</queued>
+				<submitted>1542394</submitted>
+				<started>1543791</started>
+				<ended>1548848</ended>
+				<size>16777216</size>
+				<bandwidth>3317</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1577492</queued>
+				<submitted>1577500</submitted>
+				<started>1578002</started>
+				<ended>1579298</ended>
+				<size>4194304</size>
+				<bandwidth>3237</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1580982</queued>
+				<submitted>1580986</submitted>
+				<started>1582434</started>
+				<ended>1589225</ended>
+				<size>16777216</size>
+				<bandwidth>2470</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1618402</queued>
+				<submitted>1618409</submitted>
+				<started>1618937</started>
+				<ended>1619917</ended>
+				<size>4194304</size>
+				<bandwidth>4279</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1621492</queued>
+				<submitted>1621497</submitted>
+				<started>1622885</started>
+				<ended>1627378</ended>
+				<size>16777216</size>
+				<bandwidth>3733</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1655892</queued>
+				<submitted>1655899</submitted>
+				<started>1656435</started>
+				<ended>1657451</ended>
+				<size>4194304</size>
+				<bandwidth>4128</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1658842</queued>
+				<submitted>1658846</submitted>
+				<started>1660254</started>
+				<ended>1664621</ended>
+				<size>16777216</size>
+				<bandwidth>3841</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1693116</queued>
+				<submitted>1693123</submitted>
+				<started>1693660</started>
+				<ended>1694598</ended>
+				<size>4194304</size>
+				<bandwidth>4470</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1695974</queued>
+				<submitted>1695979</submitted>
+				<started>1697312</started>
+				<ended>1702032</ended>
+				<size>16777216</size>
+				<bandwidth>3554</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1730756</queued>
+				<submitted>1730764</submitted>
+				<started>1731301</started>
+				<ended>1732406</ended>
+				<size>4194304</size>
+				<bandwidth>3796</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1733991</queued>
+				<submitted>1733996</submitted>
+				<started>1735393</started>
+				<ended>1740830</ended>
+				<size>16777216</size>
+				<bandwidth>3085</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1769610</queued>
+				<submitted>1769617</submitted>
+				<started>1770154</started>
+				<ended>1771098</ended>
+				<size>4194304</size>
+				<bandwidth>4440</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1772514</queued>
+				<submitted>1772518</submitted>
+				<started>1773869</started>
+				<ended>1778194</ended>
+				<size>16777216</size>
+				<bandwidth>3878</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1806777</queued>
+				<submitted>1806785</submitted>
+				<started>1807322</started>
+				<ended>1808284</ended>
+				<size>4194304</size>
+				<bandwidth>4361</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1809744</queued>
+				<submitted>1809748</submitted>
+				<started>1811154</started>
+				<ended>1816064</ended>
+				<size>16777216</size>
+				<bandwidth>3416</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1844630</queued>
+				<submitted>1844636</submitted>
+				<started>1845173</started>
+				<ended>1846124</ended>
+				<size>4194304</size>
+				<bandwidth>4410</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1847597</queued>
+				<submitted>1847601</submitted>
+				<started>1848809</started>
+				<ended>1854063</ended>
+				<size>16777216</size>
+				<bandwidth>3193</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1883026</queued>
+				<submitted>1883033</submitted>
+				<started>1883529</started>
+				<ended>1884552</ended>
+				<size>4194304</size>
+				<bandwidth>4100</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1886055</queued>
+				<submitted>1886060</submitted>
+				<started>1887466</started>
+				<ended>1892261</ended>
+				<size>16777216</size>
+				<bandwidth>3499</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333560</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<queued>1920805</queued>
+				<submitted>1920813</submitted>
+				<started>1921349</started>
+				<ended>1922288</ended>
+				<size>4194304</size>
+				<bandwidth>4467</bandwidth>
+			</taskInstance>
+		</stream>
+		<stream>
+			<name>Host to Device</name>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>29</queued>
+				<submitted>268</submitted>
+				<started>277</started>
+				<ended>1247</ended>
+				<size>4194304</size>
+				<bandwidth>4324</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>47939</queued>
+				<submitted>48151</submitted>
+				<started>48156</started>
+				<ended>49025</ended>
+				<size>4194304</size>
+				<bandwidth>4826</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>85038</queued>
+				<submitted>85246</submitted>
+				<started>85251</started>
+				<ended>86131</ended>
+				<size>4194304</size>
+				<bandwidth>4766</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>122904</queued>
+				<submitted>123113</submitted>
+				<started>123119</started>
+				<ended>123985</ended>
+				<size>4194304</size>
+				<bandwidth>4838</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>160801</queued>
+				<submitted>161008</submitted>
+				<started>161013</started>
+				<ended>161903</ended>
+				<size>4194304</size>
+				<bandwidth>4714</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>199511</queued>
+				<submitted>199765</submitted>
+				<started>199771</started>
+				<ended>200854</ended>
+				<size>4194304</size>
+				<bandwidth>3871</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>240953</queued>
+				<submitted>241170</submitted>
+				<started>241175</started>
+				<ended>242091</ended>
+				<size>4194304</size>
+				<bandwidth>4579</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>279914</queued>
+				<submitted>280136</submitted>
+				<started>280141</started>
+				<ended>281040</ended>
+				<size>4194304</size>
+				<bandwidth>4667</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>318705</queued>
+				<submitted>318918</submitted>
+				<started>318923</started>
+				<ended>319805</ended>
+				<size>4194304</size>
+				<bandwidth>4755</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>356865</queued>
+				<submitted>357080</submitted>
+				<started>357085</started>
+				<ended>358025</ended>
+				<size>4194304</size>
+				<bandwidth>4462</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>394614</queued>
+				<submitted>394835</submitted>
+				<started>394839</started>
+				<ended>395741</ended>
+				<size>4194304</size>
+				<bandwidth>4649</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>432741</queued>
+				<submitted>432948</submitted>
+				<started>432952</started>
+				<ended>433839</ended>
+				<size>4194304</size>
+				<bandwidth>4730</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>470955</queued>
+				<submitted>471181</submitted>
+				<started>471186</started>
+				<ended>472108</ended>
+				<size>4194304</size>
+				<bandwidth>4551</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>509629</queued>
+				<submitted>509857</submitted>
+				<started>509863</started>
+				<ended>510801</ended>
+				<size>4194304</size>
+				<bandwidth>4468</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>548824</queued>
+				<submitted>549042</submitted>
+				<started>549047</started>
+				<ended>550025</ended>
+				<size>4194304</size>
+				<bandwidth>4289</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>587952</queued>
+				<submitted>588181</submitted>
+				<started>588186</started>
+				<ended>589169</ended>
+				<size>4194304</size>
+				<bandwidth>4269</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>626999</queued>
+				<submitted>627258</submitted>
+				<started>627264</started>
+				<ended>628335</ended>
+				<size>4194304</size>
+				<bandwidth>3915</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>665978</queued>
+				<submitted>666204</submitted>
+				<started>666210</started>
+				<ended>667134</ended>
+				<size>4194304</size>
+				<bandwidth>4538</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>704773</queued>
+				<submitted>704982</submitted>
+				<started>704987</started>
+				<ended>705905</ended>
+				<size>4194304</size>
+				<bandwidth>4569</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>744518</queued>
+				<submitted>744740</submitted>
+				<started>744745</started>
+				<ended>745648</ended>
+				<size>4194304</size>
+				<bandwidth>4647</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>782765</queued>
+				<submitted>782973</submitted>
+				<started>782979</started>
+				<ended>783844</ended>
+				<size>4194304</size>
+				<bandwidth>4844</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>820217</queued>
+				<submitted>820425</submitted>
+				<started>820430</started>
+				<ended>821298</ended>
+				<size>4194304</size>
+				<bandwidth>4836</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>857290</queued>
+				<submitted>857516</submitted>
+				<started>857521</started>
+				<ended>858390</ended>
+				<size>4194304</size>
+				<bandwidth>4825</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>894425</queued>
+				<submitted>894633</submitted>
+				<started>894638</started>
+				<ended>895502</ended>
+				<size>4194304</size>
+				<bandwidth>4853</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>931626</queued>
+				<submitted>931834</submitted>
+				<started>931839</started>
+				<ended>932709</ended>
+				<size>4194304</size>
+				<bandwidth>4820</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>971067</queued>
+				<submitted>971291</submitted>
+				<started>971295</started>
+				<ended>972225</ended>
+				<size>4194304</size>
+				<bandwidth>4510</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1008962</queued>
+				<submitted>1009170</submitted>
+				<started>1009175</started>
+				<ended>1010060</ended>
+				<size>4194304</size>
+				<bandwidth>4739</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1046540</queued>
+				<submitted>1046747</submitted>
+				<started>1046752</started>
+				<ended>1047623</ended>
+				<size>4194304</size>
+				<bandwidth>4815</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1083879</queued>
+				<submitted>1084099</submitted>
+				<started>1084104</started>
+				<ended>1085010</ended>
+				<size>4194304</size>
+				<bandwidth>4629</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1122917</queued>
+				<submitted>1123156</submitted>
+				<started>1123161</started>
+				<ended>1124105</ended>
+				<size>4194304</size>
+				<bandwidth>4444</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1160082</queued>
+				<submitted>1160289</submitted>
+				<started>1160294</started>
+				<ended>1161166</ended>
+				<size>4194304</size>
+				<bandwidth>4812</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1197683</queued>
+				<submitted>1197894</submitted>
+				<started>1197900</started>
+				<ended>1198774</ended>
+				<size>4194304</size>
+				<bandwidth>4795</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1235545</queued>
+				<submitted>1235765</submitted>
+				<started>1235770</started>
+				<ended>1236692</ended>
+				<size>4194304</size>
+				<bandwidth>4551</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1273242</queued>
+				<submitted>1273469</submitted>
+				<started>1273475</started>
+				<ended>1274340</ended>
+				<size>4194304</size>
+				<bandwidth>4848</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1310453</queued>
+				<submitted>1310661</submitted>
+				<started>1310666</started>
+				<ended>1311585</ended>
+				<size>4194304</size>
+				<bandwidth>4566</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1347973</queued>
+				<submitted>1348192</submitted>
+				<started>1348197</started>
+				<ended>1349104</ended>
+				<size>4194304</size>
+				<bandwidth>4623</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1386214</queued>
+				<submitted>1386445</submitted>
+				<started>1386450</started>
+				<ended>1387422</ended>
+				<size>4194304</size>
+				<bandwidth>4317</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1423591</queued>
+				<submitted>1423799</submitted>
+				<started>1423804</started>
+				<ended>1424666</ended>
+				<size>4194304</size>
+				<bandwidth>4867</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1460630</queued>
+				<submitted>1460838</submitted>
+				<started>1460842</started>
+				<ended>1461832</ended>
+				<size>4194304</size>
+				<bandwidth>4239</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1501439</queued>
+				<submitted>1501664</submitted>
+				<started>1501670</started>
+				<ended>1502596</ended>
+				<size>4194304</size>
+				<bandwidth>4530</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1541287</queued>
+				<submitted>1541555</submitted>
+				<started>1541561</started>
+				<ended>1542491</ended>
+				<size>4194304</size>
+				<bandwidth>4509</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1579859</queued>
+				<submitted>1580116</submitted>
+				<started>1580122</started>
+				<ended>1581093</ended>
+				<size>4194304</size>
+				<bandwidth>4317</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1620409</queued>
+				<submitted>1620630</submitted>
+				<started>1620635</started>
+				<ended>1621592</ended>
+				<size>4194304</size>
+				<bandwidth>4381</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1657872</queued>
+				<submitted>1658081</submitted>
+				<started>1658087</started>
+				<ended>1658950</ended>
+				<size>4194304</size>
+				<bandwidth>4857</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1694998</queued>
+				<submitted>1695205</submitted>
+				<started>1695210</started>
+				<ended>1696080</ended>
+				<size>4194304</size>
+				<bandwidth>4822</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1732896</queued>
+				<submitted>1733119</submitted>
+				<started>1733124</started>
+				<ended>1734092</ended>
+				<size>4194304</size>
+				<bandwidth>4331</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1771543</queued>
+				<submitted>1771750</submitted>
+				<started>1771754</started>
+				<ended>1772623</ended>
+				<size>4194304</size>
+				<bandwidth>4828</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1808732</queued>
+				<submitted>1808941</submitted>
+				<started>1808946</started>
+				<ended>1809844</ended>
+				<size>4194304</size>
+				<bandwidth>4671</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1846549</queued>
+				<submitted>1846769</submitted>
+				<started>1846774</started>
+				<ended>1847702</ended>
+				<size>4194304</size>
+				<bandwidth>4520</bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>6333561</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<queued>1884967</queued>
+				<submitted>1885189</submitted>
+				<started>1885195</started>
+				<ended>1886154</ended>
+				<size>4194304</size>
+				<bandwidth>4371</bandwidth>
+			</taskInstance>
+		</stream>
+		<stream>
+			<name>Workload</name>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1267</queued>
+				<submitted>1270</submitted>
+				<started>1502</started>
+				<ended>2566</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>45216</queued>
+				<submitted>45222</submitted>
+				<started>45457</started>
+				<ended>45837</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>48869</queued>
+				<submitted>48873</submitted>
+				<started>49237</started>
+				<ended>50302</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>83083</queued>
+				<submitted>83089</submitted>
+				<started>83299</started>
+				<ended>83678</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>85976</queued>
+				<submitted>85980</submitted>
+				<started>86302</started>
+				<ended>87366</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>120616</queued>
+				<submitted>120623</submitted>
+				<started>120860</started>
+				<ended>121239</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>123829</queued>
+				<submitted>123833</submitted>
+				<started>124194</started>
+				<ended>125259</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>158832</queued>
+				<submitted>158838</submitted>
+				<started>159046</started>
+				<ended>159426</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>161748</queued>
+				<submitted>161752</submitted>
+				<started>162075</started>
+				<ended>163139</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>197109</queued>
+				<submitted>197115</submitted>
+				<started>197351</started>
+				<ended>197730</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>200703</queued>
+				<submitted>200707</submitted>
+				<started>201065</started>
+				<ended>202130</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>238680</queued>
+				<submitted>238688</submitted>
+				<started>238923</started>
+				<ended>239300</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>241940</queued>
+				<submitted>241943</submitted>
+				<started>242325</started>
+				<ended>243390</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>277801</queued>
+				<submitted>277807</submitted>
+				<started>277844</started>
+				<ended>278223</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>280883</queued>
+				<submitted>280887</submitted>
+				<started>281072</started>
+				<ended>282136</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>316489</queued>
+				<submitted>316495</submitted>
+				<started>316728</started>
+				<ended>317107</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>319651</queued>
+				<submitted>319654</submitted>
+				<started>320016</started>
+				<ended>321081</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>354670</queued>
+				<submitted>354676</submitted>
+				<started>354883</started>
+				<ended>355262</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>357876</queued>
+				<submitted>357879</submitted>
+				<started>358194</started>
+				<ended>359261</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>392424</queued>
+				<submitted>392431</submitted>
+				<started>392701</started>
+				<ended>393080</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>395590</queued>
+				<submitted>395593</submitted>
+				<started>395948</started>
+				<ended>397014</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>430733</queued>
+				<submitted>430739</submitted>
+				<started>430910</started>
+				<ended>431290</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>433689</queued>
+				<submitted>433692</submitted>
+				<started>434006</started>
+				<ended>435072</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>468770</queued>
+				<submitted>468777</submitted>
+				<started>469012</started>
+				<ended>469391</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>471957</queued>
+				<submitted>471960</submitted>
+				<started>472276</started>
+				<ended>473340</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>507533</queued>
+				<submitted>507539</submitted>
+				<started>507576</started>
+				<ended>507955</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>510651</queued>
+				<submitted>510655</submitted>
+				<started>511038</started>
+				<ended>512103</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>546848</queued>
+				<submitted>546854</submitted>
+				<started>547060</started>
+				<ended>547439</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>549878</queued>
+				<submitted>549882</submitted>
+				<started>550190</started>
+				<ended>551256</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>585902</queued>
+				<submitted>585908</submitted>
+				<started>586142</started>
+				<ended>586520</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>589018</queued>
+				<submitted>589022</submitted>
+				<started>589402</started>
+				<ended>590466</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>624619</queued>
+				<submitted>624625</submitted>
+				<started>624835</started>
+				<ended>625214</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>628189</queued>
+				<submitted>628193</submitted>
+				<started>628504</started>
+				<ended>629635</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>663807</queued>
+				<submitted>663813</submitted>
+				<started>664051</started>
+				<ended>664430</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>666984</queued>
+				<submitted>666987</submitted>
+				<started>667341</started>
+				<ended>668406</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>702520</queued>
+				<submitted>702526</submitted>
+				<started>702733</started>
+				<ended>703110</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>705759</queued>
+				<submitted>705763</submitted>
+				<started>706133</started>
+				<ended>707199</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>742322</queued>
+				<submitted>742328</submitted>
+				<started>742537</started>
+				<ended>742915</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>745498</queued>
+				<submitted>745502</submitted>
+				<started>745815</started>
+				<ended>746879</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>780803</queued>
+				<submitted>780809</submitted>
+				<started>781055</started>
+				<ended>781434</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>783695</queued>
+				<submitted>783698</submitted>
+				<started>784082</started>
+				<ended>785145</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>818207</queued>
+				<submitted>818214</submitted>
+				<started>818421</started>
+				<ended>818800</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>821149</queued>
+				<submitted>821152</submitted>
+				<started>821467</started>
+				<ended>822532</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>855306</queued>
+				<submitted>855312</submitted>
+				<started>855520</started>
+				<ended>855898</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>858246</queued>
+				<submitted>858249</submitted>
+				<started>858622</started>
+				<ended>859687</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>892501</queued>
+				<submitted>892507</submitted>
+				<started>892715</started>
+				<ended>893092</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>895354</queued>
+				<submitted>895358</submitted>
+				<started>895672</started>
+				<ended>896737</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>929596</queued>
+				<submitted>929602</submitted>
+				<started>929811</started>
+				<ended>930189</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>932561</queued>
+				<submitted>932565</submitted>
+				<started>932942</started>
+				<ended>934007</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>968996</queued>
+				<submitted>969003</submitted>
+				<started>969215</started>
+				<ended>969592</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>972081</queued>
+				<submitted>972084</submitted>
+				<started>972394</started>
+				<ended>973458</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1006972</queued>
+				<submitted>1006979</submitted>
+				<started>1007225</started>
+				<ended>1007625</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1009918</queued>
+				<submitted>1009921</submitted>
+				<started>1010297</started>
+				<ended>1011360</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1044425</queued>
+				<submitted>1044431</submitted>
+				<started>1044638</started>
+				<ended>1045016</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1047477</queued>
+				<submitted>1047480</submitted>
+				<started>1047788</started>
+				<ended>1048851</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1081656</queued>
+				<submitted>1081662</submitted>
+				<started>1081870</started>
+				<ended>1082249</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1084864</queued>
+				<submitted>1084867</submitted>
+				<started>1085251</started>
+				<ended>1086316</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1120611</queued>
+				<submitted>1120617</submitted>
+				<started>1120824</started>
+				<ended>1121203</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1123960</queued>
+				<submitted>1123964</submitted>
+				<started>1124272</started>
+				<ended>1125337</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1158094</queued>
+				<submitted>1158099</submitted>
+				<started>1158333</started>
+				<ended>1158713</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1161021</queued>
+				<submitted>1161024</submitted>
+				<started>1161405</started>
+				<ended>1162470</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1195746</queued>
+				<submitted>1195753</submitted>
+				<started>1195960</started>
+				<ended>1196339</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1198631</queued>
+				<submitted>1198634</submitted>
+				<started>1198942</started>
+				<ended>1200008</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1233594</queued>
+				<submitted>1233601</submitted>
+				<started>1233629</started>
+				<ended>1234007</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1236549</queued>
+				<submitted>1236552</submitted>
+				<started>1236922</started>
+				<ended>1237986</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1271297</queued>
+				<submitted>1271303</submitted>
+				<started>1271511</started>
+				<ended>1271890</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1274199</queued>
+				<submitted>1274203</submitted>
+				<started>1274511</started>
+				<ended>1275576</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1308435</queued>
+				<submitted>1308441</submitted>
+				<started>1308650</started>
+				<ended>1309029</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1311441</queued>
+				<submitted>1311444</submitted>
+				<started>1311788</started>
+				<ended>1312851</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1345640</queued>
+				<submitted>1345646</submitted>
+				<started>1345852</started>
+				<ended>1346229</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1348961</queued>
+				<submitted>1348964</submitted>
+				<started>1349272</started>
+				<ended>1350337</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1384127</queued>
+				<submitted>1384134</submitted>
+				<started>1384370</started>
+				<ended>1384749</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1387280</queued>
+				<submitted>1387283</submitted>
+				<started>1387654</started>
+				<ended>1388719</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1421630</queued>
+				<submitted>1421636</submitted>
+				<started>1421844</started>
+				<ended>1422222</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1424522</queued>
+				<submitted>1424526</submitted>
+				<started>1424831</started>
+				<ended>1425895</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1458623</queued>
+				<submitted>1458629</submitted>
+				<started>1458836</started>
+				<ended>1459215</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1461699</queued>
+				<submitted>1461703</submitted>
+				<started>1462068</started>
+				<ended>1463133</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1499008</queued>
+				<submitted>1499014</submitted>
+				<started>1499180</started>
+				<ended>1499560</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1502454</queued>
+				<submitted>1502457</submitted>
+				<started>1502629</started>
+				<ended>1503875</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1538970</queued>
+				<submitted>1538976</submitted>
+				<started>1539172</started>
+				<ended>1539550</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1542356</queued>
+				<submitted>1542359</submitted>
+				<started>1542722</started>
+				<ended>1543787</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1577437</queued>
+				<submitted>1577443</submitted>
+				<started>1577613</started>
+				<ended>1577992</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1580951</queued>
+				<submitted>1580954</submitted>
+				<started>1581361</started>
+				<ended>1582425</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1618342</queued>
+				<submitted>1618349</submitted>
+				<started>1618555</started>
+				<ended>1618932</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1621458</queued>
+				<submitted>1621461</submitted>
+				<started>1621762</started>
+				<ended>1622881</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1655838</queued>
+				<submitted>1655844</submitted>
+				<started>1656051</started>
+				<ended>1656430</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1658810</queued>
+				<submitted>1658813</submitted>
+				<started>1659185</started>
+				<ended>1660250</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1693062</queued>
+				<submitted>1693068</submitted>
+				<started>1693275</started>
+				<ended>1693653</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1695942</queued>
+				<submitted>1695946</submitted>
+				<started>1696245</started>
+				<ended>1697308</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1730699</queued>
+				<submitted>1730705</submitted>
+				<started>1730913</started>
+				<ended>1731292</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1733958</queued>
+				<submitted>1733962</submitted>
+				<started>1734322</started>
+				<ended>1735387</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1769556</queued>
+				<submitted>1769562</submitted>
+				<started>1769768</started>
+				<ended>1770147</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1772484</queued>
+				<submitted>1772487</submitted>
+				<started>1772794</started>
+				<ended>1773859</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1806718</queued>
+				<submitted>1806725</submitted>
+				<started>1806934</started>
+				<ended>1807314</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1809711</queued>
+				<submitted>1809714</submitted>
+				<started>1810080</started>
+				<ended>1811145</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1844575</queued>
+				<submitted>1844581</submitted>
+				<started>1844790</started>
+				<ended>1845169</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1847563</queued>
+				<submitted>1847566</submitted>
+				<started>1847735</started>
+				<ended>1848801</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1882968</queued>
+				<submitted>1882974</submitted>
+				<started>1883144</started>
+				<ended>1883523</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>40958096</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<queued>1886022</queued>
+				<submitted>1886025</submitted>
+				<started>1886391</started>
+				<ended>1887455</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+			<taskInstance>
+				<idTask>38937904</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<queued>1920750</queued>
+				<submitted>1920756</submitted>
+				<started>1920964</started>
+				<ended>1921341</ended>
+				<global_work_size>1, 2044, 2048</global_work_size>
+				<local_work_size>1, 1, 64</local_work_size>
+			</taskInstance>
+		</stream>
+	</device>
+</profiling>
