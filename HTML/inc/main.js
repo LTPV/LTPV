@@ -36,8 +36,9 @@ function init() {
 	
 	var filename = getQuerystring('file');
 	if(filename=='') {
+
+		alert('No XML file given. You must provide a file to parse in the address: index.html?file=YourXMLFile.xml\nTrying with "example.xml"...');
 		window.location = loc+'?file=example.xml';
-		//alert('No XML file given. You must provide a file to parse in the address: index.html?file=YourFile\nTrying with "profiling.xml"...');
 		throw new Error();
 	}
 	$xml=$($.parseXML($.ajax({ type: "GET", url: filename, async: false, error:function() { die('Impossible to read '+filename+'.\n* Does this file really exist?\n* With Firefox, you may have to do about:config and switch security.fileuri.strict_origin_policy to false and restart it.\n* With Chrome/Chromium, please close it and launch it with the --allow-file-access-from-files option.'); return ''; }}).responseText));
