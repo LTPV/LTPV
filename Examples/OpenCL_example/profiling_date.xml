@@ -1,0 +1,353 @@
+<profiling>
+	<head>
+		<unit>μs</unit>
+	<date>Saturday, November 30&lt;sup&gt;th&lt;/sup&gt; 2013 at &lt;b&gt;15:39:11&lt;/b&gt;</date>
+	</head>
+
+	<!-- List tasks -->
+	<task>
+		<id>139811965555032</id>
+		<name>Host to Device</name>
+	</task>
+	<task>
+		<id>139811965555036</id>
+		<name>Device to Host</name>
+	</task>
+	<task>
+		<id>24704048</id>
+		<name>FIR_GPU_dev</name>
+	</task>
+	<task>
+		<id>24712256</id>
+		<name>SEUIL_GPU_dev</name>
+	</task>
+	<task>
+		<id>22156240</id>
+		<name>minMax</name>
+	</task>
+
+	<!-- List devices -->
+	<device><!-- device->id = 21822304 -->
+		<name>GeForce GT 540M</name>
+		<details>
+			<detail>
+				<name>CL_DEVICE_VENDOR</name>
+				<value>NVIDIA Corporation</value>
+				<help>Vendor name string.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_TYPE</name>
+				<value>CL_DEVICE_TYPE_GPU</value>
+				<help>The OpenCL device type. Currently supported values are one of or a combination of: CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR, or CL_DEVICE_TYPE_DEFAULT.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_ADDRESS_BITS</name>
+				<value>32</value>
+				<help>The default compute device address space size specified as an unsigned integer value in bits. Currently supported values are 32 or 64 bits.</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_EXTENSIONS</name>
+				<value>cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll  cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 </value>
+				<help>Returns a list of extension names</help>
+			</detail>
+			<detail>
+				<name>CL_DEVICE_VERSION</name>
+				<value>OpenCL 1.1 CUDA</value>
+				<help>OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::
+OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;
+The major_version.minor_version value returned will be 1.0.</help>
+			</detail>
+			<detail>
+				<name>CL_DRIVER_VERSION</name>
+				<value>304.54</value>
+				<help>OpenCL software driver version string in the form major_number.minor_number.</help>
+			</detail>
+</details>
+		<stream>
+			<name>Queue 1</name>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>538707</start>
+				<end>549823</end>
+				<ocl_queued>531246</ocl_queued>
+				<ocl_submit>531250</ocl_submit>
+				<ocl_size>16777216</ocl_size>
+				<ocl_bandwidth>1509</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>574825</start>
+				<end>575833</end>
+				<ocl_queued>571234</ocl_queued>
+				<ocl_submit>571241</ocl_submit>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4158</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>584264</start>
+				<end>588901</end>
+				<ocl_queued>576633</ocl_queued>
+				<ocl_submit>576639</ocl_submit>
+				<ocl_size>16777216</ocl_size>
+				<ocl_bandwidth>3617</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>612783</start>
+				<end>613806</end>
+				<ocl_queued>609197</ocl_queued>
+				<ocl_submit>609204</ocl_submit>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4099</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>622190</start>
+				<end>626840</end>
+				<ocl_queued>614586</ocl_queued>
+				<ocl_submit>614591</ocl_submit>
+				<ocl_size>16777216</ocl_size>
+				<ocl_bandwidth>3607</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>650754</start>
+				<end>651780</end>
+				<ocl_queued>647167</ocl_queued>
+				<ocl_submit>647175</ocl_submit>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4086</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>660176</start>
+				<end>664818</end>
+				<ocl_queued>652566</ocl_queued>
+				<ocl_submit>652571</ocl_submit>
+				<ocl_size>16777216</ocl_size>
+				<ocl_bandwidth>3614</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>688722</start>
+				<end>689746</end>
+				<ocl_queued>685134</ocl_queued>
+				<ocl_submit>685142</ocl_submit>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4096</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>698133</start>
+				<end>702797</end>
+				<ocl_queued>690528</ocl_queued>
+				<ocl_submit>690532</ocl_submit>
+				<ocl_size>16777216</ocl_size>
+				<ocl_bandwidth>3597</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555036</idTask><!-- task.name = Device to Host -->
+				<name>Device to Host</name>
+				<start>726674</start>
+				<end>727699</end>
+				<ocl_queued>723087</ocl_queued>
+				<ocl_submit>723093</ocl_submit>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4094</ocl_bandwidth>
+			</taskInstance>
+		</stream>
+		<stream>
+			<name>Queue 2</name>
+			<taskInstance>
+				<idTask>139811965555032</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<start>530796</start>
+				<end>531734</end>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4471</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555032</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<start>576403</start>
+				<end>577286</end>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4747</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555032</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<start>614347</start>
+				<end>615218</end>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4814</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555032</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<start>652330</start>
+				<end>653203</end>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4808</ocl_bandwidth>
+			</taskInstance>
+			<taskInstance>
+				<idTask>139811965555032</idTask><!-- task.name = Host to Device -->
+				<name>Host to Device</name>
+				<start>690289</start>
+				<end>691160</end>
+				<ocl_size>4194304</ocl_size>
+				<ocl_bandwidth>4812</ocl_bandwidth>
+			</taskInstance>
+		</stream>
+		<stream>
+			<name>Queue 3</name>
+			<taskInstance>
+				<idTask>24704048</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<start>531752</start>
+				<end>538703</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>531185</ocl_queued>
+				<ocl_submit>531188</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24712256</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<start>571210</start>
+				<end>574820</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>571196</ocl_queued>
+				<ocl_submit>571201</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24704048</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<start>577307</start>
+				<end>584259</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>576607</ocl_queued>
+				<ocl_submit>576609</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24712256</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<start>609177</start>
+				<end>612778</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>609162</ocl_queued>
+				<ocl_submit>609167</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24704048</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<start>615235</start>
+				<end>622186</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>614550</ocl_queued>
+				<ocl_submit>614553</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24712256</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<start>647145</start>
+				<end>650750</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>647130</ocl_queued>
+				<ocl_submit>647135</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24704048</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<start>653221</start>
+				<end>660172</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>652531</ocl_queued>
+				<ocl_submit>652534</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24712256</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<start>685112</start>
+				<end>688717</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>685098</ocl_queued>
+				<ocl_submit>685103</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24704048</idTask><!-- task.name = FIR_GPU_dev -->
+				<name>FIR_GPU_dev</name>
+				<start>691177</start>
+				<end>698129</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>690492</ocl_queued>
+				<ocl_submit>690495</ocl_submit>
+			</taskInstance>
+			<taskInstance>
+				<idTask>24712256</idTask><!-- task.name = SEUIL_GPU_dev -->
+				<name>SEUIL_GPU_dev</name>
+				<start>723065</start>
+				<end>726670</end>
+				<ocl_global_work_size>1, 2044, 2048</ocl_global_work_size>
+				<ocl_local_work_size>1, 1, 64</ocl_local_work_size>
+				<ocl_queued>723050</ocl_queued>
+				<ocl_submit>723056</ocl_submit>
+			</taskInstance>
+		</stream>
+	</device>
+	<device><!-- device->id = -2104831624 -->
+		<name>CPU</name>
+		<details></details>
+		<stream>
+			<name>thread 0</name>
+			<taskInstance>
+				<idTask>22156240</idTask><!-- task.name = minMax -->
+				<name>minMax</name>
+				<start>551167</start>
+				<end>571054</end>
+			</taskInstance>
+			<taskInstance>
+				<idTask>22156240</idTask><!-- task.name = minMax -->
+				<name>minMax</name>
+				<start>589349</start>
+				<end>609173</end>
+			</taskInstance>
+			<taskInstance>
+				<idTask>22156240</idTask><!-- task.name = minMax -->
+				<name>minMax</name>
+				<start>627291</start>
+				<end>647139</end>
+			</taskInstance>
+			<taskInstance>
+				<idTask>22156240</idTask><!-- task.name = minMax -->
+				<name>minMax</name>
+				<start>665266</start>
+				<end>685104</end>
+			</taskInstance>
+			<taskInstance>
+				<idTask>22156240</idTask><!-- task.name = minMax -->
+				<name>minMax</name>
+				<start>703243</start>
+				<end>723058</end>
+			</taskInstance>
+		</stream>
+	</device>
+</profiling>

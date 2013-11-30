@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+import sys
+import os;
+import subprocess
+
+
+#print(sys.argv)
+#print(os.path.realpath(__file__))
+# nohup firefox file:///home/simon/ltpv/profiler/index.html?file=file:///home/simon/ltpv/OpenCL_example_nocall/profiling_date.xml > /dev/null &
+os.system("LD_PRELOAD=\"libLTPV.so\" "+sys.argv[1]);
+addr = "file:"+os.path.dirname(os.path.realpath(__file__))+"/../HTML/index.html?file=file://"+os.getcwd()+"/profiling_date.xml"
+#print(addr)
+#os.system("nohup firefox ../../HTML/index.html?file=file://"+os.getcwd()+"/profiling_date.xml > /dev/null &")
+subprocess.Popen(['nohup', 'firefox', addr],
+                 stdout=open('/dev/null', 'w'),
+                 stderr=open('/dev/null', 'w'),
+                 preexec_fn=os.setpgrp
+                 )
