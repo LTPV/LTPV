@@ -273,7 +273,8 @@ cl_int clEnqueueNDRangeKernel(
 ) {
 	cl_event *event2 = ltpv_OpenCL_createEventIfPtrNull();
 	cl_int status = ltpv_call_original(clEnqueueNDRangeKernel)(command_queue, kernel, work_dim, global_work_offset, global_work_size, local_work_size, num_events_in_wait_list, event_wait_list, event2);
-	*event = *event2; 
+	if(event!=NULL)
+		*event = *event2;
 	char* details =(char*)malloc(sizeof(char)*1000);
 	int i;
 
@@ -281,7 +282,10 @@ cl_int clEnqueueNDRangeKernel(
 	for(i = 0; i < (const int)work_dim; i++) sprintf(&details[strlen(details)], "%s%ld", i>0 ? ", " : "", (long)global_work_size[i]);
 	strcat(details, "</ocl_global_work_size>");
 	strcat(details, "\n\t\t\t\t<ocl_local_work_size>");
-	for(i = 0; i < (const int)work_dim; i++) sprintf(&details[strlen(details)], "%s%ld", i>0 ? ", " : "", (long)local_work_size[i]);
+	if(local_work_size!=NULL)
+		for(i = 0; i < (const int)work_dim; i++) sprintf(&details[strlen(details)], "%s%ld", i>0 ? ", " : "", (long)local_work_size[i]);
+	else
+		strcat(details, "auto");
 	strcat(details, "</ocl_local_work_size>");
 	ltpv_OpenCL_addTaskInstance(kernel, command_queue, event2, 0, NULL, details);
 
