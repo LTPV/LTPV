@@ -23,6 +23,8 @@ int ltpv_OpenCL_initialize = 0; // The address of this variable will also be use
 
 ltpv_t_cl_event *ltpv_cl_lastEvent = NULL;
 
+ltpv_t_cl_mapped *ltpv_cl_mapped = NULL;
+
 // If an event was not provided, will create one for profiling reasons.
 inline cl_event *ltpv_OpenCL_createEventIfPtrNull() {
 	cl_event *eventT;
@@ -329,21 +331,67 @@ cl_int clEnqueueReadBuffer(
 	if(event!=NULL)
 		*event = *event2;
 	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, cb);
+	
+	return status;
+}
+
+void *clEnqueueMapBuffer(
+	cl_command_queue command_queue,
+	cl_mem           buffer,
+	cl_bool          blocking_map, 
+	cl_map_flags     map_flags,
+	size_t           offset,
+	size_t           cb,
+	cl_uint          num_events_in_wait_list,
+	const cl_event * event_wait_list,
+	cl_event *       event,
+	cl_int *         errcode_ret
+) {
+	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
+
+	void *R = ltpv_call_original(clEnqueueMapBuffer)(command_queue, buffer, blocking_map, map_flags, offset, cb, num_events_in_wait_list, event_wait_list, event2, errcode_ret);
+	if(event!=NULL)
+		*event = *event2;
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, cb);
+	ltpv_t_cl_mapped *newMap = (ltpv_t_cl_mapped *)malloc(sizeof(ltpv_t_cl_mapped));
+	newMap->addr = R;
+	newMap->size = cb;
+	newMap->prev = ltpv_cl_mapped;
+	ltpv_cl_mapped = newMap;
+	return R;
+}
+
+
+
+
+
+cl_int clEnqueueUnmapMemObject(
+	cl_command_queue command_queue,
+	cl_mem           memobj,
+	void *           mapped_ptr,
+	cl_uint          num_events_in_wait_list,
+	const cl_event * event_wait_list,
+	cl_event *       event
+) {
+	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
+
+	cl_int status = ltpv_call_original(clEnqueueUnmapMemObject)(command_queue, memobj, mapped_ptr, num_events_in_wait_list, event_wait_list, event2);
+	if(event!=NULL)
+		*event = *event2;
+	int cb = 0;
+	ltpv_t_cl_mapped *newMap = ltpv_cl_mapped;
+	while(newMap != NULL) {
+		if(newMap->addr == mapped_ptr) {
+			cb = newMap->size;
+			break;
+		}
+		newMap = newMap->prev;
+	}
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, cb);
 
 	return status;
 }
 
-//clEnqueueWriteImage(cl_command_queue    /* command_queue */,
-  //                  cl_mem              /* image */,
-    //                cl_bool             /* blocking_write */, 
-      //              const size_t *      /* origin[3] */,
-        //            const size_t *      /* region[3] */,
-          //          size_t              /* input_row_pitch */,
-            //        size_t              /* input_slice_pitch */, 
-              //      const void *        /* ptr */,
-                //    cl_uint             /* num_events_in_wait_list */,
-                  //  const cl_event *    /* event_wait_list */,
-                    //cl_event *          /* event */) CL_API_SUFFIX__VERSION_1_0;
 cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
 	cl_command_queue command_queue,
 	cl_mem image,

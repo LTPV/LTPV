@@ -46,6 +46,13 @@
 		ltpv_t_cl_event *prev;
 	};
 	typedef struct ltpv_t_cl_event ltpv_t_cl_event;
+	
+	struct ltpv_t_cl_mapped {
+		void *addr;
+		int size;
+		ltpv_t_cl_mapped *prev;
+	};
+	typedef struct ltpv_t_cl_mapped ltpv_t_cl_mapped;
 
 	#ifdef __linux__
 		#define LTPV_OPENCL_CHECK(x) do { if(x!=0) { printf("%sFailed at %s:%d%s\n", LTPV_RED, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
@@ -167,6 +174,28 @@
 		cl_uint num_events_in_wait_list,
 		const cl_event *event_wait_list,
 		cl_event *event
+	);
+	
+	void *clEnqueueMapBuffer(
+		cl_command_queue command_queue,
+		cl_mem           buffer,
+		cl_bool          blocking_map, 
+		cl_map_flags     map_flags,
+		size_t           offset,
+		size_t           cb,
+		cl_uint          num_events_in_wait_list,
+		const cl_event * event_wait_list,
+		cl_event *       event,
+		cl_int *         errcode_ret
+	);
+	
+	cl_int clEnqueueUnmapMemObject(
+		cl_command_queue command_queue,
+		cl_mem           memobj,
+		void *           mapped_ptr,
+		cl_uint          num_events_in_wait_list,
+		const cl_event * event_wait_list,
+		cl_event *       event
 	);
 
 	void ltpv_OpenCL_unqueueTaskInstances();
