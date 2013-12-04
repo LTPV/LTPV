@@ -56,9 +56,9 @@ static void ltpv_end (void) __attribute__((destructor ));
 
 static void ltpv_end(void)
 {
-	FILE *_null;
-	_null = fopen ("/dev/null","w");
-        fprintf(_null, "[LTPV] %d %d %ld %ld", LTPV_NUMTHREADS_T, LTPV_SIZEBUFFER_T, (unsigned long)ltpv_buffer, (unsigned long)ltpv_buffer_pos);
+	char s[200]="";
+        sprintf(s, "[LTPV] %d %d %ld %ld", LTPV_NUMTHREADS_T, LTPV_SIZEBUFFER_T, (unsigned long)ltpv_buffer, (unsigned long)ltpv_buffer_pos);
+        puts(s);
 }
 
 // to avoid "warning: ISO C does not permit named variadic macros"

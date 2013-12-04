@@ -63,26 +63,35 @@ ltpv_t_cpu_stream *ltpv_cpu_stream = NULL;
 
 int isInitialized = 0;
 
-int fprintf(FILE * stream, const char * format, ... ) {
-	va_list arg;
-	va_start(arg, format);
-	if(
-		format[0] == '[' &&
-		format[1] == 'L' &&
-		format[2] == 'T' &&
-		format[3] == 'P' &&
-		format[4] == 'V' &&
-		format[5] == ']'
+//int fprintf(FILE * stream, const char * format, ... ) {
+int puts(const char *str) {
+	if(strlen(str) > 6) if(
+		str[0] == '[' &&
+		str[1] == 'L' &&
+		str[2] == 'T' &&
+		str[3] == 'P' &&
+		str[4] == 'V' &&
+		str[5] == ']'
 	) {
 		if(isInitialized==0) {
 			ltpv_addDevice((long)&isInitialized, "CPU");
 			// add quit function here for frees !
 		}
-	
-		unsigned int       ltpv_numthreads; ltpv_numthreads = va_arg(arg, unsigned int      );
-		unsigned int       ltpv_sizebuffer; ltpv_sizebuffer = va_arg(arg, unsigned int      );
-		ltpv_buffer_elem * ltpv_buffer    ; ltpv_buffer     = va_arg(arg, ltpv_buffer_elem *);
-		unsigned int     * ltpv_buffer_pos; ltpv_buffer_pos = va_arg(arg, unsigned int *    );
+
+
+		unsigned int       ltpv_numthreads;// ltpv_numthreads = va_arg(arg, unsigned int      );
+		unsigned int       ltpv_sizebuffer;// ltpv_sizebuffer = va_arg(arg, unsigned int      );
+		ltpv_buffer_elem * ltpv_buffer    ;// ltpv_buffer     = va_arg(arg, ltpv_buffer_elem *);
+		unsigned int     * ltpv_buffer_pos;// ltpv_buffer_pos = va_arg(arg, unsigned int *    );
+		
+		//sprintf(s, "echo \"%s\" > hello", str);
+		sscanf(str, "[LTPV] %d %d %d %d", (int*)&ltpv_numthreads,(int*)&ltpv_sizebuffer, (int*)&ltpv_buffer, (int*)&ltpv_buffer_pos);
+		//char s[200];
+		//sprintf(s, "echo \"%d %d %d %d\" > hello", ltpv_numthreads,ltpv_sizebuffer, ltpv_buffer, ltpv_buffer_pos);
+		//system(s);
+		
+		
+		
 		//printf("GOTCHA! \"%s\" [ltpv_numthreads=%d][ltpv_sizebuffer=%d][ltpv_buffer=0x%lX][ltpv_buffer_pos=0x%lX]\n", format, ltpv_numthreads, ltpv_sizebuffer, (unsigned long)ltpv_buffer, (unsigned long)ltpv_buffer_pos);
 		for(unsigned int i = 0; i < ltpv_numthreads; i++) {
 			// Is the thread stream already existing? Of not, let's create it.
@@ -143,6 +152,6 @@ int fprintf(FILE * stream, const char * format, ... ) {
 		return 0;
 	}
 	else {
-		return vfprintf(stream, format, arg);
+		return ltpv_call_original(puts)(str);
 	}
 }
