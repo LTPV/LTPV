@@ -120,32 +120,37 @@ int puts(const char *str) {
 		
 			for(unsigned int j = 0; j < ltpv_buffer_pos[i]; j++) {
 				//printf("thread=%d j=%d [start=%ld][stop=%ld][name=%s]\n", i, j, ltpv_buffer[i*ltpv_sizebuffer+j].start, ltpv_buffer[i*ltpv_sizebuffer+j].stop, ltpv_buffer[i*ltpv_sizebuffer+j].name);
-				ltpv_t_cpu_task** ltpv_cpu_task_check      = &ltpv_cpu_task;
+				ltpv_t_cpu_task*  ltpv_cpu_task_check      = ltpv_cpu_task;
 				ltpv_t_cpu_task*  ltpv_cpu_task_check_prev = NULL;
 				unsigned int k = 0;
 				unsigned int alreadyExisting = 0;
-				while(*ltpv_cpu_task_check != NULL) {
-					if(strcmp((*ltpv_cpu_task_check)->name, ltpv_buffer[i*ltpv_sizebuffer+j].name)==0) {
-						//printf("Already existing task\n");
+				//printf("\n\nNew query: %s, ltpv_cpu_task = %ld\n", ltpv_buffer[i*ltpv_sizebuffer+j].name, ltpv_cpu_task);
+				while(ltpv_cpu_task_check != NULL) {
+					//printf("\t\tComparing %s with %s having next = %ld\n", ltpv_buffer[i*ltpv_sizebuffer+j].name, (ltpv_cpu_task_check)->name, (ltpv_cpu_task_check)->next);
+					if(strcmp((ltpv_cpu_task_check)->name, ltpv_buffer[i*ltpv_sizebuffer+j].name)==0) {
+						//printf("\tAlready existing task\n");
 						alreadyExisting = 1;
 						break;
 					}
-					ltpv_cpu_task_check_prev =  *ltpv_cpu_task_check;
-					*ltpv_cpu_task_check      = (*ltpv_cpu_task_check)->next;
+					ltpv_cpu_task_check_prev =  ltpv_cpu_task_check;
+					ltpv_cpu_task_check      = (ltpv_cpu_task_check)->next;
 				}
 				if(alreadyExisting==0) {
-
+					//printf("Creating task %s with ltpv_cpu_task_check_prev=%ld\n", ltpv_buffer[i*ltpv_sizebuffer+j].name, (long)ltpv_cpu_task_check_prev);
 					//ltpv_cpu_task_check
 					ltpv_t_cpu_task *ltpv_cpu_task_new;
 					ltpv_cpu_task_new = (ltpv_t_cpu_task*)malloc(sizeof(ltpv_t_cpu_task));
-					if(ltpv_cpu_task_check_prev!=NULL) ltpv_cpu_task_check_prev->next = ltpv_cpu_task_new;
-					*ltpv_cpu_task_check            = ltpv_cpu_task_new;
+					if(ltpv_cpu_task_check_prev!=NULL)
+						ltpv_cpu_task_check_prev->next = ltpv_cpu_task_new;
+					ltpv_cpu_task_check            = ltpv_cpu_task_new;
+					if(ltpv_cpu_task==NULL)
+						ltpv_cpu_task = ltpv_cpu_task_new;
 					
 					strcpy(ltpv_cpu_task_new->name, ltpv_buffer[i*ltpv_sizebuffer+j].name);
 					ltpv_cpu_task_new->next = NULL;
-					ltpv_addTask((long)ltpv_cpu_task_new, ltpv_buffer[i*ltpv_sizebuffer+j].name);
+					ltpv_addTask(((long)ltpv_cpu_task_new)+512*1024*1024, ltpv_buffer[i*ltpv_sizebuffer+j].name);
 				}
-				ltpv_addTaskInstance((long)(*ltpv_cpu_task_check), (char*)"", NULL, (long)*ltpv_cpu_stream_check, ltpv_buffer[i*ltpv_sizebuffer+j].start, ltpv_buffer[i*ltpv_sizebuffer+j].stop);
+				ltpv_addTaskInstance((long)(ltpv_cpu_task_check)+512*1024*1024, (char*)"", NULL, (long)*ltpv_cpu_stream_check, ltpv_buffer[i*ltpv_sizebuffer+j].start, ltpv_buffer[i*ltpv_sizebuffer+j].stop);
 				//printf("Taken stream: %lx\n", (long)ltpv_cpu_stream_check);
 			}
 		}
