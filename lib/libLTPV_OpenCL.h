@@ -37,6 +37,7 @@
 		cl_event *event;
 		int size;
 		int bandwidth;
+		long tCPU;
 		ltpv_t_taskInstancesQueue *next;
 	};
 	typedef struct ltpv_t_taskInstancesQueue ltpv_t_taskInstancesQueue;
@@ -122,6 +123,7 @@
 		cl_kernel kernel,
 		cl_command_queue queue,
 		cl_event *event,
+		long tCPU,
 		int size = 0,
 		const char* name = NULL,
 		char* detail = NULL
