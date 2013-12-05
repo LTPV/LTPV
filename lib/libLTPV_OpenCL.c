@@ -13,7 +13,7 @@
 */
 
 #include "libLTPV_OpenCL.h"
-
+#define GTOF(u) {struct timeval t; gettimeofday(&t, NULL); u = t.tv_sec*1000000+t.tv_usec;}
 
 extern ltpv_t_end_functions *ltpv_end_functions;
 
@@ -70,7 +70,8 @@ cl_context clCreateContext(
 	for(nDevice=0; nDevice < num_devices; nDevice++) {
 		cl_device_id device = devices[nDevice];
 		
-		// Synchronize clocks
+		// Synchronize clocks: not used anymore
+		/*
 		long time_offset;
 		{
 			struct timeval t1, t2;
@@ -80,8 +81,8 @@ cl_context clCreateContext(
 			cl_int status;
 			unsigned char X = 0;
 			context = ltpv_call_original(clCreateContext)(NULL, 1, &device, NULL, NULL, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
-			cl_command_queue queue = ltpv_call_original(clCreateCommandQueue)(context, device, CL_QUEUE_PROFILING_ENABLE, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
-			cl_mem d_X = ltpv_call_original(clCreateBuffer)(context, CL_MEM_WRITE_ONLY , sizeof(unsigned char), NULL, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
+			cl_command_queue queue = ltpv_call_original(clCreateCommandQueue)(contextG, device, CL_QUEUE_PROFILING_ENABLE, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
+			cl_mem d_X = ltpv_call_original(clCreateBuffer)(contextG, CL_MEM_WRITE_ONLY , sizeof(unsigned char), NULL, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
 			gettimeofday(&t1, NULL);
 			status = ltpv_call_original(clEnqueueWriteBuffer)(queue, d_X, CL_FALSE, 0, sizeof(unsigned char), (const void*)&X, 0, 0, &event); LTPV_OPENCL_CHECK(status); LTPV_OPENCL_DEBUG(status);
 			gettimeofday(&t2, NULL);
@@ -97,8 +98,8 @@ cl_context clCreateContext(
 			LTPV_OPENCL_CHECK(clReleaseCommandQueue(queue));
 			LTPV_OPENCL_CHECK(clReleaseMemObject   (d_X));
 			LTPV_OPENCL_CHECK(clReleaseContext     (context));
-
 		}
+		*/
 
 		// Let's initiate it
 		long id = (long)device; // Adress as unique identifier
@@ -200,7 +201,9 @@ cl_context clCreateContext(
 			strcat(details, "</help>\n");
 			strcat(details, "\t\t\t</detail>\n");
 		}
-		ltpv_addDevice(id, name, details, time_offset);
+		//ltpv_addDevice(id, name, details, time_offset);
+		// Try with an offset for each task (due to problems with an iMX6)
+		ltpv_addDevice(id, name, details, 0);
 	}
 
 	return contextG;
@@ -242,6 +245,7 @@ void ltpv_OpenCL_addTaskInstance(
 	cl_kernel kernel,
 	cl_command_queue queue,
 	cl_event *event,
+	long tCPU,
 	int size,
 	const char* name,
 	char* details
@@ -255,6 +259,7 @@ void ltpv_OpenCL_addTaskInstance(
 	taskInstance->size = size;
 	taskInstance->next = NULL;
 	taskInstance->details = details;
+	taskInstance->tCPU = tCPU;
 	ltpv_t_taskInstancesQueue **ptrTaskInstance = &ltpv_taskInstancesQueue;
 	while(*ptrTaskInstance != NULL) {
 		ptrTaskInstance = &((*ptrTaskInstance)->next);
@@ -274,6 +279,7 @@ cl_int clEnqueueNDRangeKernel(
 	cl_event *event
 ) {
 	cl_event *event2 = ltpv_OpenCL_createEventIfPtrNull();
+	long u; GTOF(u);
 	cl_int status = ltpv_call_original(clEnqueueNDRangeKernel)(command_queue, kernel, work_dim, global_work_offset, global_work_size, local_work_size, num_events_in_wait_list, event_wait_list, event2);
 	if(event!=NULL)
 		*event = *event2;
@@ -289,7 +295,7 @@ cl_int clEnqueueNDRangeKernel(
 	else
 		strcat(details, "auto");
 	strcat(details, "</ocl_local_work_size>");
-	ltpv_OpenCL_addTaskInstance(kernel, command_queue, event2, 0, NULL, details);
+	ltpv_OpenCL_addTaskInstance(kernel, command_queue, event2, u, 0, NULL, details);
 
 	return status;
 }
@@ -306,10 +312,11 @@ cl_int clEnqueueWriteBuffer(
 	cl_event *event
 ) {
 	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
+	long u; GTOF(u);
 	cl_int status = ltpv_call_original(clEnqueueWriteBuffer)(command_queue, buffer, blocking_write, offset, cb, ptr, num_events_in_wait_list, event_wait_list, event2);
 	if(event!=NULL)
 		*event = *event2;
-	ltpv_OpenCL_addTaskInstance((cl_kernel)&ltpv_OpenCL_initialize  , command_queue, event2, cb);
+	ltpv_OpenCL_addTaskInstance((cl_kernel)&ltpv_OpenCL_initialize  , command_queue, event2, u, cb);
 
 	return status;
 }
@@ -326,11 +333,11 @@ cl_int clEnqueueReadBuffer(
 	cl_event *event
 ) {
 	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
-
+	long u; GTOF(u);
 	cl_int status = ltpv_call_original(clEnqueueReadBuffer)(command_queue, buffer, blocking_read, offset, cb, ptr, num_events_in_wait_list, event_wait_list, event2);
 	if(event!=NULL)
 		*event = *event2;
-	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, cb);
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, u, cb);
 	
 	return status;
 }
@@ -348,11 +355,12 @@ void *clEnqueueMapBuffer(
 	cl_int *         errcode_ret
 ) {
 	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
-
+	long u; GTOF(u);
 	void *R = ltpv_call_original(clEnqueueMapBuffer)(command_queue, buffer, blocking_map, map_flags, offset, cb, num_events_in_wait_list, event_wait_list, event2, errcode_ret);
 	if(event!=NULL)
 		*event = *event2;
-	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, cb);
+	
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize+1), command_queue, event2, u, cb);
 	ltpv_t_cl_mapped *newMap = (ltpv_t_cl_mapped *)malloc(sizeof(ltpv_t_cl_mapped));
 	newMap->addr = R;
 	newMap->size = cb;
@@ -374,7 +382,7 @@ cl_int clEnqueueUnmapMemObject(
 	cl_event *       event
 ) {
 	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
-
+	long u; GTOF(u);
 	cl_int status = ltpv_call_original(clEnqueueUnmapMemObject)(command_queue, memobj, mapped_ptr, num_events_in_wait_list, event_wait_list, event2);
 	if(event!=NULL)
 		*event = *event2;
@@ -387,7 +395,7 @@ cl_int clEnqueueUnmapMemObject(
 		}
 		newMap = newMap->prev;
 	}
-	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, cb);
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, u, cb);
 
 	return status;
 }
@@ -406,11 +414,11 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
 	cl_event *event
 ) {
 	cl_event * event2 = ltpv_OpenCL_createEventIfPtrNull();
-
+	long u; GTOF(u);
 	cl_int status = ltpv_call_original(clEnqueueWriteImage)(command_queue, image, blocking_write, origin, region, input_row_pitch, input_slice_pitch, ptr, num_events_in_wait_list, event_wait_list, event2);
 	if(event!=NULL)
 		*event = *event2;
-	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, region[1]*region[2]*input_row_pitch);
+	ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, u, region[1]*region[2]*input_row_pitch);
 
 	return status;
 }
@@ -429,11 +437,20 @@ void ltpv_OpenCL_unqueueTaskInstances() {
 			float bandwidthF = (float)1000.0*ptrTaskInstance->size/(end-start);
 			bandwidth = (long)bandwidthF;
 		}
-	
+
+
+
 		queued    /= 1000;
 		submit    /= 1000;
 		start     /= 1000;
 		end       /= 1000;
+
+		long offset = queued-ptrTaskInstance->tCPU;
+
+		queued    = ptrTaskInstance->tCPU;
+		submit    -= offset;
+		start     -= offset;
+		end       -= offset;
 
 		if(ptrTaskInstance->kernel == (cl_kernel)((unsigned long)(&ltpv_OpenCL_initialize)  ) || ptrTaskInstance->kernel == (cl_kernel)((unsigned long)(&ltpv_OpenCL_initialize)+1)) { // Not kernel but transfers
 			queued = submit = -1;
