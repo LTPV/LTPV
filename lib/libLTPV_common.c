@@ -215,7 +215,7 @@ void ltpv_stopAndRecord(
 					fprintf(f, "\t\t\t</taskInstance>\n");
 				}
 				else if(LTPV_DEBUG) {
-					printf("LTPV %s:%d: a taskInstance was seen as started before the origin and was therefore not written back: was it voluntary?\n", __FILE__, __LINE__);
+					printf("LTPV %s:%d: a taskInstance was seen as started before the origin and was therefore not written back: was it voluntary?\n[taskName = %s][taskInstance->start+device->timeOffset-ltpv_t0=%ld+%ld-%ld = %ld]\n", __FILE__, __LINE__, taskName, taskInstance->start, device->timeOffset, ltpv_t0, (taskInstance->start+device->timeOffset-ltpv_t0));
 				}
 				taskInstance = taskInstance->next;
 			}
