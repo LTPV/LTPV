@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 		Y[i*WIDTH+j] = 0;
 	}
 
-	filtre(X, Y);
+	    filtre(X, Y);
 
 	imgOUT = cvCreateImage(cvSize(WIDTH-4, HEIGHT-4), IPL_DEPTH_8U, 1); if(!imgOUT) printf("Could not create imgOUT\n");
 	data = (uchar *)imgOUT->imageData;

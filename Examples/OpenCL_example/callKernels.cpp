@@ -142,7 +142,7 @@ void filtre(unsigned char *X, unsigned char *Y) {
 
 	// Let's do the real work!
 	//start(); // This function will start the chronometer. You can call it after having created devices, kernels and queues...
-	for(int loop = 0; loop <5; loop++) {
+	for(int loop = 0; loop <100; loop++) {
 		// Launching FIR on GPU
 		{
 			// Transferring X from host to device

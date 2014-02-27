@@ -21,7 +21,7 @@
 
 
 static void wrap_init(void) __attribute__((constructor));
-static void wrap_end (void) __attribute__((destructor ));
+static void wrap_end (void) __attribute__((destructor (300)));
 
 
 static void wrap_init(void)
@@ -31,9 +31,10 @@ static void wrap_init(void)
 
 static void wrap_end(void)
 {
+    fprintf(stderr, "wrap_end\n");
+
         ltpv_stopAndRecord("profiling_date.xml");
 }
-
 
 struct ltpv_buffer_elem {
 	char name[100];
@@ -84,8 +85,7 @@ int puts(const char *str) {
 		ltpv_buffer_elem * ltpv_buffer    ;// ltpv_buffer     = va_arg(arg, ltpv_buffer_elem *);
 		unsigned int     * ltpv_buffer_pos;// ltpv_buffer_pos = va_arg(arg, unsigned int *    );
 		
-		//sprintf(s, "echo \"%s\" > hello", str);
-		sscanf(str, "[LTPV] %d %d %d %d", (int*)&ltpv_numthreads,(int*)&ltpv_sizebuffer, (int*)&ltpv_buffer, (int*)&ltpv_buffer_pos);
+		sscanf(str, "[LTPV] %d %d %p %p", (int*)&ltpv_numthreads,(int*)&ltpv_sizebuffer, (void**) &ltpv_buffer, (void**)&ltpv_buffer_pos);
 		//char s[200];
 		//sprintf(s, "echo \"%d %d %d %d\" > hello", ltpv_numthreads,ltpv_sizebuffer, ltpv_buffer, ltpv_buffer_pos);
 		//system(s);

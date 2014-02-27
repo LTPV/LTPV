@@ -1,1 +1,0 @@
-// gcc -shared -o libhello.so -fPIC hello.c
