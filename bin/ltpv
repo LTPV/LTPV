@@ -11,7 +11,7 @@ os.system("LD_PRELOAD=\"libLTPV.so\" "+sys.argv[1]);
 addr = "file:"+os.path.dirname(os.path.realpath(__file__))+"/../HTML/index.html?file=file://"+os.getcwd()+"/profiling_date.xml"
 #print(addr)
 #os.system("nohup firefox ../../HTML/index.html?file=file://"+os.getcwd()+"/profiling_date.xml > /dev/null &")
-subprocess.Popen(['nohup', 'firefox', addr],
+subprocess.Popen(['nohup', 'chromium', '--allow-file-access-from-files', addr],
                  stdout=open('/dev/null', 'w'),
                  stderr=open('/dev/null', 'w'),
                  preexec_fn=os.setpgrp

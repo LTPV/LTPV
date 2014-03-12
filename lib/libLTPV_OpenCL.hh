@@ -17,7 +17,7 @@
 	
 	#include <CL/cl.h>
 	#include <stdio.h>
-	#include "libLTPV_common.h"
+	#include "libLTPV_common.hh"
 	
 
 	#define LTPV_OPENCL_UINT        1

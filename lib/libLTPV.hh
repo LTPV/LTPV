@@ -11,10 +11,36 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
 */
+#pragma once
 
-#ifndef LIB_LTPV_H
-	#define LIB_LTPV_H
-	#include "libLTPV_colors.h"
+	#include "libLTPV_colors.hh"
 	#include <dlfcn.h>
 	#define ltpv_call_original(x) (*((typeof(x) *) dlsym(RTLD_NEXT, #x)))
-#endif
+
+struct ltpv_buffer_elem
+{
+    char name[100];
+    long start;
+    long stop;
+};
+typedef struct ltpv_buffer_elem ltpv_buffer_elem;
+
+
+struct ltpv_t_cpu_task
+{
+    char name[100];
+    struct ltpv_t_cpu_task *next;
+};
+typedef struct ltpv_t_cpu_task ltpv_t_cpu_task;
+
+
+struct ltpv_t_cpu_stream
+{
+    long threadId;
+    char name[100];
+    struct ltpv_t_cpu_stream *next;
+};
+typedef struct ltpv_t_cpu_stream ltpv_t_cpu_stream;
+
+static void wrap_init(void) __attribute__((constructor));
+static void wrap_end (void) __attribute__((destructor (300)));

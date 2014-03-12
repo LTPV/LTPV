@@ -12,7 +12,7 @@
  * Lesser General Public License for more details.
 */
 
-#include "libLTPV_OpenCL.h"
+#include "libLTPV_OpenCL.hh"
 #define GTOF(u) {struct timeval t; gettimeofday(&t, NULL); u = t.tv_sec*1000000+t.tv_usec;}
 
 extern ltpv_t_end_functions *ltpv_end_functions;
