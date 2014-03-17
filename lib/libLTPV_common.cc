@@ -14,20 +14,19 @@
 #include "libLTPV_common.hh"
 
 #include <string.h>
-#include <map>
-#include <vector>
 #include <iostream>
-
-std::map<int, ltpv_t_device *> ltpv_devices;
-std::map<int, ltpv_t_task *> ltpv_tasks;
-std::vector<void (*)(void)> ltpv_end_functions;
-std::map<int, std::vector<ltpv_cpu_instance *> > cpu_instances_by_threads;
+#include <memory>
+std::map<int, std::unique_ptr<ltpv_t_device> > ltpv_devices;
+std::map<int, std::unique_ptr<ltpv_t_task>> ltpv_tasks;
+std::vector<std::function<int(void)> >ltpv_end_functions;
+std::map<int, std::vector<std::unique_ptr<ltpv_cpu_instance> > > cpu_instances_by_threads;
 
 long ltpv_t0;
 
-void add_end_functions(void (*func) (void))
+void add_end_functions(std::function<int(void)> func)
 {
     ltpv_end_functions.push_back(func);
+
 }
 
 void ltpv_start()
@@ -45,11 +44,11 @@ void ltpv_add_cpu_instance(const char *taskName, int threadId, long start, long 
     instance->start = start;
     instance->stop = stop;
 
-    cpu_instances_by_threads[threadId].push_back(instance);
+    cpu_instances_by_threads[threadId].push_back(std::unique_ptr<ltpv_cpu_instance>(instance));
 }
 
 void ltpv_addDevice(
-                    int idDevice,
+                    long idDevice,
                     const char *nameDevice,
                     const char *detailsDevice,
                     long timeOffset
@@ -62,12 +61,12 @@ void ltpv_addDevice(
     newDevice->details = std::string (detailsDevice);
     newDevice->timeOffset = timeOffset;
 
-    ltpv_devices[idDevice] = newDevice;
+    ltpv_devices[idDevice] = std::unique_ptr<ltpv_t_device> (newDevice);
 }
 
 void ltpv_addStream(
-                    int idStream,
-                    int idDevice,
+                    long idStream,
+                    long idDevice,
                     const char *name
                    )
 {
@@ -92,15 +91,15 @@ void ltpv_addTask(
 
     newTask->name = std::string(nameTask);
 
-    ltpv_tasks[newTask->id] = newTask;
+    ltpv_tasks[newTask->id] = std::unique_ptr<ltpv_t_task> (newTask);
 }
 
 void ltpv_addTaskInstance(
                           long int idTask,
                           const char *name,
                           const char *details,
-                          int idDevice,
-                          int idStream,
+                          long idDevice,
+                          long idStream,
                           long start,
                           long end,
                           long ocl_queued,
@@ -112,7 +111,7 @@ void ltpv_addTaskInstance(
     ltpv_t_taskInstance *taskInstance = new ltpv_t_taskInstance;
     taskInstance->idTask    = idTask;
     taskInstance->name = std::string (name);
-    taskInstance->details   = std::string(details);
+    taskInstance->details   = std::string(details ? details : "");
     //printf("[%ld %ld]\n", ocl_queued, start);
     taskInstance->start         = start;
     taskInstance->end           = end;
@@ -130,9 +129,10 @@ void ltpv_stopAndRecord(
 {
 
     // call callback functions
-    for (void (*func)(void)  : ltpv_end_functions)
+    for (auto func : ltpv_end_functions)
     {
-        func();
+        if (func)
+            func();
     }
 
     FILE *f = fopen((const char *)filename, "w");
@@ -149,17 +149,17 @@ void ltpv_stopAndRecord(
     fprintf(f, "\t</head>\n");
     /* List tasks */
     fprintf(f, "\n\t<!-- List tasks -->\n");
-    for (auto taskPair : ltpv_tasks)
+    for (auto taskIt = ltpv_tasks.begin(); taskIt != ltpv_tasks.end(); taskIt++)
     {
-        ltpv_t_task *task = taskPair.second;
+        ltpv_t_task *task = taskIt->second.get();
         fprintf(f, "\t<task>\n\t\t<id>%ld</id>\n\t\t<name>%s</name>\n\t</task>\n", task->id, task->name.c_str());
     }
     /* List devices */\
         fprintf(f, "\n\t<!-- List devices -->\n");
-    for (auto devicePair : ltpv_devices)
+    for (auto deviceIt = ltpv_devices.begin(); deviceIt != ltpv_devices.end(); ++deviceIt)
     {
-        ltpv_t_device *device = devicePair.second;
-        fprintf(f, "\t<device><!-- device->id = %d -->\n\t\t<name>%s</name>\n\t\t<details>", device->id, device->name.c_str());
+        ltpv_t_device *device = deviceIt->second.get();
+        fprintf(f, "\t<device><!-- device->id = %ld -->\n\t\t<name>%s</name>\n\t\t<details>", device->id, device->name.c_str());
         fprintf(f, "\n%s", device->details.c_str());
         fprintf(f, "</details>\n");
         for(auto streamPair : device->streams)

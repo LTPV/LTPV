@@ -36,20 +36,17 @@
 		int size;
 		int bandwidth;
 		long tCPU;
-		ltpv_t_taskInstancesQueue *next;
 	};
 	typedef struct ltpv_t_taskInstancesQueue ltpv_t_taskInstancesQueue;
 
 	struct ltpv_t_cl_event {
 		cl_event event;
-		ltpv_t_cl_event *prev;
 	};
 	typedef struct ltpv_t_cl_event ltpv_t_cl_event;
 	
 	struct ltpv_t_cl_mapped {
 		void *addr;
 		int size;
-		ltpv_t_cl_mapped *prev;
 	};
 	typedef struct ltpv_t_cl_mapped ltpv_t_cl_mapped;
 
@@ -198,5 +195,4 @@
 		cl_event *       event
 	);
 
-	void ltpv_OpenCL_unqueueTaskInstances(void);
-	
+	 int ltpv_OpenCL_unqueueTaskInstances(void);

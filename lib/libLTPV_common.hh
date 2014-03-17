@@ -20,6 +20,7 @@
 #include <time.h>
 #include <map>
 #include <vector>
+#include <functional>
 #define LTPV_DEBUG 1
 
 typedef struct
@@ -50,14 +51,14 @@ typedef struct ltpv_t_task
 
 typedef struct ltpv_t_stream
 {
-    int id;
+    long id;
     std::string name;
     std::vector<ltpv_t_taskInstance *> taskInstances;
 } ltpv_t_stream;
 
 typedef struct ltpv_t_device
 {
-    int id;
+    long id;
     std::string name;
     std::string details;
     long timeOffset;
@@ -100,8 +101,9 @@ void ltpv_addTask(
 void ltpv_addTaskInstance(
     long int idTask,
     const char *name,
-    char *details,
-    int idStream,
+    const char *details,
+    long idDevice,
+    long idStream,
     long start,
     long end,
     long ocl_queue     = -1,
@@ -115,4 +117,4 @@ void ltpv_stopAndRecord(
 );
 
 
-void add_end_functions(void (*func) (void));
+void add_end_functions(std::function<int(void)> func);

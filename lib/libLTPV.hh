@@ -43,4 +43,4 @@ struct ltpv_t_cpu_stream
 typedef struct ltpv_t_cpu_stream ltpv_t_cpu_stream;
 
 static void wrap_init(void) __attribute__((constructor));
-static void wrap_end (void) __attribute__((destructor (300)));
+static void wrap_end (void) __attribute__((destructor));
