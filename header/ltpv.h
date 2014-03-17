@@ -21,7 +21,6 @@
 #endif
 
 static void (*ltpv_add_cpu_instance_func)(const char *, int, long, long) = NULL;
-
 static bool ltpv_isInit = false;
 static long ltpv_lastTaskId = 1;
 //void (*prev_handler[32])(int);//SIGRTMAX

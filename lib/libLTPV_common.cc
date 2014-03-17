@@ -16,14 +16,20 @@
 #include <string.h>
 #include <iostream>
 #include <memory>
-std::map<int, std::unique_ptr<ltpv_t_device> > ltpv_devices;
-std::map<int, std::unique_ptr<ltpv_t_task>> ltpv_tasks;
-std::vector<std::function<int(void)> >ltpv_end_functions;
-std::map<int, std::vector<std::unique_ptr<ltpv_cpu_instance> > > cpu_instances_by_threads;
+#include <atomic>
+#include <sstream>
+#include <algorithm>
 
+std::map<size_t, std::unique_ptr<ltpv_t_device>> ltpv_devices;
+std::map<size_t, std::string> ltpv_tasks; // TODO bimap!
+std::vector<std::function<int(void)> >ltpv_end_functions;
+std::map<size_t, std::vector<std::unique_ptr<ltpv_cpu_instance> > > cpu_instances_by_threads;
+
+std::atomic<bool> ltpv_isCPUInit (false);
+std::atomic<int> ltpv_cpu_task_index(0);
 long ltpv_t0;
 
-void add_end_functions(std::function<int(void)> func)
+void ltpv_add_end_functions(int(*func)(void) )
 {
     ltpv_end_functions.push_back(func);
 
@@ -36,19 +42,51 @@ void ltpv_start()
     ltpv_t0 = t.tv_sec * 1000000 + t.tv_usec;
     return;
 }
+int ltpv_cpu_unqueueTaskInstances(void)
+{
+    size_t cpuId = (size_t)&ltpv_cpu_unqueueTaskInstances;
+    size_t taskId = 0;
+    ltpv_addDevice(cpuId, "CPU");
+
+    for(auto cpu_threadIt = cpu_instances_by_threads.begin(); cpu_threadIt != cpu_instances_by_threads.end(); ++cpu_threadIt)
+    {
+        size_t threadId = cpu_threadIt->first;
+
+        std::stringstream ss;
+        ss << "Thread " << threadId; 
+        ltpv_addStream(threadId, cpuId, ss.str().c_str());
+        for(auto instanceIt = cpu_threadIt->second.begin(); instanceIt != cpu_threadIt->second.end(); ++instanceIt)
+        {
+            const ltpv_cpu_instance  *instance = instanceIt->get();
+            auto taskIt = std::find_if (ltpv_tasks.begin(), ltpv_tasks.end(), [&] (const std::pair<size_t, std::string> p) {return ( p.second == instance->taskName);});
+            if (taskIt == ltpv_tasks.end())
+            {
+                taskId = ltpv_addTask(ltpv_cpu_task_index, instance->taskName.c_str());
+                ltpv_cpu_task_index++;
+            }
+            ltpv_addTaskInstance(taskId, "", "", cpuId, threadId, instance->start, instance->stop);
+        }
+    }
+    return 0;
+}
 
 void ltpv_add_cpu_instance(const char *taskName, int threadId, long start, long stop)
 {
-    ltpv_cpu_instance *instance = new ltpv_cpu_instance;
+    if (!ltpv_isCPUInit)
+    {
+        ltpv_isCPUInit = true;
+        ltpv_add_end_functions(ltpv_cpu_unqueueTaskInstances);
+    }
+    std::unique_ptr<ltpv_cpu_instance> instance = std::unique_ptr<ltpv_cpu_instance> (new ltpv_cpu_instance);
     instance->taskName = std::string(taskName);
     instance->start = start;
     instance->stop = stop;
 
-    cpu_instances_by_threads[threadId].push_back(std::unique_ptr<ltpv_cpu_instance>(instance));
+    cpu_instances_by_threads[threadId].push_back(std::move(instance));
 }
 
-void ltpv_addDevice(
-                    long idDevice,
+size_t ltpv_addDevice(
+                    size_t idDevice,
                     const char *nameDevice,
                     const char *detailsDevice,
                     long timeOffset
@@ -62,11 +100,12 @@ void ltpv_addDevice(
     newDevice->timeOffset = timeOffset;
 
     ltpv_devices[idDevice] = std::unique_ptr<ltpv_t_device> (newDevice);
+    return idDevice;
 }
 
-void ltpv_addStream(
-                    long idStream,
-                    long idDevice,
+size_t ltpv_addStream(
+                    size_t idStream,
+                    size_t idDevice,
                     const char *name
                    )
 {
@@ -76,30 +115,29 @@ void ltpv_addStream(
 
     ltpv_devices[idDevice]->streams[idStream] = newStream;
 
+    return idStream;
 }
 
-void ltpv_addTask(
-                  long int idTask,
-                  const char *nameTask
+size_t ltpv_addTask(
+                  size_t idTask,
+                  const char *taskName
                  )
 {
-    ltpv_t_task *newTask = new ltpv_t_task;
-    if (idTask != -1)
-        newTask->id = idTask;
-    else
-        newTask->id = ltpv_tasks.size();
+    while (ltpv_tasks.find(idTask) != ltpv_tasks.end())
+    {
+        idTask++;
+    } // FIXME bad way to get unique index
 
-    newTask->name = std::string(nameTask);
-
-    ltpv_tasks[newTask->id] = std::unique_ptr<ltpv_t_task> (newTask);
+    ltpv_tasks[idTask] = taskName;
+    return idTask;
 }
 
 void ltpv_addTaskInstance(
-                          long int idTask,
+                          size_t idTask,
                           const char *name,
                           const char *details,
-                          long idDevice,
-                          long idStream,
+                          size_t idDevice,
+                          size_t idStream,
                           long start,
                           long end,
                           long ocl_queued,
@@ -109,7 +147,7 @@ void ltpv_addTaskInstance(
                          )
 {
     ltpv_t_taskInstance *taskInstance = new ltpv_t_taskInstance;
-    taskInstance->idTask    = idTask;
+    taskInstance->idTask = idTask;
     taskInstance->name = std::string (name);
     taskInstance->details   = std::string(details ? details : "");
     //printf("[%ld %ld]\n", ocl_queued, start);
@@ -124,7 +162,7 @@ void ltpv_addTaskInstance(
 }
 
 void ltpv_stopAndRecord(
-                        const void *filename
+                        const char *filename
                        )
 {
 
@@ -151,8 +189,7 @@ void ltpv_stopAndRecord(
     fprintf(f, "\n\t<!-- List tasks -->\n");
     for (auto taskIt = ltpv_tasks.begin(); taskIt != ltpv_tasks.end(); taskIt++)
     {
-        ltpv_t_task *task = taskIt->second.get();
-        fprintf(f, "\t<task>\n\t\t<id>%ld</id>\n\t\t<name>%s</name>\n\t</task>\n", task->id, task->name.c_str());
+        fprintf(f, "\t<task>\n\t\t<id>%ld</id>\n\t\t<name>%s</name>\n\t</task>\n", taskIt->first, taskIt->second.c_str());
     }
     /* List devices */\
         fprintf(f, "\n\t<!-- List devices -->\n");
@@ -168,7 +205,7 @@ void ltpv_stopAndRecord(
             fprintf(f, "\t\t<stream>\n\t\t\t<name>%s</name>\n", strm->name.c_str());
             for (auto taskInstance : strm->taskInstances)
             {
-                const char *taskName = ltpv_tasks[taskInstance->idTask]->name.c_str();
+                const char *taskName = ltpv_tasks[taskInstance->idTask].c_str();
                 if (taskInstance->start     + device->timeOffset - ltpv_t0 >=
                     0) // if start < 0, it means that the task was queued before the start call
                 {

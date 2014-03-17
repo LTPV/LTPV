@@ -32,7 +32,7 @@ typedef struct
 
 typedef struct ltpv_t_taskInstance
 {
-    long int idTask;
+    size_t idTask;
     std::string name;
     std::string details;
     long start;
@@ -43,22 +43,24 @@ typedef struct ltpv_t_taskInstance
     long ocl_bandwidth; /* bytes/s */
 } ltpv_t_taskInstance;
 
+#ifdef OLD
 typedef struct ltpv_t_task
 {
-    unsigned long id;
+    size_t id;
     std::string name;
 } ltpv_t_task;
+#endif
 
 typedef struct ltpv_t_stream
 {
-    long id;
+    size_t id;
     std::string name;
     std::vector<ltpv_t_taskInstance *> taskInstances;
 } ltpv_t_stream;
 
 typedef struct ltpv_t_device
 {
-    long id;
+    size_t id;
     std::string name;
     std::string details;
     long timeOffset;
@@ -80,30 +82,29 @@ void ltpv_stopAndRecord(
     const void *filename
 );
 
-void ltpv_addDevice(
-    int idDevice,
-    const void *nameDevice,
-    void *detailsDevice = NULL,
+size_t ltpv_addDevice(
+    size_t idDevice,
+    const char *nameDevice,
+    const char *detailsDevice = "",
     long timeOffset = 0
 );
 
-void ltpv_addStream(
-    int idStream,
-    int idDevice,
-    const void *name
+size_t ltpv_addStream(
+    size_t idStream,
+    size_t idDevice,
+    const char *name
 );
-
-void ltpv_addTask(
-    long int idTask,
-    const void *nameTask
+size_t ltpv_addTask(
+    size_t idTask,
+    const char *nameTask
 );
 
 void ltpv_addTaskInstance(
-    long int idTask,
+    size_t idTask,
     const char *name,
     const char *details,
-    long idDevice,
-    long idStream,
+    size_t idDevice,
+    size_t idStream,
     long start,
     long end,
     long ocl_queue     = -1,
@@ -113,8 +114,8 @@ void ltpv_addTaskInstance(
 );
 
 void ltpv_stopAndRecord(
-    const void *filename
+    const char *filename
 );
 
 
-void add_end_functions(std::function<int(void)> func);
+void ltpv_add_end_functions(int(*func)(void));

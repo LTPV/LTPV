@@ -27,9 +27,21 @@
 	
 	#define LTPV_CL_ENQUEUE 1
 
+    #define LTPV_OPENCL_NOT_MEMOP       0
+    #define LTPV_OPENCL_READBUF_MEMOP   1
+    #define LTPV_OPENCL_WRITEBUF_MEMOP  2
+    #define LTPV_OPENCL_READIMG_MEMOP   3
+    #define LTPV_OPENCL_WRITEIMG_MEMOP  4
+    #define LTPV_OPENCL_DTD_MEMOP       5
+    #define LTPV_OPENCL_MAPBUF_MEMOP    6
+    #define LTPV_OPENCL_UNMAP_MEMOP  7
+    #define LTPV_OPENCL_MAPIMG_MEMOP    8
+    #define LTPV_OPENCL_LAST_MEMOP      10
+
+
 	struct ltpv_t_taskInstancesQueue {
-		cl_kernel kernel;
-		char name[500];
+        size_t taskId;
+        char name[500];
 		char* details;
 		cl_command_queue queue;
 		cl_event *event;
@@ -115,7 +127,7 @@
 	);
 
 	void ltpv_OpenCL_addTaskInstance(
-		cl_kernel kernel,
+        size_t taskId,
 		cl_command_queue queue,
 		cl_event *event,
 		long tCPU,

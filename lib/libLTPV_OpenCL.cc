@@ -18,10 +18,9 @@
 #include <memory>
 #define GTOF(u) {struct timeval t; gettimeofday(&t, NULL); u = t.tv_sec*1000000+t.tv_usec;}
 
-
-std::vector<std::unique_ptr<ltpv_t_taskInstancesQueue>> ltpv_taskInstancesQueue;
+std::vector<std::unique_ptr<ltpv_t_taskInstancesQueue> > ltpv_taskInstancesQueue;
 std::map<void *, ltpv_t_cl_mapped *> ltpv_cl_mapped;
-
+static size_t memop_taskid_map[LTPV_OPENCL_LAST_MEMOP] = {0};
 
 int ltpv_OpenCL_initialize = 0; // The address of this variable will also be used as a unique identifier for transfers
 
@@ -31,14 +30,14 @@ std::vector<std::unique_ptr<cl_event> > events;
 // If an event was not provided, will create one for profiling reasons.
 inline cl_event *ltpv_OpenCL_createEvent()
 {
-   cl_event *ev = new cl_event; 
-   events.push_back(std::unique_ptr<cl_event> (ev));
+    cl_event *ev = new cl_event;
+    events.push_back(std::unique_ptr<cl_event> (ev));
     return ev;
 }
 
 int ltpv_OpenCL_unqueueTaskInstances(void)
 {
-    
+
     cl_device_id deviceId;
     std::cout << "test" << std::endl;
     for (auto taskInstanceIt = ltpv_taskInstancesQueue.begin(); taskInstanceIt != ltpv_taskInstancesQueue.end();
@@ -52,12 +51,13 @@ int ltpv_OpenCL_unqueueTaskInstances(void)
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_SUBMIT, sizeof(cl_ulong), &submit   , NULL);
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_START , sizeof(cl_ulong), &start    , NULL);
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_END   , sizeof(cl_ulong), &end      , NULL);
-        clGetCommandQueueInfo(taskInstance->queue , CL_QUEUE_DEVICE , sizeof(cl_device_id), &deviceId, NULL);
+        clGetCommandQueueInfo(taskInstance->queue , CL_QUEUE_DEVICE , sizeof(cl_device_id), &deviceId,
+                              NULL); //FIXME change to a map, this is not secure if the queue get destroyed.
         long bandwidth = 0;
         if (taskInstance->size > 0)
         {
             float bandwidthF = (float)1000.0 * taskInstance->size / (end - start);
-            bandwidth = (long)bandwidthF;
+            bandwidth = (long) bandwidthF;
         }
 
 
@@ -74,18 +74,17 @@ int ltpv_OpenCL_unqueueTaskInstances(void)
         start     -= offset;
         end       -= offset;
 
-        if (taskInstance->kernel == (cl_kernel)((unsigned long)(&ltpv_OpenCL_initialize)  )
-                || taskInstance->kernel == (cl_kernel)((unsigned long)(&ltpv_OpenCL_initialize) + 1)) // Not kernel but transfers
+        if (taskInstance->taskId < LTPV_OPENCL_LAST_MEMOP) // Not kernel but transfers
         {
             queued = submit = -1;
         }
 
         ltpv_addTaskInstance(
-            (long int)(taskInstance->kernel),
+            taskInstance->taskId,
             taskInstance->name,
             taskInstance->details,
-            (long)deviceId,
-            (long)taskInstance->queue,
+            (size_t)deviceId,
+            (size_t)taskInstance->queue,
             (long)start,
             (long)end,
             (long)queued,
@@ -110,15 +109,39 @@ cl_context clCreateContext(
     if (!ltpv_OpenCL_initialize)
     {
         ltpv_OpenCL_initialize = 1;
-        add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
+        ltpv_add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
 
-        ltpv_addTask(
-            (unsigned long)(&ltpv_OpenCL_initialize),
-            "Host to Device"
+        memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_READBUF_MEMOP,
+            "Read Buffer"
         );
-        ltpv_addTask(
-            (unsigned long)(&ltpv_OpenCL_initialize + 1),
-            "Device to Host"
+        memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_WRITEBUF_MEMOP,
+            "Write Buffer"
+        );
+        memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_WRITEIMG_MEMOP,
+            "Write Image"
+        );
+        memop_taskid_map[LTPV_OPENCL_READIMG_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_READIMG_MEMOP,
+            "Read Image"
+        );
+        memop_taskid_map[LTPV_OPENCL_DTD_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_DTD_MEMOP,
+            "Device To Device"
+        );
+        memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_MAPBUF_MEMOP,
+            "Map Buffer"
+        );
+        memop_taskid_map[LTPV_OPENCL_UNMAP_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_UNMAP_MEMOP,
+            "Unmap memory object"
+        );
+        memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP] = ltpv_addTask(
+            LTPV_OPENCL_MAPBUF_MEMOP,
+            "Map Image"
         );
     }
     cl_uint nDevice = 0;
@@ -299,14 +322,14 @@ cl_kernel clCreateKernel(
 {
     cl_kernel kernel = ltpv_call_original(clCreateKernel)(program, kernel_name, errcode_ret);
 
-    long id = (long)kernel; // Adress as unique identifier
+    size_t id = (size_t) kernel; // Adress as unique identifier
     ltpv_addTask(id, kernel_name);
 
     return kernel;
 }
 
 void ltpv_OpenCL_addTaskInstance(
-    cl_kernel kernel,
+    size_t taskId,
     cl_command_queue queue,
     cl_event *event,
     long tCPU,
@@ -317,7 +340,7 @@ void ltpv_OpenCL_addTaskInstance(
 {
 
     ltpv_t_taskInstancesQueue *taskInstance = new ltpv_t_taskInstancesQueue;
-    taskInstance->kernel = kernel;
+    taskInstance->taskId = taskId;
     strcpy(taskInstance->name, name == NULL ? "" : name);
     taskInstance->queue = queue;
     taskInstance->event = event;
@@ -369,7 +392,7 @@ cl_int clEnqueueNDRangeKernel(
         strcat(details, "auto");
     }
     strcat(details, "</ocl_local_work_size>");
-    ltpv_OpenCL_addTaskInstance(kernel, command_queue, event2, u, 0, NULL, details);
+    ltpv_OpenCL_addTaskInstance((size_t) kernel, command_queue, event2, u, 0, NULL, details);
 
     return status;
 }
@@ -395,7 +418,8 @@ cl_int clEnqueueWriteBuffer(
     {
         *event = *event2;
     }
-    ltpv_OpenCL_addTaskInstance((cl_kernel)&ltpv_OpenCL_initialize  , command_queue, event2, u, cb);
+
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP], command_queue, event2, u, cb);
 
     return status;
 }
@@ -421,7 +445,7 @@ cl_int clEnqueueReadBuffer(
     {
         *event = *event2;
     }
-    ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize + 1), command_queue, event2, u, cb);
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP], command_queue, event2, u, cb);
 
     return status;
 }
@@ -449,7 +473,7 @@ void *clEnqueueMapBuffer(
         *event = *event2;
     }
 
-    ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize + 1), command_queue, event2, u, cb);
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP], command_queue, event2, u, cb);
     ltpv_t_cl_mapped *newMapped = new ltpv_t_cl_mapped;
     newMapped->size = cb;
     newMapped->addr = R;
@@ -459,7 +483,39 @@ void *clEnqueueMapBuffer(
 }
 
 
+ void * clEnqueueMapImage ( 	cl_command_queue  command_queue ,
+  	cl_mem  image ,
+  	cl_bool  blocking_map ,
+  	cl_map_flags  map_flags ,
+  	const size_t  * origin ,
+  	const size_t  * region ,
+  	size_t  *image_row_pitch ,
+  	size_t  *image_slice_pitch ,
+  	cl_uint  num_events_in_wait_list ,
+  	const cl_event  *event_wait_list ,
+  	cl_event  *event ,
+  	cl_int  *errcode_ret )
+{
+    cl_event *event2 = ltpv_OpenCL_createEvent();
+    long u;
+    long cb = region[0] * region[1] * region[2];
+    GTOF(u);
+    void *R = ltpv_call_original(clEnqueueMapImage)(command_queue, image, blocking_map, map_flags, origin, region, image_row_pitch, image_slice_pitch,
+              num_events_in_wait_list, event_wait_list, event2, errcode_ret);
+    if (event != NULL)
+    {
+        *event = *event2;
+    }
+    
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP], command_queue, event2, u, cb );
+    ltpv_t_cl_mapped *newMapped = new ltpv_t_cl_mapped;
+    newMapped->size = cb;
+    newMapped->addr = R;
 
+    ltpv_cl_mapped[R] = newMapped;
+    return R;
+
+}
 
 
 cl_int clEnqueueUnmapMemObject(
@@ -485,7 +541,7 @@ cl_int clEnqueueUnmapMemObject(
 
     if (it != ltpv_cl_mapped.end())
     {
-        ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, u, it->second->size);
+        ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_UNMAP_MEMOP], command_queue, event2, u, it->second->size);
         ltpv_cl_mapped.erase(it);
     }
     return status;
@@ -514,10 +570,12 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
     {
         *event = *event2;
     }
-    ltpv_OpenCL_addTaskInstance((cl_kernel)(&ltpv_OpenCL_initialize), command_queue, event2, u,
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP], command_queue, event2, u,
                                 region[1]*region[2]*input_row_pitch);
 
     return status;
 }
+
+
 
 
