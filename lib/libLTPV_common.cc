@@ -10,145 +10,109 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
-*/
+ */
 #include "libLTPV_common.hh"
 
-#include "ltpv_tools.cc"
 #include <string.h>
 #include <map>
 #include <vector>
-ltpv_t_device        *ltpv_devicesInstanciated = NULL;
-ltpv_t_task          *ltpv_tasksInstanciated   = NULL;
-ltpv_t_end_functions *ltpv_end_functions       = NULL;
+#include <iostream>
+
+std::map<int, ltpv_t_device *> ltpv_devices;
+std::map<int, ltpv_t_task *> ltpv_tasks;
+std::vector<void (*)(void)> ltpv_end_functions;
+std::map<int, std::vector<ltpv_cpu_instance *> > cpu_instances_by_threads;
+
 long ltpv_t0;
 
-std::map<int, int> cpu_instances;
+void add_end_functions(void (*func) (void))
+{
+    ltpv_end_functions.push_back(func);
+}
 
 void ltpv_start()
 {
     struct timeval t;
     gettimeofday(&t, NULL);
     ltpv_t0 = t.tv_sec * 1000000 + t.tv_usec;
-
     return;
 }
 
-void ltpv_add_cpu_instance(const char *taskName, int thread, long start, long stop)
+void ltpv_add_cpu_instance(const char *taskName, int threadId, long start, long stop)
 {
-    ltpv_cpu_instance instance = {taskName, start, stop};
+    ltpv_cpu_instance *instance = new ltpv_cpu_instance;
+    instance->taskName = std::string(taskName);
+    instance->start = start;
+    instance->stop = stop;
+
+    cpu_instances_by_threads[threadId].push_back(instance);
 }
 
 void ltpv_addDevice(
-    int idDevice,
-    const void *nameDevice,
-    void *detailsDevice,
-    long timeOffset
-)
+                    int idDevice,
+                    const char *nameDevice,
+                    const char *detailsDevice,
+                    long timeOffset
+                   )
 {
 
-    ltpv_t_device *newDevice = (ltpv_t_device *) malloc(sizeof(ltpv_t_device));
+    ltpv_t_device *newDevice = new ltpv_t_device;
     newDevice->id = idDevice;
-    strcpy(newDevice->name, (const char *)nameDevice);
-    strcpy(newDevice->details, (const char *)detailsDevice);
+    newDevice->name = std::string (nameDevice);
+    newDevice->details = std::string (detailsDevice);
     newDevice->timeOffset = timeOffset;
-    newDevice->firstStream = NULL;
-    newDevice->next = NULL;
-    ltpv_t_device **devicePtr = &ltpv_devicesInstanciated;
-    while (*devicePtr != NULL)
-    {
-        devicePtr = &((*devicePtr)->next);
-    }
-    *devicePtr = newDevice;
+
+    ltpv_devices[idDevice] = newDevice;
 }
 
 void ltpv_addStream(
-    int idStream,
-    int idDevice,
-    const void *name
-)
+                    int idStream,
+                    int idDevice,
+                    const char *name
+                   )
 {
-    ltpv_t_stream *newStream = (ltpv_t_stream *) malloc(sizeof(ltpv_t_stream));
-    strcpy(newStream->name, (const char *)name);
+    ltpv_t_stream *newStream = new ltpv_t_stream;
+    newStream->name = std::string (name);
     newStream->id = idStream;
-    newStream->firstTaskInstance = NULL;
-    newStream->next      = NULL;
 
-    ltpv_t_device *device = ltpv_devicesInstanciated;
-    while (device->id != idDevice)
-    {
-        device = device->next;
-    }
+    ltpv_devices[idDevice]->streams[idStream] = newStream;
 
-    ltpv_t_stream **streamPtr = &device->firstStream;
-    while (*streamPtr != NULL)
-    {
-        streamPtr = &((*streamPtr)->next);
-    }
-    *streamPtr = newStream;
 }
 
 void ltpv_addTask(
-    long int idTask,
-    const void *nameTask
-)
+                  long int idTask,
+                  const char *nameTask
+                 )
 {
-    unsigned int i = 0;
-    ltpv_t_task **ptrTask = &ltpv_tasksInstanciated;
-    while (*ptrTask != NULL)
-    {
-        ptrTask = &((*ptrTask)->next);
+    ltpv_t_task *newTask = new ltpv_t_task;
+    if (idTask != -1)
+        newTask->id = idTask;
+    else
+        newTask->id = ltpv_tasks.size();
 
-        i++;
-    }
+    newTask->name = std::string(nameTask);
 
-    ltpv_t_task *newTask = (ltpv_t_task *) malloc(sizeof(ltpv_t_task));
-    newTask->id = idTask;
-    strcpy(newTask->name, (const char *)nameTask);
-    newTask->next = NULL;
-
-    if (idTask == -1)
-    {
-        newTask->id = i;
-    }
-    *ptrTask = newTask;
-}
-
-long int ltpv_searchTask(const char *nameTask)
-{
-
-                    ltpv_t_task  *ltpv_task_check      = ltpv_tasksInstanciated;
-                    long  taskId = -1;
-                    //printf("\n\nNew query: %s, ltpv_cpu_task = %ld\n", ltpv_buffer[i*ltpv_sizebuffer+j].name, ltpv_cpu_task);
-                    while (ltpv_task_check != NULL)
-                    {
-                        //printf("\t\tComparing %s with %s having next = %ld\n", ltpv_buffer[i*ltpv_sizebuffer+j].name, (ltpv_cpu_task_check)->name, (ltpv_cpu_task_check)->next);
-                        if (strcmp((ltpv_task_check)->name, nameTask) == 0)
-                        {
-                            taskId = ltpv_task_check->id;
-                            break;
-                        }
-                        ltpv_task_check = (ltpv_task_check)->next;
-                    }
-                    return taskId;
+    ltpv_tasks[newTask->id] = newTask;
 }
 
 void ltpv_addTaskInstance(
-    long int idTask,
-    const char *name,
-    char *details,
-    int idStream,
-    long start,
-    long end,
-    long ocl_queued,
-    long ocl_submit,
-    long ocl_size,
-    long ocl_bandwidth
-)
+                          long int idTask,
+                          const char *name,
+                          const char *details,
+                          int idDevice,
+                          int idStream,
+                          long start,
+                          long end,
+                          long ocl_queued,
+                          long ocl_submit,
+                          long ocl_size,
+                          long ocl_bandwidth
+                         )
 {
-    ltpv_t_taskInstance *taskInstance = (ltpv_t_taskInstance *) malloc(sizeof(ltpv_t_taskInstance));
+    ltpv_t_taskInstance *taskInstance = new ltpv_t_taskInstance;
     taskInstance->idTask    = idTask;
-    strcpy(taskInstance->name, name);
-    taskInstance->details   = details;
+    taskInstance->name = std::string (name);
+    taskInstance->details   = std::string(details);
     //printf("[%ld %ld]\n", ocl_queued, start);
     taskInstance->start         = start;
     taskInstance->end           = end;
@@ -156,55 +120,21 @@ void ltpv_addTaskInstance(
     taskInstance->ocl_submit    = ocl_submit;
     taskInstance->ocl_size      = ocl_size;
     taskInstance->ocl_bandwidth = ocl_bandwidth;
-    taskInstance->next          = NULL;
 
-    // Find the stream
-    ltpv_t_stream *stream;
-    ltpv_t_device *idDevice = ltpv_devicesInstanciated;
-    int stopSearch = 0;
-    while (idDevice != NULL && stopSearch == 0)
-    {
-        stream = idDevice->firstStream;
-        while (stream != NULL && stopSearch == 0)
-        {
-            if (stream->id == idStream)
-            {
-                stopSearch = 1;
-            }
-            else
-            {
-                stream = stream -> next;
-            }
-        }
-        idDevice = idDevice->next;
-    }
-    if (LTPV_DEBUG && stopSearch == 0)
-    {
-        printf("Error %s:%d: stopSearch=0\n", __FILE__, __LINE__);
-    }
-
-    ltpv_t_taskInstance **ptrTaskInstance = &(stream->firstTaskInstance);
-    while (*ptrTaskInstance != NULL)
-    {
-        ptrTaskInstance = &((*ptrTaskInstance)->next);
-    }
-    *ptrTaskInstance = taskInstance;
+    ltpv_devices[idDevice]->streams[idStream]->taskInstances.push_back(taskInstance);
 }
 
 void ltpv_stopAndRecord(
-    const void *filename
-)
+                        const void *filename
+                       )
 {
+
     // call callback functions
-    ltpv_t_end_functions *functionS = ltpv_end_functions, *functionSN;
-    while (functionS != NULL)
+    for (void (*func)(void)  : ltpv_end_functions)
     {
-        void (*function)() = functionS->function;
-        (*function)();
-        functionSN = functionS->next;
-        free(functionS);
-        functionS = functionSN;
+        func();
     }
+
     FILE *f = fopen((const char *)filename, "w");
     fprintf(f, "<profiling>\n\t<head>\n\t\t<unit>μs</unit>\n");
     {
@@ -219,62 +149,40 @@ void ltpv_stopAndRecord(
     fprintf(f, "\t</head>\n");
     /* List tasks */
     fprintf(f, "\n\t<!-- List tasks -->\n");
-    ltpv_t_task *task = ltpv_tasksInstanciated;
-    while (task != NULL)
+    for (auto taskPair : ltpv_tasks)
     {
-        fprintf(f, "\t<task>\n\t\t<id>%ld</id>\n\t\t<name>%s</name>\n\t</task>\n", task->id, task->name);
-        task = task->next;
+        ltpv_t_task *task = taskPair.second;
+        fprintf(f, "\t<task>\n\t\t<id>%ld</id>\n\t\t<name>%s</name>\n\t</task>\n", task->id, task->name.c_str());
     }
     /* List devices */\
-    fprintf(f, "\n\t<!-- List devices -->\n");
-    ltpv_t_device *device = ltpv_devicesInstanciated;
-    while (device != NULL)
+        fprintf(f, "\n\t<!-- List devices -->\n");
+    for (auto devicePair : ltpv_devices)
     {
-        fprintf(f, "\t<device><!-- device->id = %d -->\n\t\t<name>%s</name>\n\t\t<details>", device->id, device->name);
-        if (device->details != NULL)
-        {
-            fprintf(f, "\n%s", device->details);
-            free(device->details);
-        }
+        ltpv_t_device *device = devicePair.second;
+        fprintf(f, "\t<device><!-- device->id = %d -->\n\t\t<name>%s</name>\n\t\t<details>", device->id, device->name.c_str());
+        fprintf(f, "\n%s", device->details.c_str());
         fprintf(f, "</details>\n");
-        ltpv_t_stream *stream = device->firstStream;
-        while (stream != NULL)
+        for(auto streamPair : device->streams)
         {
-            fprintf(f, "\t\t<stream>\n\t\t\t<name>%s</name>\n", stream->name);
-            ltpv_t_taskInstance *taskInstance = stream->firstTaskInstance;
-            while (taskInstance != NULL)
+            ltpv_t_stream *strm = streamPair.second;
+            fprintf(f, "\t\t<stream>\n\t\t\t<name>%s</name>\n", strm->name.c_str());
+            for (auto taskInstance : strm->taskInstances)
             {
-                char taskName[500] = "";
-                task = ltpv_tasksInstanciated;
-                while (task != NULL)
-                {
-                    if (task->id == taskInstance->idTask)
-                    {
-                        strcpy(taskName, task->name);
-                        task = NULL;
-                    }
-                    else
-                    {
-                        task = task->next;
-                    }
-                }
+                const char *taskName = ltpv_tasks[taskInstance->idTask]->name.c_str();
                 if (taskInstance->start     + device->timeOffset - ltpv_t0 >=
-                        0) // if start < 0, it means that the task was queued before the start call
+                    0) // if start < 0, it means that the task was queued before the start call
                 {
                     fprintf(
-                        f,
-                        "\t\t\t<taskInstance>\n\t\t\t\t<idTask>%ld</idTask><!-- task.name = %s -->\n\t\t\t\t<name>%s</name>\n\t\t\t\t<start>%ld</start>\n\t\t\t\t<end>%ld</end>%s\n",
-                        taskInstance->idTask,
-                        taskName,
-                        (taskInstance->name[0] == '\0') ? taskName : taskInstance->name,
-                        taskInstance->start     + device->timeOffset - ltpv_t0,
-                        taskInstance->end       + device->timeOffset - ltpv_t0,
-                        (taskInstance->details != NULL) ? taskInstance->details : ""
-                    );
-                    /*
-                                            taskInstance->ocl_queued    + device->timeOffset-ltpv_t0,
-                                            taskInstance->ocl_submit    + device->timeOffset-ltpv_t0,
-                                            */
+                            f,
+                            "\t\t\t<taskInstance>\n\t\t\t\t<idTask>%ld</idTask><!-- task.name = %s -->\n\t\t\t\t<name>%s</name>\n\t\t\t\t<start>%ld</start>\n\t\t\t\t<end>%ld</end>%s\n",
+                            taskInstance->idTask,
+                            taskName,
+                            (taskInstance->name.empty()) ? taskName : taskInstance->name.c_str(),
+                            taskInstance->start     + device->timeOffset - ltpv_t0,
+                            taskInstance->end       + device->timeOffset - ltpv_t0,
+                            taskInstance->details.c_str()
+                           );
+
                     if (taskInstance->ocl_queued >= 0)
                     {
                         fprintf(f, "\t\t\t\t<ocl_queued>%ld</ocl_queued>\n", taskInstance->ocl_queued + device->timeOffset - ltpv_t0);
@@ -299,48 +207,12 @@ void ltpv_stopAndRecord(
                            __FILE__, __LINE__, taskName, taskInstance->start, device->timeOffset, ltpv_t0,
                            (taskInstance->start + device->timeOffset - ltpv_t0));
                 }
-                taskInstance = taskInstance->next;
             }
             fprintf(f, "\t\t</stream>\n");
-            stream = stream->next;
         }
         fprintf(f, "\t</device>\n");
-        device = device->next;
     }
     fprintf(f, "</profiling>\n");
     fclose(f);
-
-    // Let's clean our mess
-    {
-        ltpv_t_task *task = ltpv_tasksInstanciated, *taskN;
-        while (task != NULL)
-        {
-            taskN = task->next;
-            free(task);
-            task = taskN;
-        }
-        ltpv_t_device *device = ltpv_devicesInstanciated, *deviceN;
-        while (device != NULL)
-        {
-            ltpv_t_stream *stream = device->firstStream, *streamN;
-            while (stream != NULL)
-            {
-                ltpv_t_taskInstance *taskInstance = stream->firstTaskInstance, *taskInstanceN;
-                while (taskInstance != NULL)
-                {
-                    taskInstanceN = taskInstance->next;
-                    free(taskInstance->details);
-                    free(taskInstance);
-                    taskInstance = taskInstanceN;
-                }
-                streamN = stream->next;
-                free(stream);
-                stream = streamN;
-            }
-            deviceN = device->next;
-            free(device);
-            device = deviceN;
-        }
-    }
 }
 

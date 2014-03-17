@@ -15,7 +15,7 @@
 
 	#include "libLTPV_colors.hh"
 	#include <dlfcn.h>
-	#define ltpv_call_original(x) (*((typeof(x) *) dlsym(RTLD_NEXT, #x)))
+	#define ltpv_call_original(x) (*((decltype(x) *) dlsym(RTLD_NEXT, #x)))
 
 struct ltpv_buffer_elem
 {

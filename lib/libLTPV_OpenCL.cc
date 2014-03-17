@@ -15,7 +15,6 @@
 #include "libLTPV_OpenCL.hh"
 #define GTOF(u) {struct timeval t; gettimeofday(&t, NULL); u = t.tv_sec*1000000+t.tv_usec;}
 
-extern ltpv_t_end_functions *ltpv_end_functions;
 
 ltpv_t_taskInstancesQueue *ltpv_taskInstancesQueue = NULL;
 
@@ -47,16 +46,10 @@ cl_context clCreateContext(
 {
 	cl_context contextG = ltpv_call_original(clCreateContext)(properties, num_devices, devices, pfn_notify, user_data, errcode_ret);
 
-	if(ltpv_OpenCL_initialize==0) {
+	if(!ltpv_OpenCL_initialize) {
 		ltpv_OpenCL_initialize=1;
-		ltpv_t_end_functions *newEndFunction = (ltpv_t_end_functions*)malloc(sizeof(ltpv_t_end_functions));
-		newEndFunction->function = ltpv_OpenCL_unqueueTaskInstances;
-		newEndFunction->next=NULL;
-		ltpv_t_end_functions ** ptrEndFunction = &ltpv_end_functions;
-		while(*ptrEndFunction!=NULL) {
-			ptrEndFunction = &((*ptrEndFunction)->next);
-		}
-		*ptrEndFunction = newEndFunction;
+		add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
+
 		ltpv_addTask(
 			(unsigned long)(&ltpv_OpenCL_initialize),
 			"Host to Device"
@@ -423,8 +416,9 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
 	return status;
 }
 
-void ltpv_OpenCL_unqueueTaskInstances() {
+void ltpv_OpenCL_unqueueTaskInstances(void) {
 	ltpv_t_taskInstancesQueue *ptrTaskInstance = ltpv_taskInstancesQueue, *ptrTaskInstanceP;
+
 	while(ptrTaskInstance != NULL) {
 		clWaitForEvents(1, ptrTaskInstance->event);
 		cl_ulong queued, submit, start, end;
@@ -434,7 +428,7 @@ void ltpv_OpenCL_unqueueTaskInstances() {
 		clGetEventProfilingInfo(*(ptrTaskInstance->event), CL_PROFILING_COMMAND_END   , sizeof(cl_ulong), &end      , NULL);
 		long bandwidth = 0;
 		if(ptrTaskInstance->size > 0) {
-			float bandwidthF = (float)1000.0*ptrTaskInstance->size/(end-start);
+			float bandwidthF = (float)1000.0 * ptrTaskInstance->size/(end-start);
 			bandwidth = (long)bandwidthF;
 		}
 

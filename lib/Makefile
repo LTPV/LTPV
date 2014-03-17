@@ -1,4 +1,4 @@
 all:
-	g++ -g -ggdb -shared -o libLTPV.so -fPIC libLTPV.cc -lOpenCL -I/usr/local/cuda/include/
+	g++ -W -Wall -Wextra -std=c++11 -g -ggdb -shared -o libLTPV.so -fPIC libLTPV.cc -lOpenCL -I/usr/local/cuda/include/
 clean:
 	rm -f libLTPV.so

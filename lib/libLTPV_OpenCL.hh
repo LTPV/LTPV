@@ -11,9 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
 */
-
-#ifndef LIB_LTPV_OPENCL_H
-	#define LIB_LTPV_OPENCL_H
+#pragma once
 	
 	#include <CL/cl.h>
 	#include <stdio.h>
@@ -200,6 +198,5 @@
 		cl_event *       event
 	);
 
-	void ltpv_OpenCL_unqueueTaskInstances();
+	void ltpv_OpenCL_unqueueTaskInstances(void);
 	
-#endif

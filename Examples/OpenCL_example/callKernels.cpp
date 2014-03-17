@@ -98,7 +98,7 @@ void filtre(unsigned char *X, unsigned char *Y) {
 	cl_program program;
 	program = clCreateProgramWithSource(context, 1, (const char**)&fKernels, (const size_t *)&length, &status); CHECK(status);
 	free(fKernels);
-	status = clBuildProgram(program, 0, NULL, "", NULL, NULL);
+	status = clBuildProgram(program, 0, NULL, "-I.", NULL, NULL);
 	if (status != CL_SUCCESS) { // displaying LOG
 		CERR("Impossible to build the program");
 		size_t len; 	char buffer[65536];

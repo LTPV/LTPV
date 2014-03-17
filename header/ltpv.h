@@ -20,14 +20,8 @@
 #define LTPV_SIZEBUFFER 1000000
 #endif
 
-void (*ltpv_addDevice_func)(int, const void *);
-void (*ltpv_addStream_func)(int, int, const void *);
-void (*ltpv_addTask_func)(long int, const void *);
-void (*ltpv_addTaskInstance_func)(long int, const char *, char *, int, long, long);
-long (*ltpv_searchTask_func)(const char *);
+static void (*ltpv_add_cpu_instance_func)(const char *, int, long, long) = NULL;
 
-#define LTPV_NUMTHREADS_T ((unsigned int)LTPV_NUMTHREADS)
-#define LTPV_SIZEBUFFER_T ((unsigned int)LTPV_SIZEBUFFER)
 static bool ltpv_isInit = false;
 static long ltpv_lastTaskId = 1;
 //void (*prev_handler[32])(int);//SIGRTMAX
@@ -43,10 +37,9 @@ static long ltpv_lastTaskId = 1;
         gettimeofday(&ltpv_t1, NULL);\
         ltpv_expr;\
         gettimeofday(&ltpv_t2, NULL);\
-        ltpv_idTask = ltpv_searchTask_func(ltpv_name);\
-        if (ltpv_idTask < 0){ ltpv_addTask_func(ltpv_lastTaskId, ltpv_name); ltpv_idTask = ltpv_lastTaskId++;}\
-        ltpv_addTaskInstance_func(ltpv_idTask, "cpu task", "cpu", (size_t) &ltpv_addStream_func + ltpv_idThread, ltpv_t1.tv_sec*1000000+ltpv_t1.tv_usec,\
-                                  ltpv_t2.tv_sec*1000000+ltpv_t2.tv_usec);\
+        ltpv_add_cpu_instance_func(ltpv_name, ltpv_idThread, \
+        ltpv_t1.tv_sec*1000000+ltpv_t1.tv_usec,\
+        ltpv_t2.tv_sec*1000000+ltpv_t2.tv_usec);\
     } else ltpv_expr;\
 } while(0)
 #else
@@ -58,24 +51,19 @@ static long ltpv_lastTaskId = 1;
 static void ltpv_init (void) __attribute__((constructor));
 //static void ltpv_end (void) __attribute__((destructor (200)));
 
-static void ltpv_end (void);
+//static void ltpv_end (void);
 
-static void ltpv_terminate (int signum)
-{
-    printf("ltpv terminate : %s\n", strsignal(signum));
-    ltpv_end();
-    printf("ltpv ended\n");
-}
+//static void ltpv_terminate (int signum)
+//{
+//    printf("ltpv terminate : %s\n", strsignal(signum));
+//    ltpv_end();
+//    printf("ltpv ended\n");
+//}
 
 static void ltpv_init(void)
 {
     char *env = NULL;
     void *libLTPV = NULL;
-    ltpv_addDevice_func = NULL;
-    ltpv_addStream_func = NULL;
-    ltpv_addTask_func = NULL;
-    ltpv_addTaskInstance_func = NULL;
-    ltpv_searchTask_func = NULL;
 
     if (!ltpv_isInit)
     {
@@ -86,27 +74,8 @@ static void ltpv_init(void)
             libLTPV = dlopen(env, RTLD_LAZY);
             if (dlerror() == NULL)
             {
-                ltpv_addDevice_func = (void (*)(int, const void *)) dlsym(libLTPV, "ltpv_short_addDevice");
+                ltpv_add_cpu_instance_func = (void (*)(const char *, int, long, long)) dlsym(libLTPV, "ltpv_add_cpu_instance");
                 assert(dlerror() == NULL);
-                ltpv_addStream_func = (void (*)(int, int, const void *)) dlsym(libLTPV, "ltpv_addStream");
-                assert(dlerror() == NULL);
-                ltpv_addTask_func = (void (*)(long int, const void *)) dlsym(libLTPV, "ltpv_addTask");
-                assert(dlerror() == NULL);
-                ltpv_addTaskInstance_func = (void (*)(long int, const char *, char *, int, long, long)) dlsym(libLTPV,
-                                            "ltpv_short_addTaskInstance");
-                assert(dlerror() == NULL);
-                ltpv_searchTask_func = (long (*)(const char *)) dlsym(libLTPV, "ltpv_searchTask");
-                assert(dlerror() == NULL);
-
-                ltpv_addDevice_func((size_t) &ltpv_addDevice_func /*FIXME Unique ID, dirty!*/, "CPU");
-                printf("addDevice\n");
-                for (unsigned int i = 0; i < LTPV_NUMTHREADS_T; ++i)
-                {
-                    char sname[2] = {0};
-                    sname[0] = i + '0';
-                    ltpv_addStream_func((size_t)&ltpv_addStream_func + i /*FIXME Unique ID, dirty!*/, (size_t) &ltpv_addDevice_func, sname);
-                    printf("addStream\n");
-                }
                 //dlclose(libLTPV);
             }
             else
@@ -124,9 +93,9 @@ static void ltpv_init(void)
     // signal(SIGSEGV, &ltpv_terminate);
 }
 
-static void ltpv_end(void)
-{
-}
+//static void ltpv_end(void)
+//{
+//}
 
 // to avoid "warning: ISO C does not permit named variadic macros"
 // from: http://stackoverflow.com/questions/9775284/cleaning-up-c-c-code-reveals-problems-with-variadic-macros
