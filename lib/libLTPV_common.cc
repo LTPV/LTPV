@@ -64,6 +64,11 @@ int ltpv_cpu_unqueueTaskInstances(void)
                 taskId = ltpv_addTask(ltpv_cpu_task_index, instance->taskName.c_str());
                 ltpv_cpu_task_index++;
             }
+            else
+            {
+                taskId = taskIt->first;
+            }
+
             ltpv_addTaskInstance(taskId, "", "", cpuId, threadId, instance->start, instance->stop);
         }
     }

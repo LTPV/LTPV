@@ -26,8 +26,5 @@ static void wrap_init(void)
 
 static void wrap_end(void)
 {
-#ifndef NDEBUG
-    fprintf(stderr, "wrap_end\n");
-#endif
     ltpv_stopAndRecord("profiling_date.xml");
 }
