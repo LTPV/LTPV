@@ -26,6 +26,45 @@ int ltpv_OpenCL_initialize = 0; // The address of this variable will also be use
 
 std::vector<std::unique_ptr<cl_event> > events;
 
+static infos infosT[] =
+{
+    {
+        "CL_DEVICE_VENDOR",
+        LTPV_OPENCL_STRING,
+        CL_DEVICE_VENDOR,
+        "Vendor name string."
+    },
+    {
+        "CL_DEVICE_TYPE",
+        LTPV_OPENCL_DEVICE_TYPE,
+        CL_DEVICE_TYPE,
+        "The OpenCL device type. Currently supported values are one of or a combination of: CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR, or CL_DEVICE_TYPE_DEFAULT."
+    },
+    {
+        "CL_DEVICE_ADDRESS_BITS",
+        LTPV_OPENCL_UINT,
+        CL_DEVICE_ADDRESS_BITS,
+        "The default compute device address space size specified as an unsigned integer value in bits. Currently supported values are 32 or 64 bits."
+    },
+    {
+        "CL_DEVICE_EXTENSIONS",
+        LTPV_OPENCL_STRING,
+        CL_DEVICE_EXTENSIONS,
+        "Returns a list of extension names"
+    },
+    {
+        "CL_DEVICE_VERSION",
+        LTPV_OPENCL_STRING,
+        CL_DEVICE_VERSION,
+        "OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::\nOpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;\nThe major_version.minor_version value returned will be 1.0."
+    },
+    {
+        "CL_DRIVER_VERSION",
+        LTPV_OPENCL_STRING,
+        CL_DRIVER_VERSION,
+        "OpenCL software driver version string in the form major_number.minor_number."
+    }
+};
 
 // If an event was not provided, will create one for profiling reasons.
 inline cl_event *ltpv_OpenCL_createEvent()
@@ -112,129 +151,53 @@ cl_context clCreateContext(
         ltpv_add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
 
         memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_READBUF_MEMOP,
-            "Read Buffer"
-        );
+                    LTPV_OPENCL_READBUF_MEMOP,
+                    "Read Buffer"
+                );
         memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_WRITEBUF_MEMOP,
-            "Write Buffer"
-        );
+                    LTPV_OPENCL_WRITEBUF_MEMOP,
+                    "Write Buffer"
+                );
         memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_WRITEIMG_MEMOP,
-            "Write Image"
-        );
+                    LTPV_OPENCL_WRITEIMG_MEMOP,
+                    "Write Image"
+                );
         memop_taskid_map[LTPV_OPENCL_READIMG_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_READIMG_MEMOP,
-            "Read Image"
-        );
-        memop_taskid_map[LTPV_OPENCL_DTD_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_DTD_MEMOP,
-            "Device To Device"
-        );
+                    LTPV_OPENCL_READIMG_MEMOP,
+                    "Read Image"
+                );
         memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_MAPBUF_MEMOP,
-            "Map Buffer"
-        );
+                    LTPV_OPENCL_MAPBUF_MEMOP,
+                    "Map Buffer"
+                );
         memop_taskid_map[LTPV_OPENCL_UNMAP_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_UNMAP_MEMOP,
-            "Unmap memory object"
-        );
+                    LTPV_OPENCL_UNMAP_MEMOP,
+                    "Unmap memory object"
+                );
         memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP] = ltpv_addTask(
-            LTPV_OPENCL_MAPBUF_MEMOP,
-            "Map Image"
-        );
+                    LTPV_OPENCL_MAPBUF_MEMOP,
+                    "Map Image"
+                );
+        memop_taskid_map[LTPV_OPENCL_COPYIMG_MEMOP] = ltpv_addTask(
+                    LTPV_OPENCL_COPYIMG_MEMOP,
+                    "Copy Image to Image"
+                );
+        memop_taskid_map[LTPV_OPENCL_COPYBUF_MEMOP] = ltpv_addTask(
+                    LTPV_OPENCL_COPYBUF_MEMOP,
+                    "Copy Buffer to Buffer"
+                );
     }
     cl_uint nDevice = 0;
     for (nDevice = 0; nDevice < num_devices; nDevice++)
     {
         cl_device_id device = devices[nDevice];
-
-        // Synchronize clocks: not used anymore
-        /*
-           long time_offset;
-           {
-           struct timeval t1, t2;
-
-           cl_context context;
-           cl_event event;
-           cl_int status;
-           unsigned char X = 0;
-           context = ltpv_call_original(clCreateContext)(NULL, 1, &device, NULL, NULL, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
-           cl_command_queue queue = ltpv_call_original(clCreateCommandQueue)(contextG, device, CL_QUEUE_PROFILING_ENABLE, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
-           cl_mem d_X = ltpv_call_original(clCreateBuffer)(contextG, CL_MEM_WRITE_ONLY , sizeof(unsigned char), NULL, &status); LTPV_OPENCL_CHECK(status);// LTPV_OPENCL_DEBUG(status);
-           gettimeofday(&t1, NULL);
-           status = ltpv_call_original(clEnqueueWriteBuffer)(queue, d_X, CL_FALSE, 0, sizeof(unsigned char), (const void*)&X, 0, 0, &event); LTPV_OPENCL_CHECK(status); LTPV_OPENCL_DEBUG(status);
-           gettimeofday(&t2, NULL);
-           clWaitForEvents(1, &event);
-           long queued;
-           clGetEventProfilingInfo(event, CL_PROFILING_COMMAND_QUEUED, sizeof(cl_ulong), &queued, NULL);
-           queued /= 1000;
-
-           long a = (t1.tv_sec*1000000+t1.tv_usec+t2.tv_sec*1000000+t2.tv_usec);
-           a /= 2;
-           time_offset = a - queued;
-
-           LTPV_OPENCL_CHECK(clReleaseCommandQueue(queue));
-           LTPV_OPENCL_CHECK(clReleaseMemObject   (d_X));
-           LTPV_OPENCL_CHECK(clReleaseContext     (context));
-           }
-           */
-
         // Let's initiate it
-        long id = (long)device; // Adress as unique identifier
+        size_t id = (size_t) device; // Adress as unique identifier
         char name[400];
         clGetDeviceInfo(device, CL_DEVICE_NAME, sizeof(name), name, NULL);
         size_t len = 50000;
         char *details = (char *)malloc(sizeof(char) * len);
         details[0] = '\0';
-        struct infos
-        {
-            char name[200];
-            int type;
-            cl_command_queue_info flag;
-            char help[1000];
-        };
-        typedef struct infos infos;
-
-        infos infosT[] =
-        {
-            {
-                "CL_DEVICE_VENDOR",
-                LTPV_OPENCL_STRING,
-                CL_DEVICE_VENDOR,
-                "Vendor name string."
-            },
-            {
-                "CL_DEVICE_TYPE",
-                LTPV_OPENCL_DEVICE_TYPE,
-                CL_DEVICE_TYPE,
-                "The OpenCL device type. Currently supported values are one of or a combination of: CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR, or CL_DEVICE_TYPE_DEFAULT."
-            },
-            {
-                "CL_DEVICE_ADDRESS_BITS",
-                LTPV_OPENCL_UINT,
-                CL_DEVICE_ADDRESS_BITS,
-                "The default compute device address space size specified as an unsigned integer value in bits. Currently supported values are 32 or 64 bits."
-            },
-            {
-                "CL_DEVICE_EXTENSIONS",
-                LTPV_OPENCL_STRING,
-                CL_DEVICE_EXTENSIONS,
-                "Returns a list of extension names"
-            },
-            {
-                "CL_DEVICE_VERSION",
-                LTPV_OPENCL_STRING,
-                CL_DEVICE_VERSION,
-                "OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::\nOpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;\nThe major_version.minor_version value returned will be 1.0."
-            },
-            {
-                "CL_DRIVER_VERSION",
-                LTPV_OPENCL_STRING,
-                CL_DRIVER_VERSION,
-                "OpenCL software driver version string in the form major_number.minor_number."
-            }
-        };
 
         for (unsigned int i = 0; i < sizeof(infosT) / sizeof(infos); i++)
         {
@@ -483,38 +446,51 @@ void *clEnqueueMapBuffer(
 }
 
 
- void * clEnqueueMapImage ( 	cl_command_queue  command_queue ,
-  	cl_mem  image ,
-  	cl_bool  blocking_map ,
-  	cl_map_flags  map_flags ,
-  	const size_t  * origin ,
-  	const size_t  * region ,
-  	size_t  *image_row_pitch ,
-  	size_t  *image_slice_pitch ,
-  	cl_uint  num_events_in_wait_list ,
-  	const cl_event  *event_wait_list ,
-  	cl_event  *event ,
-  	cl_int  *errcode_ret )
+void *clEnqueueMapImage (  cl_command_queue  command_queue ,
+                           cl_mem  image ,
+                           cl_bool  blocking_map ,
+                           cl_map_flags  map_flags ,
+                           const size_t   *origin ,
+                           const size_t   *region ,
+                           size_t  *image_row_pitch ,
+                           size_t  *image_slice_pitch ,
+                           cl_uint  num_events_in_wait_list ,
+                           const cl_event  *event_wait_list ,
+                           cl_event  *event ,
+                           cl_int  *errcode_ret )
 {
     cl_event *event2 = ltpv_OpenCL_createEvent();
     long u;
-    long cb = region[0] * region[1] * region[2];
+    long size;
+    size_t row_pitch = 0;
+    size_t slice_pitch = 0;
     GTOF(u);
-    void *R = ltpv_call_original(clEnqueueMapImage)(command_queue, image, blocking_map, map_flags, origin, region, image_row_pitch, image_slice_pitch,
+    void *R = ltpv_call_original(clEnqueueMapImage)(command_queue, image, blocking_map, map_flags, origin, region,
+              &row_pitch, &slice_pitch,
               num_events_in_wait_list, event_wait_list, event2, errcode_ret);
     if (event != NULL)
     {
         *event = *event2;
     }
-    
-    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP], command_queue, event2, u, cb );
+    size = slice_pitch == 0 ? row_pitch * region[1] : slice_pitch * region[2];
+
+    if (image_row_pitch != 0)
+    {
+        *image_row_pitch = row_pitch;
+    }
+    if (image_slice_pitch != 0)
+    {
+        *image_slice_pitch = slice_pitch;
+    }
+
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP], command_queue, event2, u, size );
     ltpv_t_cl_mapped *newMapped = new ltpv_t_cl_mapped;
-    newMapped->size = cb;
+
+    newMapped->size = size;
     newMapped->addr = R;
 
     ltpv_cl_mapped[R] = newMapped;
     return R;
-
 }
 
 
@@ -562,20 +538,53 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
 )
 {
     cl_event *event2 = ltpv_OpenCL_createEvent();
+    long size = input_slice_pitch == 0 ? input_row_pitch == 0 ? region[0] * region[1] * region[2] : input_row_pitch *
+                region[1] * region[2] : input_slice_pitch *
+                region[2]; //FIXME, possibly wrong value, get pixel size when input slice and row are 0
     long u;
     GTOF(u);
     cl_int status = ltpv_call_original(clEnqueueWriteImage)(command_queue, image, blocking_write, origin, region,
                     input_row_pitch, input_slice_pitch, ptr, num_events_in_wait_list, event_wait_list, event2);
+
     if (event != NULL)
     {
         *event = *event2;
     }
+
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP], command_queue, event2, u,
-                                region[1]*region[2]*input_row_pitch);
+                                size);
 
     return status;
 }
 
+cl_int clEnqueueCopyImage (     cl_command_queue command_queue,
+                                cl_mem src_image,
+                                cl_mem dst_image,
+                                const size_t *src_origin,
+                                const size_t *dst_origin,
+                                const size_t *region,
+                                cl_uint num_events_in_wait_list,
+                                const cl_event *event_wait_list,
+                                cl_event *event)
+{
+    long size;
+    cl_event *event2 = ltpv_OpenCL_createEvent();
+    long u;
+    GTOF(u);
+    cl_int status = ltpv_call_original(clEnqueueCopyImage) (command_queue, src_image, dst_image, src_origin, dst_origin,
+                    region, num_events_in_wait_list, event_wait_list, event2);
 
+    if (event != NULL)
+    {
+        *event = *event2;
+    }
+
+    size = region[0] * region[1] * region[2]; // FIXME, possibly wrong value,
+
+    ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_COPYIMG_MEMOP], command_queue, event2, u,
+                                size);
+
+    return status;
+}
 
 
