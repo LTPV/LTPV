@@ -377,6 +377,7 @@ cl_int clEnqueueWriteBuffer(
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP], command_queue, event2, u, cb);
@@ -404,6 +405,7 @@ cl_int clEnqueueReadBuffer(
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP], command_queue, event2, u, cb);
 
@@ -431,6 +433,7 @@ void *clEnqueueMapBuffer(
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP], command_queue, event2, u, cb);
@@ -468,6 +471,7 @@ void *clEnqueueMapImage (  cl_command_queue  command_queue ,
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
     size = slice_pitch == 0 ? row_pitch * region[1] : slice_pitch * region[2];
 
@@ -508,6 +512,7 @@ cl_int clEnqueueUnmapMemObject(
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
 
     auto it = ltpv_cl_mapped.find(mapped_ptr);
@@ -546,6 +551,7 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP], command_queue, event2, u,
@@ -574,6 +580,7 @@ cl_int clEnqueueCopyImage (     cl_command_queue command_queue,
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2); 
     }
 
     size = region[0] * region[1] * region[2]; // FIXME, possibly wrong value,
