@@ -15,6 +15,7 @@
 
 #include <CL/cl.h>
 #include <stdio.h>
+#include "libLTPV.hh"
 #include "libLTPV_common.hh"
 
 
@@ -44,10 +45,10 @@ struct ltpv_t_taskInstancesQueue {
     size_t taskId;
     char name[500];
     char* details;
-    cl_command_queue queue;
+    size_t queue;
     cl_event *event;
-    int size;
-    int bandwidth;
+    long size;
+    long bandwidth;
     long tCPU;
 };
 typedef struct ltpv_t_taskInstancesQueue ltpv_t_taskInstancesQueue;
@@ -62,6 +63,15 @@ struct ltpv_t_cl_mapped {
     int size;
 };
 typedef struct ltpv_t_cl_mapped ltpv_t_cl_mapped;
+
+struct infos
+{
+    char name[200];
+    int type;
+    cl_command_queue_info flag;
+    char help[1000];
+};
+typedef struct infos infos;
 
 #ifdef __linux__
 #define LTPV_OPENCL_CHECK(x) do { if(x!=0) { printf("%sFailed at %s:%d%s\n", LTPV_RED, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
@@ -104,14 +114,8 @@ do {\
         printf("%s\n", LTPV_ENDS);\
     }\
 } while(0)
-struct infos
-{
-    char name[200];
-    int type;
-    cl_command_queue_info flag;
-    char help[1000];
-};
-typedef struct infos infos;
+
+#define GTOF(u) {struct timeval t; gettimeofday(&t, NULL); u = t.tv_sec*1000000+t.tv_usec;}
 
 
 cl_context clCreateContext(

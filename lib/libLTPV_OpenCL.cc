@@ -20,6 +20,7 @@
 
 std::vector<std::unique_ptr<ltpv_t_taskInstancesQueue> > ltpv_taskInstancesQueue;
 std::map<void *, ltpv_t_cl_mapped *> ltpv_cl_mapped;
+std::map<size_t, size_t> ltpv_map_command_queue_device;
 static size_t memop_taskid_map[LTPV_OPENCL_LAST_MEMOP] = {0};
 
 int ltpv_OpenCL_initialize = 0; // The address of this variable will also be used as a unique identifier for transfers
@@ -77,8 +78,6 @@ inline cl_event *ltpv_OpenCL_createEvent()
 int ltpv_OpenCL_unqueueTaskInstances(void)
 {
 
-    cl_device_id deviceId;
-    std::cout << "test" << std::endl;
     for (auto taskInstanceIt = ltpv_taskInstancesQueue.begin(); taskInstanceIt != ltpv_taskInstancesQueue.end();
             ++taskInstanceIt)
     {
@@ -90,16 +89,13 @@ int ltpv_OpenCL_unqueueTaskInstances(void)
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_SUBMIT, sizeof(cl_ulong), &submit   , NULL);
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_START , sizeof(cl_ulong), &start    , NULL);
         clGetEventProfilingInfo(*(taskInstance->event), CL_PROFILING_COMMAND_END   , sizeof(cl_ulong), &end      , NULL);
-        clGetCommandQueueInfo(taskInstance->queue , CL_QUEUE_DEVICE , sizeof(cl_device_id), &deviceId,
-                              NULL); //FIXME change to a map, this is not secure if the queue get destroyed.
+
         long bandwidth = 0;
         if (taskInstance->size > 0)
         {
             float bandwidthF = (float)1000.0 * taskInstance->size / (end - start);
             bandwidth = (long) bandwidthF;
         }
-
-
 
         queued    /= 1000;
         submit    /= 1000;
@@ -122,8 +118,8 @@ int ltpv_OpenCL_unqueueTaskInstances(void)
             taskInstance->taskId,
             taskInstance->name,
             taskInstance->details,
-            (size_t)deviceId,
-            (size_t)taskInstance->queue,
+            ltpv_map_command_queue_device[taskInstance->queue],
+            taskInstance->queue,
             (long)start,
             (long)end,
             (long)queued,
@@ -269,9 +265,10 @@ cl_command_queue clCreateCommandQueue(
     cl_command_queue queue = ltpv_call_original(clCreateCommandQueue)(context, device,
                              properties | CL_QUEUE_PROFILING_ENABLE, errcode_ret);
 
-    long idDevice = (long)device;
+    size_t idDevice = (size_t)device;
     sprintf(queueName, "Queue %d", idQueue);
-    ltpv_addStream((long)queue, idDevice, queueName);
+    ltpv_addStream((size_t) queue, idDevice, queueName);
+    ltpv_map_command_queue_device[(size_t) queue] = idDevice;
 
     idQueue++;
     return queue;
@@ -305,7 +302,7 @@ void ltpv_OpenCL_addTaskInstance(
     ltpv_t_taskInstancesQueue *taskInstance = new ltpv_t_taskInstancesQueue;
     taskInstance->taskId = taskId;
     strcpy(taskInstance->name, name == NULL ? "" : name);
-    taskInstance->queue = queue;
+    taskInstance->queue = (size_t) queue;
     taskInstance->event = event;
     taskInstance->size = size;
     taskInstance->details = details;
