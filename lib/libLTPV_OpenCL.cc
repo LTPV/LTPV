@@ -331,6 +331,7 @@ cl_int clEnqueueNDRangeKernel(
     if (event != NULL)
     {
         *event = *event2;
+        clRetainEvent(*event2);
     }
     char *details = (char *)malloc(sizeof(char) * 1000);
     int i;
