@@ -60,11 +60,68 @@ static infos infosT[] =
         "OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::\nOpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;\nThe major_version.minor_version value returned will be 1.0."
     },
     {
-        "CL_DRIVER_VERSION",
-        LTPV_OPENCL_STRING,
-        CL_DRIVER_VERSION,
-        "OpenCL software driver version string in the form major_number.minor_number."
+        "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE",
+        LTPV_OPENCL_ULONG,
+        CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
+        "Size of global memory cache in bytes."
+    },
+    {
+        "CL_DEVICE_GLOBAL_ MEM_CACHELINE_SIZE",
+        LTPV_OPENCL_UINT,
+        CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE,
+        " Size of global memory cache line in bytes."
+    },
+    {
+        "CL_DEVICE_GLOBAL_MEM_SIZE", LTPV_OPENCL_ULONG, CL_DEVICE_GLOBAL_MEM_SIZE, "Size of global device memory in bytes."
+    },
+    {
+        "CL_DEVICE_LOCAL_MEM_SIZE", LTPV_OPENCL_ULONG, CL_DEVICE_LOCAL_MEM_SIZE, "Size of local device memory in bytes."
+    },
+    {
+        "CL_DEVICE_MAX_WORK_GROUP_SIZE", LTPV_OPENCL_SIZE_T, CL_DEVICE_MAX_WORK_GROUP_SIZE, "Maximum number of work-items in a work-group executing a kernel on a single compute unit, using the data parallel execution model. (Refer to clEnqueueNDRangeKernel). The minimum value is 1. "
+    },
+    {
+        "CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS",
+        LTPV_OPENCL_UINT,
+        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
+        "Maximum dimensions that specify the global and local work-item IDs used by the data parallel execution model. (Refer to clEnqueueNDRangeKernel). The minimum value is 3 for devices that are not of type CL_DEVICE_TYPE_CUSTOM."
+    },
+    {
+        "CL_DEVICE_MAX_WORK_ITEM_SIZES",
+        LTPV_OPENCL_SIZE_T_ARRAY,
+        CL_DEVICE_MAX_WORK_ITEM_SIZES,
+        " Maximum number of work-items that can be specified in each dimension of the work-group to clEnqueueNDRangeKernel.Returns n size_t entries, where n is the value returned by the query for CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS."
+    },
+    {
+        "CL_DEVICE_MEM_BASE_ADDR_ALIGN", LTPV_OPENCL_UINT, CL_DEVICE_MEM_BASE_ADDR_ALIGN, "The minimum value is the size (in bits) of the largest OpenCL built-in data type supported by the device (long16 in FULL profile, long16 or int16 in EMBEDDED profile) for devices that are not of type CL_DEVICE_TYPE_CUSTOM. "
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
+    },
+    {
+        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
     }
+    // {
+    //     "",
+    //     ,
+    //     ,
+    //     ""
+    // },
 };
 
 // If an event was not provided, will create one for profiling reasons.
@@ -209,6 +266,14 @@ cl_context clCreateContext(
                 sprintf(&details[strlen(details)], "%d", a);
             }
             break;
+            case LTPV_OPENCL_ULONG:
+            case LTPV_OPENCL_SIZE_T:
+            {
+                cl_ulong a;
+                clGetDeviceInfo(device, infosT[i].flag, sizeof(a), &a, NULL);
+                sprintf(&details[strlen(details)], "%lu", a);
+            }
+            break;
             case LTPV_OPENCL_STRING:
             {
                 size_t l = strlen(details);
@@ -234,6 +299,13 @@ cl_context clCreateContext(
                     strcat(details, "CL_DEVICE_TYPE_DEFAULT");
                     break;
                 }
+            }
+            break;
+            case LTPV_OPENCL_SIZE_T_ARRAY:
+            {
+                size_t a[3];
+                clGetDeviceInfo(device, infosT[i].flag, sizeof(a), &a, NULL);
+                sprintf(&details[strlen(details)], "[%lu; %lu; %lu]", a[0], a[1], a[2]);
             }
             break;
             }
@@ -378,7 +450,7 @@ cl_int clEnqueueWriteBuffer(
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP], command_queue, event2, u, cb);
@@ -406,7 +478,7 @@ cl_int clEnqueueReadBuffer(
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP], command_queue, event2, u, cb);
 
@@ -434,7 +506,7 @@ void *clEnqueueMapBuffer(
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP], command_queue, event2, u, cb);
@@ -472,7 +544,7 @@ void *clEnqueueMapImage (  cl_command_queue  command_queue ,
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
     size = slice_pitch == 0 ? row_pitch * region[1] : slice_pitch * region[2];
 
@@ -513,7 +585,7 @@ cl_int clEnqueueUnmapMemObject(
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
 
     auto it = ltpv_cl_mapped.find(mapped_ptr);
@@ -552,7 +624,7 @@ cl_int clEnqueueWriteImage ( // Considered as a writeBuffer
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
 
     ltpv_OpenCL_addTaskInstance(memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP], command_queue, event2, u,
@@ -581,7 +653,7 @@ cl_int clEnqueueCopyImage (     cl_command_queue command_queue,
     if (event != NULL)
     {
         *event = *event2;
-        clRetainEvent(*event2); 
+        clRetainEvent(*event2);
     }
 
     size = region[0] * region[1] * region[2]; // FIXME, possibly wrong value,
@@ -591,5 +663,9 @@ cl_int clEnqueueCopyImage (     cl_command_queue command_queue,
 
     return status;
 }
+
+
+
+
 
 

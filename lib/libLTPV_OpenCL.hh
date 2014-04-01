@@ -19,12 +19,13 @@
 #include "libLTPV_common.hh"
 
 
-#define LTPV_OPENCL_UINT        1
-#define LTPV_OPENCL_BOOL        2
-#define LTPV_OPENCL_ULONG       3
-#define LTPV_OPENCL_SIZE_T      4
-#define LTPV_OPENCL_STRING      5
-#define LTPV_OPENCL_DEVICE_TYPE 6
+#define LTPV_OPENCL_UINT            1
+#define LTPV_OPENCL_BOOL            2
+#define LTPV_OPENCL_ULONG           3
+#define LTPV_OPENCL_SIZE_T          4
+#define LTPV_OPENCL_STRING          5
+#define LTPV_OPENCL_DEVICE_TYPE     6
+#define LTPV_OPENCL_SIZE_T_ARRAY    7
 
 #define LTPV_CL_ENQUEUE 1
 
