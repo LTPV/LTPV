@@ -114,10 +114,9 @@ def build(bld):
             ['src/*.c', 'src/**/*.c','src/*.cc', 'src/**/*.cc'],excl=[])
 
     # Xvin dependency
-    bld.shlib(
-            target='ltpv',
-            source=src)
-
+    bld.shlib(target='ltpv' ,source=src)
+    bld.install_files('${PREFIX}/bin', 'bin/ltpv')
+    bld.install_files('${PREFIX}/include', 'src/ltpv.h')
     #bld(rule=bld.env.CP + ' ${SRC} ${TGT}', source="misc/PLayItAgainSam.cfg",
     #        target="PLayItAgainSam.cfg")
 
