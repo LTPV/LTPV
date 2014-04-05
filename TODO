@@ -1,7 +1,0 @@
-* Créer un dossier contenant les fichiers de profiling, nom de l'xml timestampé
-* Prendre en comptes les transferts images
-* Librairie C
-
-Moins urgent :
-* LTPV() avec plus ou moins d'arguments : protéger si pas de nom (&, <, >...)
-* Mettre une exemple multi-threads
