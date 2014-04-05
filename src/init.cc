@@ -14,8 +14,8 @@
 
 #include <stdarg.h>
 
-#include "code-hooks.hh"
-
+#include "init.hh"
+#include "common.hh"
 static void wrap_init(void)
 {
     ltpv_start();
