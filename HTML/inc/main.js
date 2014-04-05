@@ -265,6 +265,6 @@ function init() {
 $(function() {
 	$('#tempBlock').append('<div id="showInfos1" style="color:white; font-size:x-large; text-align:center;"><div style="position:relative;top:50%;">Loading...</div></div>');
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
-setTimeout("init()", 50);
+    setTimeout("init()", 50);
 	//$('#tempBlock').html('');
 });
