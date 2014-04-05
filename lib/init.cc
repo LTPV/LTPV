@@ -14,10 +14,7 @@
 
 #include <stdarg.h>
 
-#include "libLTPV.hh"
-
-#include "libLTPV_common.cc"
-#include "libLTPV_OpenCL.cc"
+#include "code-hooks.hh"
 
 static void wrap_init(void)
 {
