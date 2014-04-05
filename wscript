@@ -117,8 +117,8 @@ def build(bld):
     bld.shlib(target='ltpv' ,source=src)
     bld.install_files('${PREFIX}/bin', 'bin/ltpv')
     bld.install_files('${PREFIX}/include', 'src/ltpv.h')
-    #bld(rule=bld.env.CP + ' ${SRC} ${TGT}', source="misc/PLayItAgainSam.cfg",
-    #        target="PLayItAgainSam.cfg")
+    start_dir = bld.path.find_dir('share/')
+    bld.install_files('${PREFIX}/share/', start_dir.ant_glob('**/*'), cwd=start_dir, relative_trick=True)
 
 @bld_command
 def doc(bld):
