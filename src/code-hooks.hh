@@ -13,7 +13,7 @@
 */
 #pragma once
 
-	#include "libLTPV_colors.hh"
+	#include "colors.hh"
 	#include <dlfcn.h>
 	#define ltpv_call_original(x) (*((decltype(x) *) dlsym(RTLD_NEXT, #x)))
 

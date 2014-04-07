@@ -14,11 +14,8 @@
 
 #include <stdarg.h>
 
-#include "libLTPV.hh"
-
-#include "libLTPV_common.cc"
-#include "libLTPV_OpenCL.cc"
-
+#include "init.hh"
+#include "common.hh"
 static void wrap_init(void)
 {
     ltpv_start();

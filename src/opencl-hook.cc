@@ -12,7 +12,7 @@
  * Lesser General Public License for more details.
  */
 
-#include "libLTPV_OpenCL.hh"
+#include "opencl-hook.hh"
 #include <cstring>
 #include <iostream>
 #include <memory>
