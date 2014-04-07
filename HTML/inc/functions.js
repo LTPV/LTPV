@@ -225,7 +225,7 @@ function createTaskInstances() {
 						$("#taskInstanceName").css("display", "block");\
 						$("#taskInstanceName").css("left", ""+(10+e.pageX)+"px");\
 						$("#taskInstanceName").css("top", ""+(10+e.pageY)+"px");\
-						colorize("taskInstance-'+idStream+'-'+i+'", 4, '+task[1]+', \''+task[0]+'\');\
+						colorize("taskInstance-'+idStream+'-'+i+'", 4, '+task[1]+', \''+task[0]+' ('+duration.toFixed(2)+unit+')\');\
 						if(nameStart!="") {\
 							$("#console").html("<strong><span style=\\\"color:'+color+'\\\">'+task[0]+'.end</span>&nbsp;-&nbsp;"+nameStart+"&nbsp;=&nbsp;"+parseFloat('+end+'-startVal).toFixed(2)+unit+"</strong>");\
 						}\
@@ -234,7 +234,7 @@ function createTaskInstances() {
 					});\
 					$("#taskInstance-'+idStream+'-'+i+'").mouseout(function(e) {\
 						$("#taskInstanceName").css("display", "none");\
-						colorize("taskInstance-'+idStream+'-'+i+'", 2, '+task[1]+', \''+task[0]+'\');\
+						colorize("taskInstance-'+idStream+'-'+i+'", 2, '+task[1]+', \''+task[0]+' ('+duration.toFixed(2)+unit+')\');\
 					});\
 					$("#taskInstance-'+idStream+'-'+i+'").dblclick(function(e) {\
 						wLeft  = '+Math.max(min, parseFloat(start  )-2*(parseFloat(end)-parseFloat(start)))+';\

@@ -74,6 +74,51 @@ struct infos
 };
 typedef struct infos infos;
 
+const char *ltpv_commands_type_string(cl_command_type type)
+{
+    switch (type)
+    {
+        case CL_COMMAND_NDRANGE_KERNEL:                 return "Ndrange kernel";                     //CL_COMMAND_NDRANGE_KERNEL               
+        case CL_COMMAND_NATIVE_KERNEL:                  return "Native kernel";                      //CL_COMMAND_NATIVE_KERNEL
+        case CL_COMMAND_READ_BUFFER:                    return "Read buffer";                        //CL_COMMAND_READ_BUFFER
+        case CL_COMMAND_WRITE_BUFFER:                   return "Write buffer";                       //CL_COMMAND_WRITE_BUFFER
+        case CL_COMMAND_COPY_BUFFER:                    return "Copy buffer";                        //CL_COMMAND_COPY_BUFFER
+        case CL_COMMAND_READ_IMAGE:                     return "Read image";                         //CL_COMMAND_READ_IMAGE
+        case CL_COMMAND_WRITE_IMAGE:                    return "Write image";                        //CL_COMMAND_WRITE_IMAGE
+        case CL_COMMAND_COPY_IMAGE:                     return "Copy image";                         //CL_COMMAND_COPY_IMAGE
+        case CL_COMMAND_COPY_IMAGE_TO_BUFFER:           return "Copy image to buffer";               //CL_COMMAND_COPY_IMAGE_TO_BUFFER
+        case CL_COMMAND_COPY_BUFFER_TO_IMAGE:           return "Copy buffer to image";               //CL_COMMAND_COPY_BUFFER_TO_IMAGE
+        case CL_COMMAND_MAP_BUFFER:                     return "Map buffer";                         //CL_COMMAND_MAP_BUFFER
+        case CL_COMMAND_MAP_IMAGE:                      return "Map image";                          //CL_COMMAND_MAP_IMAGE
+        case CL_COMMAND_UNMAP_MEM_OBJECT:               return "Unmap mem object";                   //CL_COMMAND_UNMAP_MEM_OBJECT
+        case CL_COMMAND_MARKER:                         return "Marker";                             //CL_COMMAND_MARKER
+        case CL_COMMAND_ACQUIRE_GL_OBJECTS:             return "Acquire gl objects";                 //CL_COMMAND_ACQUIRE_GL_OBJECTS
+        case CL_COMMAND_RELEASE_GL_OBJECTS:             return "Release gl objects";                 //CL_COMMAND_RELEASE_GL_OBJECTS
+        case CL_COMMAND_READ_BUFFER_RECT:               return "Read buffer rect";                   //CL_COMMAND_READ_BUFFER_RECT
+        case CL_COMMAND_WRITE_BUFFER_RECT:              return "Write buffer rect";                  //CL_COMMAND_WRITE_BUFFER_RECT
+        case CL_COMMAND_COPY_BUFFER_RECT:               return "Copy buffer rect";                   //CL_COMMAND_COPY_BUFFER_RECT
+        case CL_COMMAND_USER:                           return "User";                               //CL_COMMAND_USER
+//        case CL_COMMAND_BARRIER:                        return "Barrier";                            //CL_COMMAND_BARRIER
+//        case CL_COMMAND_MIGRATE_MEM_OBJECTS:            return "Migrate mem objects";                //CL_COMMAND_MIGRATE_MEM_OBJECTS
+//        case CL_COMMAND_FILL_BUFFER:                    return "Fill buffer";                        //CL_COMMAND_FILL_BUFFER
+//        case CL_COMMAND_FILL_IMAGE:                     return "Fill image";                         //CL_COMMAND_FILL_IMAGE
+//        case CL_COMMAND_SVM_FREE:                       return "Svm free";                           //CL_COMMAND_SVM_FREE
+//        case CL_COMMAND_SVM_MEMCPY:                     return "Svm memcpy";                         //CL_COMMAND_SVM_MEMCPY
+//        case CL_COMMAND_SVM_MEMFILL:                    return "Svm memfill";                        //CL_COMMAND_SVM_MEMFILL
+//        case CL_COMMAND_SVM_MAP:                        return "Svm map";                            //CL_COMMAND_SVM_MAP
+//        case CL_COMMAND_SVM_UNMAP:                      return "Svm unmap";                          //CL_COMMAND_SVM_UNMAP
+//        case CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR:       return "Gl fence sync object khr";           //CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR
+//        case CL_COMMAND_EGL_FENCE_SYNC_OBJECT_KHR:      return "Egl fence sync object khr";          //CL_COMMAND_EGL_FENCE_SYNC_OBJECT_KHR
+//        case CL_COMMAND_ACQUIRE_D3D10 OBJECTS_KHR:      return "Acquire d3d10 objects khr";          //CL_COMMAND_ACQUIRE_D3D10 OBJECTS_KHR
+//        case CL_COMMAND_RELEASE_D3D10 OBJECTS_KHR:      return "Release d3d10 objects khr";          //CL_COMMAND_RELEASE_D3D10 OBJECTS_KHR
+//        case CL_COMMAND_ACQUIRE_D3D11 OBJECTS_KHR:      return "Acquire d3d11 objects khr";          //CL_COMMAND_ACQUIRE_D3D11 OBJECTS_KHR
+//        case CL_COMMAND_RELEASE_D3D11 OBJECTS_KHR:      return "Release d3d11 objects khr";          //CL_COMMAND_RELEASE_D3D11 OBJECTS_KHR
+//        case CL_COMMAND_ACQUIRE_DX9 MEDIA_SURFACES_KHR: return "Acquire dx9 media surfaces khr";     //CL_COMMAND_ACQUIRE_DX9 MEDIA_SURFACES_KHR
+//        case CL_COMMAND_RELEASE_DX9 MEDIA_SURFACES_KHR: return "Release dx9 media surfaces khr"      //CL_COMMAND_RELEASE_DX9 MEDIA_SURFACES_KHR
+    }
+   return "None" ;
+};
+
 #ifdef __linux__
 #define LTPV_OPENCL_CHECK(x) do { if(x!=0) { printf("%sFailed at %s:%d%s\n", LTPV_RED, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
 #else
