@@ -115,11 +115,12 @@ def build(bld):
 
     # Xvin dependency
     bld.shlib(target='ltpv' ,source=src)
+    os.umask(0o022)
     bld.install_files('${PREFIX}/bin/', 'bin/ltpv', chmod=0o755)
     bld.install_files('${PREFIX}/include/', 'src/ltpv.h', chmod=0o744)
     start_dir = bld.path.find_dir('share/')
     bld.install_files('${PREFIX}/share/', start_dir.ant_glob('**/*'), cwd=start_dir,
-            relative_trick=True, chmod=0o755)
+            relative_trick=True, chmod=0o644)
 
 @bld_command
 def doc(bld):
