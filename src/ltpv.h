@@ -33,7 +33,7 @@ static void ltpv_init(void)
     {
         ltpv_isInit = true;
         env = getenv("LD_PRELOAD");
-        if (env != NULL && strstr(env, "LTPV")) // FIXME dirty way
+        if (env != NULL && strstr(env, "ltpv")) // FIXME dirty way
         {
             libLTPV = dlopen(env, RTLD_LAZY);
             if (dlerror() == NULL)
