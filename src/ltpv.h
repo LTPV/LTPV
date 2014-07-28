@@ -1,7 +1,7 @@
 #pragma once
 // macro overloading using this trick: http://stackoverflow.com/questions/3046889/optional-parameters-with-c-macros
 
-#ifdef __GNUC__
+#ifdef __linux__
 
 #include <stdio.h>
 #include <sys/time.h>
@@ -60,7 +60,7 @@ static void ltpv_init(void)
 }
 #endif
 
-#if LTPV_PROFILING_ON == 1 && defined(__GNUC__)
+#if LTPV_PROFILING_ON == 1 && defined(__linux__)
 #define LTPV_3ARG(ltpv_expr, ltpv_name, ltpv_idThread) do {\
     if (ltpv_isInit){\
         struct timeval ltpv_t1, ltpv_t2;\
