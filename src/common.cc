@@ -211,8 +211,7 @@ void ltpv_stopAndRecord(
             for (auto taskInstance : strm->taskInstances)
             {
                 const char *taskName = ltpv_tasks[taskInstance->idTask].c_str();
-                if (taskInstance->start     + device->timeOffset - ltpv_t0 >=
-                    0) // if start < 0, it means that the task was queued before the start call
+                if (taskInstance->start + device->timeOffset - ltpv_t0 >= 0) // if start < 0, it means that the task was queued before the start call
                 {
                     fprintf(
                             f,

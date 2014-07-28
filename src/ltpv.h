@@ -1,6 +1,8 @@
 #pragma once
 // macro overloading using this trick: http://stackoverflow.com/questions/3046889/optional-parameters-with-c-macros
 
+#ifdef __GNUC__
+
 #include <stdio.h>
 #include <sys/time.h>
 #include <string.h>
@@ -21,6 +23,7 @@
 #endif
 
 static void (*ltpv_add_cpu_instance_func)(const char *, int, long, long) = NULL;
+//static void (*ltpv_end)(void) = NULL;
 static bool ltpv_isInit = false;
 static void ltpv_init (void) __attribute__((constructor));
 
@@ -40,6 +43,8 @@ static void ltpv_init(void)
             {
                 ltpv_add_cpu_instance_func = (void (*)(const char *, int, long, long)) dlsym(libLTPV, "ltpv_add_cpu_instance");
                 assert(dlerror() == NULL);
+                //ltpv_end = (void (*)(void)) dlsym(libLTPV, "wrap_end");
+                //assert(dlerror() == NULL);
                 //dlclose(libLTPV);
             }
             else
@@ -53,10 +58,9 @@ static void ltpv_init(void)
         }
     }
 }
+#endif
 
-
-#if LTPV_PROFILING_ON == 1
-#warning "LTPV profiling is enabled"
+#if LTPV_PROFILING_ON == 1 && defined(__GNUC__)
 #define LTPV_3ARG(ltpv_expr, ltpv_name, ltpv_idThread) do {\
     if (ltpv_isInit){\
         struct timeval ltpv_t1, ltpv_t2;\

@@ -364,7 +364,7 @@ void ltpv_OpenCL_addTaskInstance(
     size_t taskId,
     cl_command_queue queue,
     cl_event *event,
-    long tCPU,
+    cl_ulong tCPU,
     int size,
     const char *name,
     char *details
@@ -396,7 +396,7 @@ cl_int clEnqueueNDRangeKernel(
 )
 {
     cl_event *event2 = ltpv_OpenCL_createEvent();
-    long u;
+    cl_ulong u;
     GTOF(u);
     cl_int status = ltpv_call_original(clEnqueueNDRangeKernel)(command_queue, kernel, work_dim, global_work_offset,
                     global_work_size, local_work_size, num_events_in_wait_list, event_wait_list, event2);

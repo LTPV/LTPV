@@ -50,7 +50,7 @@ struct ltpv_t_taskInstancesQueue {
     cl_event *event;
     long size;
     long bandwidth;
-    long tCPU;
+    cl_ulong tCPU;
 };
 typedef struct ltpv_t_taskInstancesQueue ltpv_t_taskInstancesQueue;
 
@@ -190,7 +190,7 @@ void ltpv_OpenCL_addTaskInstance(
                                  size_t taskId,
                                  cl_command_queue queue,
                                  cl_event *event,
-                                 long tCPU,
+                                 cl_ulong tCPU,
                                  int size = 0,
                                  const char* name = NULL,
                                  char* detail = NULL

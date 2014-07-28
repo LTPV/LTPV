@@ -21,7 +21,7 @@ static void wrap_init(void)
     ltpv_start();
 }
 
-static void wrap_end(void)
+void wrap_end(void)
 {
     ltpv_stopAndRecord("profiling_date.xml");
 }
