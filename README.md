@@ -7,7 +7,7 @@ LTPV is a light and generic profiler for High Performance Computing applications
 
 LTPV is a light and generic profiler for High Performance Computing applications. It aims at easily profile C/C++ application using or not the OpenCL library. It results from the lack of an easy-to-use profiler for OpenCL applications.
 
-![https://raw.githubusercontent.com/LTPV/LTPV/master/README_inc/workflow_simple.png](https://raw.githubusercontent.com/LTPV/LTPV/master/README_inc/workflow_simple.png)
+![https://raw.githubusercontent.com/wiki/LTPV/LTPV/inc/workflow_simple.png](https://raw.githubusercontent.com/wiki/LTPV/LTPV/inc/workflow_simple.png)
 
 Download
 --------
