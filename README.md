@@ -3,7 +3,7 @@ LTPV: Light Temporal Performance Viewer
 
 LTPV is a light and generic profiler for High Performance Computing applications. It can be used as an OpenCL profiler.
 
-[**Click here to see an online demonstration (only compatible with recent versions of Firefox, Chrome/Chromium)**](https://cdn.rawgit.com/LTPV/LTPV/master/HTML/index.html?file=example.xml)
+[**Click here to see an online demonstration (only compatible with recent versions of Firefox, Chrome/Chromium)**](https://cdn.rawgit.com/LTPV/LTPV/master/share/ltpv/index.html?file=example.xml)
 
 LTPV is a light and generic profiler for High Performance Computing applications. It aims at easily profile C/C++ application using or not the OpenCL library. It results from the lack of an easy-to-use profiler for OpenCL applications.
 
