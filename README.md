@@ -23,10 +23,9 @@ see Installation Notes
 Other resources
 ---------------
 - [Technical structure](https://github.com/LTPV/LTPV/wiki/Technical-structure)
-- Known limitations and bugs
-- Frequently Asked Question
-- HTML viewer User Guide
-- How to contribute 
+- [Known limitations and bugs](https://github.com/LTPV/LTPV/wiki/Known-limitations-and-bugs)
+- [Frequently Asked Question](https://github.com/LTPV/LTPV/wiki/FAQ:-Frequently-Asked-Questions)
+- [HTML viewer User Guide](https://github.com/LTPV/LTPV/wiki/HTML-viewer:-user-guide)
 
 Credits
 -------
