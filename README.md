@@ -30,4 +30,4 @@ Other resources
 Credits
 -------
 
-LTPV first release is the result of Simon DENEL's internship at Thales Research & Technology in 2013. It is now mainly developped by [ixeft](https://github.com/ixeft) and [sdenel](https://github.com/sdenel/).**strong text**
+LTPV first release is the result of Simon DENEL's internship at Thales Research & Technology in 2013. It is now mainly developped by [ixeft](https://github.com/ixeft) and [sdenel](https://github.com/sdenel/).
