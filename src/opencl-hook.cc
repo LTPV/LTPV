@@ -13,6 +13,7 @@
  */
 
 #include "opencl-hook.hh"
+#include "opencl-utils.hh"
 #include <cstring>
 #include <iostream>
 #include <memory>
@@ -26,103 +27,6 @@ static size_t memop_taskid_map[LTPV_OPENCL_LAST_MEMOP] = {0};
 int ltpv_OpenCL_initialize = 0; // The address of this variable will also be used as a unique identifier for transfers
 
 std::vector<std::unique_ptr<cl_event> > events;
-
-static infos infosT[] =
-{
-    {
-        "CL_DEVICE_VENDOR",
-        LTPV_OPENCL_STRING,
-        CL_DEVICE_VENDOR,
-        "Vendor name string."
-    },
-    {
-        "CL_DEVICE_TYPE",
-        LTPV_OPENCL_DEVICE_TYPE,
-        CL_DEVICE_TYPE,
-        "The OpenCL device type. Currently supported values are one of or a combination of: CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR, or CL_DEVICE_TYPE_DEFAULT."
-    },
-    {
-        "CL_DEVICE_ADDRESS_BITS",
-        LTPV_OPENCL_UINT,
-        CL_DEVICE_ADDRESS_BITS,
-        "The default compute device address space size specified as an unsigned integer value in bits. Currently supported values are 32 or 64 bits."
-    },
-    {
-        "CL_DEVICE_EXTENSIONS",
-        LTPV_OPENCL_STRING,
-        CL_DEVICE_EXTENSIONS,
-        "Returns a list of extension names"
-    },
-    {
-        "CL_DEVICE_VERSION",
-        LTPV_OPENCL_STRING,
-        CL_DEVICE_VERSION,
-        "OpenCL version string. Returns the OpenCL version supported by the device. This version string has the following format::\nOpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific information&gt;\nThe major_version.minor_version value returned will be 1.0."
-    },
-    {
-        "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE",
-        LTPV_OPENCL_ULONG,
-        CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
-        "Size of global memory cache in bytes."
-    },
-    {
-        "CL_DEVICE_GLOBAL_ MEM_CACHELINE_SIZE",
-        LTPV_OPENCL_UINT,
-        CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE,
-        " Size of global memory cache line in bytes."
-    },
-    {
-        "CL_DEVICE_GLOBAL_MEM_SIZE", LTPV_OPENCL_ULONG, CL_DEVICE_GLOBAL_MEM_SIZE, "Size of global device memory in bytes."
-    },
-    {
-        "CL_DEVICE_LOCAL_MEM_SIZE", LTPV_OPENCL_ULONG, CL_DEVICE_LOCAL_MEM_SIZE, "Size of local device memory in bytes."
-    },
-    {
-        "CL_DEVICE_MAX_WORK_GROUP_SIZE", LTPV_OPENCL_SIZE_T, CL_DEVICE_MAX_WORK_GROUP_SIZE, "Maximum number of work-items in a work-group executing a kernel on a single compute unit, using the data parallel execution model. (Refer to clEnqueueNDRangeKernel). The minimum value is 1. "
-    },
-    {
-        "CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS",
-        LTPV_OPENCL_UINT,
-        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
-        "Maximum dimensions that specify the global and local work-item IDs used by the data parallel execution model. (Refer to clEnqueueNDRangeKernel). The minimum value is 3 for devices that are not of type CL_DEVICE_TYPE_CUSTOM."
-    },
-    {
-        "CL_DEVICE_MAX_WORK_ITEM_SIZES",
-        LTPV_OPENCL_SIZE_T_ARRAY,
-        CL_DEVICE_MAX_WORK_ITEM_SIZES,
-        " Maximum number of work-items that can be specified in each dimension of the work-group to clEnqueueNDRangeKernel.Returns n size_t entries, where n is the value returned by the query for CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS."
-    },
-    {
-        "CL_DEVICE_MEM_BASE_ADDR_ALIGN", LTPV_OPENCL_UINT, CL_DEVICE_MEM_BASE_ADDR_ALIGN, "The minimum value is the size (in bits) of the largest OpenCL built-in data type supported by the device (long16 in FULL profile, long16 or int16 in EMBEDDED profile) for devices that are not of type CL_DEVICE_TYPE_CUSTOM. "
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    },
-    {
-        "CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF", LTPV_OPENCL_UINT, CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF, "Preferred native vector width size for built-in scalar types that can be put into vectors. The vector width is defined as the number of scalar elements that can be stored in the vector."
-    }
-    // {
-    //     "",
-    //     ,
-    //     ,
-    //     ""
-    // },
-};
 
 // If an event was not provided, will create one for profiling reasons.
 inline cl_event *ltpv_OpenCL_createEvent()
@@ -663,9 +567,3 @@ cl_int clEnqueueCopyImage (     cl_command_queue command_queue,
 
     return status;
 }
-
-
-
-
-
-
