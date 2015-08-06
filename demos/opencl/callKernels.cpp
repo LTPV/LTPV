@@ -185,6 +185,8 @@ void filtre(unsigned char *X, unsigned char *Y) {
 	gettimeofday(&t2, NULL);
 
 	cout << GREEN << "execution time = " << (1000000*t2.tv_sec+t2.tv_usec-1000000*t1.tv_sec-t1.tv_usec) << "us" << ENDS << endl;
+
+    LTPV_OPENCL_FINISH();
 	
 	// Cleaning
 	CHECK(clReleaseCommandQueue(queueDTH));

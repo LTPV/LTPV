@@ -29,8 +29,9 @@ std::map<void *, ltpv_t_cl_mapped *> ltpv_cl_mapped;
 std::map<size_t, size_t> ltpv_map_command_queue_device;
 static size_t memop_taskid_map[LTPV_OPENCL_LAST_MEMOP] = { 0 };
 
-int ltpv_OpenCL_initialize
-    = 0; // The address of this variable will also be used as a unique identifier for transfers
+bool ltpv_OpenCL_initialize
+    = false; // The address of this variable will also be used as a unique identifier for transfers
+bool ltpv_OpenCL_terminated = false;
 
 std::vector<std::unique_ptr<cl_event> > events;
 
@@ -41,62 +42,103 @@ inline cl_event *ltpv_OpenCL_createEvent()
     events.push_back(std::unique_ptr<cl_event>(ev));
     return ev;
 }
+int ltpv_OpenCL_init(void)
+{
+    ltpv_OpenCL_initialize = 1;
+    ltpv_add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
+    memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_READBUF_MEMOP, "Read Buffer");
+    memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_WRITEBUF_MEMOP, "Write Buffer");
+    memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_WRITEIMG_MEMOP, "Write Image");
+    memop_taskid_map[LTPV_OPENCL_READIMG_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_READIMG_MEMOP, "Read Image");
+    memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_MAPBUF_MEMOP, "Map Buffer");
+    memop_taskid_map[LTPV_OPENCL_UNMAP_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_UNMAP_MEMOP, "Unmap memory object");
+    memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_MAPBUF_MEMOP, "Map Image");
+    memop_taskid_map[LTPV_OPENCL_COPYIMG_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_COPYIMG_MEMOP, "Copy Image to Image");
+    memop_taskid_map[LTPV_OPENCL_COPYBUF_MEMOP]
+        = ltpv_addTask(LTPV_OPENCL_COPYBUF_MEMOP, "Copy Buffer to Buffer");
+    return 0;
+}
+
+void ltpv_opencl_finish(void)
+{
+    ltpv_OpenCL_unqueueTaskInstances();
+    ltpv_OpenCL_terminated = true;
+}
 
 int ltpv_OpenCL_unqueueTaskInstances(void)
 {
     cl_int err = 0;
-    for (auto taskInstanceIt = ltpv_taskInstancesQueue.begin();
-            taskInstanceIt != ltpv_taskInstancesQueue.end(); ++taskInstanceIt)
+
+    if (!ltpv_OpenCL_terminated)
     {
-        cl_ulong queued = 0;
-        cl_ulong submit = 0;
-        cl_ulong start = 0;
-        cl_ulong end = 0;
-        ltpv_t_taskInstancesQueue *taskInstance = taskInstanceIt->get();
-        clWaitForEvents(1, taskInstance->event);
-
-        err = clGetEventProfilingInfo(
-            *(taskInstance->event), CL_PROFILING_COMMAND_QUEUED, sizeof(cl_ulong), &queued, NULL);
-        LTPV_OPENCL_DEBUG(err);
-
-        err = clGetEventProfilingInfo(
-            *(taskInstance->event), CL_PROFILING_COMMAND_SUBMIT, sizeof(cl_ulong), &submit, NULL);
-        LTPV_OPENCL_DEBUG(err);
-
-        err = clGetEventProfilingInfo(
-            *(taskInstance->event), CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &start, NULL);
-        LTPV_OPENCL_DEBUG(err);
-
-        err = clGetEventProfilingInfo(
-            *(taskInstance->event), CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &end, NULL);
-        LTPV_OPENCL_DEBUG(err);
-
-        long bandwidth = 0;
-
-        if (taskInstance->size > 0)
+        for (auto taskInstanceIt = ltpv_taskInstancesQueue.begin();
+                taskInstanceIt != ltpv_taskInstancesQueue.end(); ++taskInstanceIt)
         {
-            float bandwidthF = (float)1000.0 * taskInstance->size / (end - start);
-            bandwidth = (long)bandwidthF;
+            cl_ulong queued = 0;
+            cl_ulong submit = 0;
+            cl_ulong start = 0;
+            cl_ulong end = 0;
+
+            size_t param_value_size_ret = 0;
+            ltpv_t_taskInstancesQueue *taskInstance = taskInstanceIt->get();
+            err = clWaitForEvents(1, taskInstance->event);
+            LTPV_OPENCL_DEBUG(err);
+
+            err = clGetEventProfilingInfo(
+                      *(taskInstance->event), CL_PROFILING_COMMAND_QUEUED, sizeof(cl_ulong), &queued, &param_value_size_ret);
+            LTPV_OPENCL_DEBUG(err);
+            LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, sizeof(cl_ulong));
+            err = clGetEventProfilingInfo(
+                      *(taskInstance->event), CL_PROFILING_COMMAND_SUBMIT, sizeof(cl_ulong), &submit, &param_value_size_ret);
+            LTPV_OPENCL_DEBUG(err);
+            LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, sizeof(cl_ulong));
+            err = clGetEventProfilingInfo(
+                      *(taskInstance->event), CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &start, &param_value_size_ret);
+            LTPV_OPENCL_DEBUG(err);
+            LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, sizeof(cl_ulong));
+            err = clGetEventProfilingInfo(
+                      *(taskInstance->event), CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &end, &param_value_size_ret);
+            LTPV_OPENCL_DEBUG(err);
+            LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, sizeof(cl_ulong));
+            //std::cout << start << "s-e" << end << std::endl;
+            //std::cout << queued << "q-s" << submit << std::endl;
+            //std::cout << complete << std::endl;
+            //std::cout << "len" << param_value_size_ret << std::endl;
+            long bandwidth = 0;
+
+            if (taskInstance->size > 0)
+            {
+                float bandwidthF = (float)1000.0 * taskInstance->size / (end - start);
+                bandwidth = (long)bandwidthF;
+            }
+
+            queued /= 1000;
+            submit /= 1000;
+            start /= 1000;
+            end /= 1000;
+            long offset = queued - taskInstance->tCPU;
+            queued = taskInstance->tCPU;
+            submit -= offset;
+            start -= offset;
+            end -= offset;
+
+            if (taskInstance->taskId < LTPV_OPENCL_LAST_MEMOP) // Not kernel but transfers
+            {
+                queued = submit = -1;
+            }
+
+            ltpv_addTaskInstance(taskInstance->taskId, taskInstance->name, taskInstance->details,
+                                 ltpv_map_command_queue_device[taskInstance->queue], taskInstance->queue, (long)start,
+                                 (long)end, (long)queued, (long)submit, (long)taskInstance->size, (long)bandwidth);
         }
-
-        queued /= 1000;
-        submit /= 1000;
-        start /= 1000;
-        end /= 1000;
-        long offset = queued - taskInstance->tCPU;
-        queued = taskInstance->tCPU;
-        submit -= offset;
-        start -= offset;
-        end -= offset;
-
-        if (taskInstance->taskId < LTPV_OPENCL_LAST_MEMOP) // Not kernel but transfers
-        {
-            queued = submit = -1;
-        }
-
-        ltpv_addTaskInstance(taskInstance->taskId, taskInstance->name, taskInstance->details,
-                             ltpv_map_command_queue_device[taskInstance->queue], taskInstance->queue, (long)start,
-                             (long)end, (long)queued, (long)submit, (long)taskInstance->size, (long)bandwidth);
     }
 
     return 0;
@@ -112,26 +154,7 @@ cl_context clCreateContext(const cl_context_properties *properties, cl_uint num_
 
     if (!ltpv_OpenCL_initialize)
     {
-        ltpv_OpenCL_initialize = 1;
-        ltpv_add_end_functions(&ltpv_OpenCL_unqueueTaskInstances);
-        memop_taskid_map[LTPV_OPENCL_READBUF_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_READBUF_MEMOP, "Read Buffer");
-        memop_taskid_map[LTPV_OPENCL_WRITEBUF_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_WRITEBUF_MEMOP, "Write Buffer");
-        memop_taskid_map[LTPV_OPENCL_WRITEIMG_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_WRITEIMG_MEMOP, "Write Image");
-        memop_taskid_map[LTPV_OPENCL_READIMG_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_READIMG_MEMOP, "Read Image");
-        memop_taskid_map[LTPV_OPENCL_MAPIMG_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_MAPBUF_MEMOP, "Map Buffer");
-        memop_taskid_map[LTPV_OPENCL_UNMAP_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_UNMAP_MEMOP, "Unmap memory object");
-        memop_taskid_map[LTPV_OPENCL_MAPBUF_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_MAPBUF_MEMOP, "Map Image");
-        memop_taskid_map[LTPV_OPENCL_COPYIMG_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_COPYIMG_MEMOP, "Copy Image to Image");
-        memop_taskid_map[LTPV_OPENCL_COPYBUF_MEMOP]
-            = ltpv_addTask(LTPV_OPENCL_COPYBUF_MEMOP, "Copy Buffer to Buffer");
+        ltpv_OpenCL_init();
     }
 
     cl_uint nDevice = 0;
@@ -235,14 +258,14 @@ cl_command_queue clCreateCommandQueue(cl_context context, cl_device_id device,
 {
     static int idQueue = 1;
     char queueName[10];
-    cl_command_queue queue = ltpv_call_original(clCreateCommandQueue)(
-                                 context, device, properties | CL_QUEUE_PROFILING_ENABLE, errcode_ret);
+    cl_command_queue command_queue = ltpv_call_original(clCreateCommandQueue)(
+                                         context, device, properties | CL_QUEUE_PROFILING_ENABLE, errcode_ret);
     size_t idDevice = (size_t)device;
     sprintf(queueName, "Queue %d", idQueue);
-    ltpv_addStream((size_t)queue, idDevice, queueName);
-    ltpv_map_command_queue_device[(size_t)queue] = idDevice;
+    ltpv_addStream((size_t)command_queue, idDevice, queueName);
+    ltpv_map_command_queue_device[(size_t)command_queue] = idDevice;
     idQueue++;
-    return queue;
+    return command_queue;
 }
 
 cl_kernel clCreateKernel(cl_program program, const char *kernel_name, cl_int *errcode_ret)

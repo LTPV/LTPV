@@ -23,6 +23,8 @@
 #endif
 
 static void (*ltpv_add_cpu_instance_func)(const char *, int, long, long) = NULL;
+static void (*ltpv_opencl_finish)(void) = NULL;
+
 //static void (*ltpv_end)(void) = NULL;
 static bool ltpv_isInit = false;
 static void ltpv_init (void) __attribute__((constructor));
@@ -43,6 +45,8 @@ static void ltpv_init(void)
             {
                 ltpv_add_cpu_instance_func = (void (*)(const char *, int, long, long)) dlsym(libLTPV, "ltpv_add_cpu_instance");
                 assert(dlerror() == NULL);
+                ltpv_opencl_finish = (void (*)(void)) dlsym(libLTPV, "ltpv_opencl_finish");
+                assert(dlerror() == NULL);
                 //ltpv_end = (void (*)(void)) dlsym(libLTPV, "wrap_end");
                 //assert(dlerror() == NULL);
                 //dlclose(libLTPV);
@@ -59,6 +63,13 @@ static void ltpv_init(void)
     }
 }
 #endif
+
+#define LTPV_OPENCL_FINISH() do {\
+    if (ltpv_isInit && ltpv_opencl_finish != NULL)\
+    {\
+        ltpv_opencl_finish();\
+    }\
+} while (0)
 
 #if LTPV_PROFILING_ON == 1 && defined(__linux__)
 #define LTPV_3ARG(ltpv_expr, ltpv_name, ltpv_idThread) do {\
@@ -93,8 +104,3 @@ GET_4TH_ARG(__VA_ARGS__, LTPV_3ARG, \
 #define LTPV(...) LTPV_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
 
 #pragma GCC diagnostic pop
-
-
-
-
-

@@ -80,15 +80,6 @@ cl_kernel clCreateKernel(
                          cl_int *errcode_ret
                         );
 
-void ltpv_OpenCL_addTaskInstance(
-                                 size_t taskId,
-                                 cl_command_queue queue,
-                                 cl_event *event,
-                                 cl_ulong tCPU,
-                                 int size = 0,
-                                 const char* name = NULL,
-                                 char* detail = NULL
-                                );
 
 cl_int clEnqueueNDRangeKernel(
                               cl_command_queue command_queue,
@@ -161,4 +152,26 @@ cl_int clEnqueueUnmapMemObject(
                                cl_event *       event
                               );
 
+// NOT IMPLEMENTED FOR NOW
+//cl_int clReleaseCommandQueue(cl_command_queue command_queue);
+//cl_int clReleaseContext (cl_context context);
+//cl_int clReleaseDevice (cl_device_id device);
+//cl_int clReleaseMemObject(cl_mem memobj);
+//cl_int clReleaseSampler(cl_sampler sampler);
+//cl_int clReleaseProgram(cl_program program);
+//cl_int clReleaseKernel(cl_kernel kernel);
+//cl_int clReleaseEvent(cl_event event);
+
+extern "C" void ltpv_opencl_finish(void);
+
+int ltpv_OpenCL_init(void);
 int ltpv_OpenCL_unqueueTaskInstances(void);
+void ltpv_OpenCL_addTaskInstance(
+                                 size_t taskId,
+                                 cl_command_queue queue,
+                                 cl_event *event,
+                                 cl_ulong tCPU,
+                                 int size = 0,
+                                 const char* name = NULL,
+                                 char* detail = NULL
+                                );
