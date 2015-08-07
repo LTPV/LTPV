@@ -11,11 +11,11 @@
 
 #ifdef __linux__
 #define LTPV_OPENCL_CHECK(x) do { if(x!=0) { printf("%sFailed at %s:%d%s\n", LTPV_RED, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
-#define LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, type_size) do { if(param_value_size_ret != type_size) { printf("%sERROR: parameter value size returned incorrect. Expected %lu, Got %lu at %s:%d%s\n", LTPV_RED, type_size, param_value_size_ret, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
+#define LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, type_size) do { if(param_value_size_ret != type_size) { printf("%sERROR: incorrect parameter value size returned. Expected %lu, Got %lu at %s:%d%s\n", LTPV_RED, type_size, param_value_size_ret, __FILE__, __LINE__, LTPV_ENDS); } } while(0)
 
 #else
 #define LTPV_OPENCL_CHECK(x) do { if(x!=0) { printf("Failed at %s:%d\n", __FILE__, __LINE__); } } while(0)
-#define LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, type_size) do { if(param_value_size_ret != type_size) { printf("ERROR: parameter value size returned incorrect. Expected %u, Got %u at %s:%d\n", type_size,  param_value_size_ret,  __FILE__, __LINE__); } } while(0)
+#define LTPV_OPENCL_CHECK_PARAM_VALUE_SIZE(param_value_size_ret, type_size) do { if(param_value_size_ret != type_size) { printf("ERROR: incorrect parameter value size returned.  Expected %u, Got %u at %s:%d\n", type_size,  param_value_size_ret,  __FILE__, __LINE__); } } while(0)
 #endif
 
 #define LTPV_OPENCL_DEBUG(status)\
