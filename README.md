@@ -116,7 +116,7 @@ Contributor
 -----------
 (Alphabetic order)
 
-* ixeft
 * Simon Denel (Thales SA)
+* ixeft
 
-You can contact us by filling in a new issue ! (nobody bite ;) )
+You can contact us by filling in a new issue ! (nobody bites ;) )
