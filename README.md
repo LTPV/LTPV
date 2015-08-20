@@ -69,6 +69,9 @@ or
 
     LTPV(my_function_to_track(), "My GPU function", [id of the displayed queue on the viewer] );
 
+Note : ltpv.h contains only macros and functions relying on dynamic linking mecanisms.
+you don't need to link your program with libltpv at compilation time. however you should link with -ldl.
+
 ###Gather OpenCL profiling data before the end of the program.
 
 If you want to gather profiling infos. before the program ends (for example to get profiling information from intel OpenCL implementation)
