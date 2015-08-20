@@ -1,5 +1,6 @@
 #pragma once
 #include <CL/cl.h>
+#include "colors.hh"
 
 #define LTPV_OPENCL_UINT            1
 #define LTPV_OPENCL_BOOL            2

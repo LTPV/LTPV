@@ -15,7 +15,7 @@
 #include <stdarg.h>
 
 #include "init.hh"
-#include "common.hh"
+#include "profiling-data.hh"
 static void wrap_init(void)
 {
     ltpv_start();

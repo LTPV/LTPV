@@ -13,17 +13,16 @@
 */
 #pragma once
 
-	#include "colors.hh"
-	#include <dlfcn.h>
-	#define ltpv_call_original(x) (*((decltype(x) *) dlsym(RTLD_NEXT, #x)))
+#include "colors.hh"
+#include <dlfcn.h>
+#define ltpv_call_original(x) (*((decltype(x) *) dlsym(RTLD_NEXT, #x)))
 
-struct ltpv_buffer_elem
+typedef struct
 {
     char name[100];
     long start;
     long stop;
-};
-typedef struct ltpv_buffer_elem ltpv_buffer_elem;
+} ltpv_buffer_elem;
 
 
 struct ltpv_t_cpu_task
@@ -31,6 +30,7 @@ struct ltpv_t_cpu_task
     char name[100];
     struct ltpv_t_cpu_task *next;
 };
+
 typedef struct ltpv_t_cpu_task ltpv_t_cpu_task;
 
 
@@ -40,7 +40,8 @@ struct ltpv_t_cpu_stream
     char name[100];
     struct ltpv_t_cpu_stream *next;
 };
+
 typedef struct ltpv_t_cpu_stream ltpv_t_cpu_stream;
 
 static void wrap_init(void) __attribute__((constructor));
-static void wrap_end (void) __attribute__((destructor));
+static void wrap_end(void) __attribute__((destructor));

@@ -21,15 +21,8 @@
 #include <time.h>
 #include <map>
 #include <vector>
-#include <functional>
 #define LTPV_DEBUG 1
 
-typedef struct
-{
-    std::string taskName;
-    long start;
-    long stop;
-} ltpv_cpu_instance;
 
 typedef struct ltpv_t_taskInstance
 {
@@ -76,9 +69,6 @@ typedef struct ltpv_t_end_functions
 
 void ltpv_start();
 
-
-extern "C" void ltpv_add_cpu_instance(const char *taskName, int threadId, long start, long stop);
-
 void ltpv_stopAndRecord(
     const void *filename
 );
@@ -99,6 +89,7 @@ size_t ltpv_addTask(
     size_t idTask,
     const char *nameTask
 );
+const std::pair<const size_t, std::string> *ltpv_findTaskByName(const std::string& taskName);
 
 void ltpv_addTaskInstance(
     size_t idTask,
