@@ -49,13 +49,18 @@ you have nothing particular to do appart launching your program with :
 
 or
 
-    LD_PRELOAD=/path/to/libLTPV.so ./my_gpu_program
+    LD_PRELOAD=/path/to/libltpv.so ./my_gpu_program
+
 
 ###Profile CPU functions
 
 In order to profile CPU function you have to include ltpv header into your project :
 
     #include <ltpv.h>
+
+and compile you code with the libdl library
+    
+    gcc ... -ldl ...
 
 Now, you can track CPU function by surrounding your code with:
 

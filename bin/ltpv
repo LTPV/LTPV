@@ -3,16 +3,16 @@ import sys
 import os
 import subprocess
 
+libpaths = ['/usr/local/lib/libltpv.so', '/usr/lib/libltpv.so', './libltpv.so']
+libpath = next(lp for lp in libpaths if os.path.isfile(lp))
 
-#print(sys.argv)
-#print(os.path.realpath(__file__))
-# nohup firefox file:///home/simon/ltpv/profiler/index.html?file=file:///home/simon/ltpv/OpenCL_example_nocall/profiling_date.xml > /dev/null &
-os.system("LD_PRELOAD=\"libltpv.so\" "+sys.argv[1]);
-addr = "file:"+os.path.dirname(os.path.realpath(__file__))+"/../share/ltpv/index.html?file=file://"+os.getcwd()+"/profiling_date.xml"
-#print(addr)
-#os.system("nohup firefox ../../HTML/index.html?file=file://"+os.getcwd()+"/profiling_date.xml > /dev/null &")
-subprocess.Popen(['nohup', 'chromium', '--allow-file-access-from-files', addr],
+if (libpath):
+    os.system("LD_PRELOAD=\""+ libpath + "\" " + sys.argv[1]);
+    addr = "file:"+os.path.dirname(os.path.realpath(__file__))+"/../share/ltpv/index.html?file=file://"+os.getcwd()+"/profiling_date.xml"
+    subprocess.Popen(['nohup', 'chromium', '--allow-file-access-from-files', addr],
                  stdout=open('/dev/null', 'w'),
                  stderr=open('/dev/null', 'w'),
                  preexec_fn=os.setpgrp
                  )
+else:
+    print ("No path found for ltpv.so")
