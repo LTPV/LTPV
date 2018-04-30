@@ -39,67 +39,68 @@ Usage
 -----
 
 
-###Profile OpenCL kernels and data transfer
+### Profile OpenCL kernels and data transfer
 
 
 Since LTPV overwrite OpenCL function calls,
 you have nothing particular to do appart launching your program with : 
 
-    ltpv ./my_gpu_program # this version will launch firefox when your program ends
-
+```bash
+ltpv ./my_gpu_program # this version will launch firefox when your program ends
+```
 or
+```bash
+LD_PRELOAD=/path/to/libltpv.so ./my_gpu_program
+```
 
-    LD_PRELOAD=/path/to/libltpv.so ./my_gpu_program
-
-
-###Profile CPU functions
+### Profile CPU functions
 
 In order to profile CPU function you have to include ltpv header into your project :
-
-    #include <ltpv.h>
-
+```c
+#include <ltpv.h>
+```
 and compile you code with the libdl library
-    
-    gcc ... -ldl ...
-
+```bash
+gcc ... -ldl ...
+```
 Now, you can track CPU function by surrounding your code with:
-
-    LTPV(my_function_to_track());
-
+```c
+LTPV(my_function_to_track());
+```
 or 
-
-    LTPV(my_function_to_track(), "My GPU function");
-
+```c
+LTPV(my_function_to_track(), "My GPU function");
+```
 or
-
-    LTPV(my_function_to_track(), "My GPU function", [id of the displayed queue on the viewer] );
-
+```c
+LTPV(my_function_to_track(), "My GPU function", [id of the displayed queue on the viewer] );
+```
 Note : ltpv.h contains only macros and functions relying on dynamic linking mecanisms.
 you don't need to link your program with libltpv at compilation time. however you should link with -ldl.
 
-###Gather OpenCL profiling data before the end of the program.
+### Gather OpenCL profiling data before the end of the program.
 
 If you want to gather profiling infos. before the program ends (for example to get profiling information from intel OpenCL implementation)
-
-    LTPV_OPENCL_FINISH();
-
+```c
+LTPV_OPENCL_FINISH();
+```
 ### Viewer
 
 Once your program terminate, a firefox window would popup with all profiling informations inside.
 Here some key features.
 
-####Zoom in
-You can zoom in with <strong>[F2]</strong> key or with a left click-and-drag:
+#### Zoom in
+You can zoom in with **[F2]** key or with a left click-and-drag:
 <img src="inc/zoom_in_click_and_drag.png">
 
-####Zoom out
-You can zoom in with <strong>[F1] key</strong> or by right-clicking.
+#### Zoom out
+You can zoom in with **[F1] key** or by right-clicking.
 
-####go left/go right
+#### go left/go right
   * Zoom out, then zoom in somewhere else
   * Use arrow keys: ⇦/⇨
 
-####Get information about a task
+#### Get information about a task
 You can either:
   * Move you mouse over the task
   * Click on it
